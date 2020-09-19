@@ -5,15 +5,27 @@ using Utils;
 public class Player : MonoBehaviour 
 {
     #region Constants
+	// Movement
     public const float acceleration = 1f;
     public const float maxSpeed = 7f;
     public const float friction = 0.4f;
+
+	// Attack
+	public const float attackTime = 0.467f;
+	public const float comboWindow = 3f; // Time between attacks for combo
 	#endregion
 
-    public float xInput = 0f;
+	#region Non-Constant Variables
+	public GameObject barkEffect;
+	public GameObject slashEffect;
+
+	public float xInput = 0f;
     public float yInput = 0f;
 	public float prevxInput = 1f;
     public float prevyInput = 1f;
+
+	public int comboCount = 0; // Track which hit of combo we are on
+	public float comboTimer = 0f;
 
 	public bool isAttacking = false;
 
@@ -26,6 +38,7 @@ public class Player : MonoBehaviour
 
 	private float xVelocity;
 	private float yVelocity;
+	#endregion
 
 	private void Start()
 	{
@@ -40,12 +53,13 @@ public class Player : MonoBehaviour
 		// Instantiating states
 		var running = new Running(this, _animator);
 		var idle = new Idle(this, _animator);
-		var attacking = new Attacking(this, _animator);
+		var attacking = new Attacking(this, _animator, _rb, _spriteRenderer);
 
 		// Assigning transitions
-		_stateMachine.AddAnyTransition(attacking, IsAttacking());
 		At(running, idle, IsIdle());
 		At(idle, running, IsMoving());
+		At(idle, attacking, IsAttacking());
+		At(running, attacking, IsAttacking());
 		At(attacking, idle, IsNotAttacking());
 
 		// Starting state
@@ -70,6 +84,7 @@ public class Player : MonoBehaviour
 	private void Update()
     {
         ProcessInput(); // Read player input
+		ComboCheck(); // Check if attacks are fast enough to combo
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipSprite();
 
@@ -96,6 +111,17 @@ public class Player : MonoBehaviour
 		}
 
 		if (Input.GetMouseButtonDown(0)) { isAttacking = true; }
+	}
+
+	public void ComboCheck()
+	{
+		if (comboCount != 0) { comboTimer += Time.fixedDeltaTime; } // Start the combo timer once the attack starts
+
+		if (comboTimer >= Player.comboWindow) // If the player took too long to attack, reset the combo
+		{
+			comboCount = 0;
+			comboTimer = 0;
+		}
 	}
 
 	//public void ClampPosition()

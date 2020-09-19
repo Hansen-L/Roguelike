@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: 4ad2d89220f0add4fa04d834b848bc3c
+guid: 20af7a8fbe0ca7a46a4fcb4670baa2de
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7101598979083190970
-    second: Dog_bark_0
+      213: 2272366764157097203
+    second: Bark_particle_0
   - first:
-      213: -8149695626554867
-    second: Dog_bark_1
+      213: 7405409442753396292
+    second: Bark_particle_1
   - first:
-      213: -1235904105746438967
-    second: Dog_bark_2
+      213: -7063357584352653428
+    second: Bark_particle_2
   - first:
-      213: 3356109837340190705
-    second: Dog_bark_3
+      213: -1303324212971007115
+    second: Bark_particle_3
+  - first:
+      213: 8247180554179318234
+    second: Bark_particle_4
+  - first:
+      213: -3207587515451346295
+    second: Bark_particle_5
+  - first:
+      213: 1080249991084176115
+    second: Bark_particle_6
+  - first:
+      213: -4174582526647138745
+    second: Bark_particle_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,85 +125,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dog_bark_0
+      name: Bark_particle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab2c78545a2fd8260800000000000000
-      internalID: 7101598979083190970
+      spriteID: 3f4dcf05881198f10800000000000000
+      internalID: 2272366764157097203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dog_bark_1
+      name: Bark_particle_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d02d62f15eb03eff0800000000000000
-      internalID: -8149695626554867
+      spriteID: 44eb3a317ac45c660800000000000000
+      internalID: 7405409442753396292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dog_bark_2
+      name: Bark_particle_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c4698093cf29dee0800000000000000
-      internalID: -1235904105746438967
+      spriteID: c8f491743b9e9fd90800000000000000
+      internalID: -7063357584352653428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dog_bark_3
+      name: Bark_particle_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f72bd99d1c439e20800000000000000
-      internalID: 3356109837340190705
+      spriteID: 57392ba9889a9ede0800000000000000
+      internalID: -1303324212971007115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bark_particle_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad11e52c40fd37270800000000000000
+      internalID: 8247180554179318234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bark_particle_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9827b83362c5c73d0800000000000000
+      internalID: -3207587515451346295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bark_particle_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f2f03bb4a1ddfe00800000000000000
+      internalID: 1080249991084176115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bark_particle_7
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 36
+        height: 64
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74605a55f47e016c0800000000000000
+      internalID: -4174582526647138745
       vertices: []
       indices: 
       edges: []

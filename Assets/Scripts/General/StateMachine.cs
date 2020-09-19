@@ -34,7 +34,7 @@ public class StateMachine
 		if (transition != null)
 		{
 			SetState(transition.To);
-			Debug.Log(transition.To);
+			//Debug.Log(transition.To);
 		}
 
         _currentState?.Tick();

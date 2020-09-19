@@ -1,0 +1,913 @@
+fileFormatVersion: 2
+guid: 901a9f28e5798bd4280fb4f9a7d4e4a6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -92970103361586634
+    second: Slash Effects_0
+  - first:
+      213: -2198484527255054266
+    second: Slash Effects_1
+  - first:
+      213: 6844874576266430871
+    second: Slash Effects_2
+  - first:
+      213: 4092839057867344588
+    second: Slash Effects_3
+  - first:
+      213: -82240820580126250
+    second: Slash Effects_4
+  - first:
+      213: -785129864483349529
+    second: Slash Effects_5
+  - first:
+      213: -5524806907388378724
+    second: Slash Effects_6
+  - first:
+      213: 8477974118768097622
+    second: Slash Effects_7
+  - first:
+      213: 659281860346199436
+    second: Slash Effects_8
+  - first:
+      213: -5607772599612081903
+    second: Slash Effects_9
+  - first:
+      213: 1056682159913826376
+    second: Slash Effects_10
+  - first:
+      213: 3305956274927476868
+    second: Slash Effects_11
+  - first:
+      213: 3957570097775131474
+    second: Slash Effects_12
+  - first:
+      213: -6897808848587943912
+    second: Slash Effects_13
+  - first:
+      213: -4229310641140759746
+    second: Slash Effects_14
+  - first:
+      213: -1508064474185538016
+    second: Slash Effects_15
+  - first:
+      213: -7123414076630673274
+    second: Slash Effects_16
+  - first:
+      213: -2200172716278985707
+    second: Slash Effects_17
+  - first:
+      213: 6369640446723413961
+    second: Slash Effects_18
+  - first:
+      213: 1505917994920778487
+    second: Slash Effects_19
+  - first:
+      213: 3504181774906971810
+    second: Slash Effects_20
+  - first:
+      213: 3726135976271045569
+    second: Slash Effects_21
+  - first:
+      213: -5772324149004089904
+    second: Slash Effects_22
+  - first:
+      213: -2114889521370805215
+    second: Slash Effects_23
+  - first:
+      213: 2769068652937984493
+    second: Slash Effects_24
+  - first:
+      213: 6858573293551814911
+    second: Slash Effects_25
+  - first:
+      213: 8486795013947600179
+    second: Slash Effects_26
+  - first:
+      213: 2514282874722639931
+    second: Slash Effects_27
+  - first:
+      213: 6893478709351645450
+    second: Slash Effects_28
+  - first:
+      213: 8683019316230208203
+    second: Slash Effects_29
+  - first:
+      213: -8525526430860069937
+    second: Slash Effects_30
+  - first:
+      213: 1300961415077348822
+    second: Slash Effects_31
+  - first:
+      213: 2356084146492998731
+    second: Slash Effects_32
+  - first:
+      213: 911806000131621781
+    second: Slash Effects_33
+  - first:
+      213: 8768482237719992790
+    second: Slash Effects_34
+  - first:
+      213: -7968218887310639065
+    second: Slash Effects_35
+  - first:
+      213: 1865101907000095413
+    second: Slash Effects_36
+  - first:
+      213: 4559431608889165216
+    second: Slash Effects_37
+  - first:
+      213: 1303608825331844766
+    second: Slash Effects_38
+  - first:
+      213: 7577536383996198904
+    second: Slash Effects_39
+  - first:
+      213: 7121432243221137524
+    second: Slash Effects_40
+  - first:
+      213: -2459718716760841254
+    second: Slash Effects_41
+  - first:
+      213: 5804410508555314448
+    second: Slash Effects_42
+  - first:
+      213: 9157679478574693374
+    second: Slash Effects_43
+  - first:
+      213: 7223721421849715802
+    second: Slash Effects_44
+  - first:
+      213: 2729180900096709320
+    second: Slash Effects_45
+  - first:
+      213: 5073346310914967969
+    second: Slash Effects_46
+  - first:
+      213: -3373313436629357263
+    second: Slash Effects_47
+  - first:
+      213: -6143665292465244609
+    second: Slash Effects_48
+  - first:
+      213: 7402659805789621627
+    second: Slash Effects_49
+  - first:
+      213: 7159840469899935156
+    second: Slash Effects_50
+  - first:
+      213: 6114619344103888035
+    second: Slash Effects_51
+  - first:
+      213: 6444814463240547719
+    second: Slash Effects_52
+  - first:
+      213: -3674095844119906060
+    second: Slash Effects_53
+  - first:
+      213: -6427227778224666924
+    second: Slash Effects_54
+  - first:
+      213: -2171188413279317005
+    second: Slash Effects_55
+  - first:
+      213: -3696923887655019886
+    second: Slash Effects_56
+  - first:
+      213: -5799347233552151183
+    second: Slash Effects_57
+  - first:
+      213: -4885169132869876925
+    second: Slash Effects_58
+  - first:
+      213: -5451289560486990609
+    second: Slash Effects_59
+  - first:
+      213: -2533566457025219902
+    second: Slash Effects_60
+  - first:
+      213: 7970583342869841187
+    second: Slash Effects_61
+  - first:
+      213: -6569565554045868008
+    second: Slash Effects_62
+  - first:
+      213: -4944300819586248558
+    second: Slash Effects_63
+  - first:
+      213: -6634953031069623074
+    second: Slash Effects_64
+  - first:
+      213: -1657421905976141019
+    second: Slash Effects_65
+  - first:
+      213: -2784014149670310936
+    second: Slash Effects_66
+  - first:
+      213: -9172354319935942550
+    second: Slash Effects_67
+  - first:
+      213: 6271061592951763921
+    second: Slash Effects_68
+  - first:
+      213: 2252496297641656175
+    second: Slash Effects_69
+  - first:
+      213: 4787420847049401239
+    second: Slash Effects_70
+  - first:
+      213: 4225369323291335531
+    second: Slash Effects_71
+  - first:
+      213: 6613711798111657625
+    second: Slash Effects_72
+  - first:
+      213: 821203796927464453
+    second: Slash Effects_73
+  - first:
+      213: -2843393467713768119
+    second: Slash Effects_74
+  - first:
+      213: 8181259899607823519
+    second: Slash Effects_75
+  - first:
+      213: 1082553838610925111
+    second: Slash Effects_76
+  - first:
+      213: -5289772808762674578
+    second: Slash Effects_77
+  - first:
+      213: 1492367901006113317
+    second: Slash Effects_78
+  - first:
+      213: 6476661754549219860
+    second: Slash Effects_79
+  - first:
+      213: -1168152820202676638
+    second: Slash Effects_80
+  - first:
+      213: 2173730408790109135
+    second: Slash Effects_81
+  - first:
+      213: 8759494911394072061
+    second: Slash Effects_82
+  - first:
+      213: 4772522868644802115
+    second: Slash Effects_83
+  - first:
+      213: -6608968967061432758
+    second: Slash Effects_84
+  - first:
+      213: 2257303830371724704
+    second: Slash Effects_85
+  - first:
+      213: 5424328358014505280
+    second: Slash Effects_86
+  - first:
+      213: -2562905186079340769
+    second: Slash Effects_87
+  - first:
+      213: -7530369237085661863
+    second: Slash Effects_88
+  - first:
+      213: -8202909682216149028
+    second: Slash Effects_89
+  - first:
+      213: 1830771735401465529
+    second: Slash Effects_90
+  - first:
+      213: -4187259864870836218
+    second: Slash Effects_91
+  - first:
+      213: -5555939418015849528
+    second: Slash Effects_92
+  - first:
+      213: 9000655087388060142
+    second: Slash Effects_93
+  - first:
+      213: 4835709591718927849
+    second: Slash Effects_94
+  - first:
+      213: -2333895003410629488
+    second: Slash Effects_95
+  - first:
+      213: -5236977767980863962
+    second: Slash Effects_96
+  - first:
+      213: 4059034403228936528
+    second: Slash Effects_97
+  - first:
+      213: 7564149788238081346
+    second: Slash Effects_98
+  - first:
+      213: -2465430935371779207
+    second: Slash Effects_99
+  - first:
+      213: 3953139560656952987
+    second: Slash Effects_100
+  - first:
+      213: 355521764239725019
+    second: Slash Effects_101
+  - first:
+      213: 1954084298267068678
+    second: Slash Effects_102
+  - first:
+      213: -5610303532341654663
+    second: Slash Effects_103
+  - first:
+      213: -1105757879305002924
+    second: Slash Effects_104
+  - first:
+      213: 860595176397060849
+    second: Slash Effects_105
+  - first:
+      213: -8773077423637723049
+    second: Slash Effects_106
+  - first:
+      213: -6651645854949376274
+    second: Slash Effects_107
+  - first:
+      213: 6182825332909871445
+    second: Slash Effects_108
+  - first:
+      213: -7522245248388932966
+    second: Slash Effects_109
+  - first:
+      213: -5113096042317219082
+    second: Slash Effects_110
+  - first:
+      213: -3053341057875555943
+    second: Slash Effects_111
+  - first:
+      213: -2839012432928311004
+    second: Slash Effects_112
+  - first:
+      213: -8971966818486466328
+    second: Slash Effects_113
+  - first:
+      213: 6438740519193001375
+    second: Slash Effects_114
+  - first:
+      213: 6176083264715366547
+    second: Slash Effects_115
+  - first:
+      213: 1487522523299331885
+    second: Slash Effects_116
+  - first:
+      213: 5495902852850974406
+    second: Slash Effects_117
+  - first:
+      213: 6627237478707076014
+    second: Slash Effects_118
+  - first:
+      213: 2935219329253482725
+    second: Slash Effects_119
+  - first:
+      213: 7208045049723473892
+    second: Slash Effects_120
+  - first:
+      213: 1317220993002995823
+    second: Slash Effects_121
+  - first:
+      213: -6349765239930123136
+    second: Slash Effects_122
+  - first:
+      213: -4647931302565391509
+    second: Slash Effects_123
+  - first:
+      213: -8952019423219133749
+    second: Slash Effects_124
+  - first:
+      213: -179376499130075956
+    second: Slash Effects_125
+  - first:
+      213: 9112907576581680219
+    second: Slash Effects_126
+  - first:
+      213: 2409814211151660790
+    second: Slash Effects_127
+  - first:
+      213: -8352191732048785324
+    second: Slash Effects_128
+  - first:
+      213: 8780422693215109931
+    second: Slash Effects_129
+  - first:
+      213: -5132395425378427972
+    second: Slash Effects_130
+  - first:
+      213: 7520964092481384418
+    second: Slash Effects_131
+  - first:
+      213: -6045096832233445180
+    second: Slash Effects_132
+  - first:
+      213: -2440602729236855835
+    second: Slash Effects_133
+  - first:
+      213: -3293392457104024340
+    second: Slash Effects_134
+  - first:
+      213: 5324395833014835731
+    second: Slash Effects_135
+  - first:
+      213: -5535417040633001311
+    second: Slash Effects_136
+  - first:
+      213: -8044575148366772952
+    second: Slash Effects_137
+  - first:
+      213: 3564636758841094051
+    second: Slash Effects_138
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Slash Effects_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63ab66efe24b5bef0800000000000000
+      internalID: -92970103361586634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64815c478f96d71e0800000000000000
+      internalID: -2198484527255054266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_2
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79986725921edfe50800000000000000
+      internalID: 6844874576266430871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_3
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 576
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cca0707307facc830800000000000000
+      internalID: 4092839057867344588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_4
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 576
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d1f84fc862dbdef0800000000000000
+      internalID: -82240820580126250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb5bec4c88aa15f0800000000000000
+      internalID: -785129864483349529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c91cd70b361f353b0800000000000000
+      internalID: -5524806907388378724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 659b024fa80d7a570800000000000000
+      internalID: 8477974118768097622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_8
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 384
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8d3bc4eb5d362900800000000000000
+      internalID: 659281860346199436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_9
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 384
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 119f3fa28803d22b0800000000000000
+      internalID: -5607772599612081903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 848f72e63d61aae00800000000000000
+      internalID: 1056682159913826376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 480a60267bd11ed20800000000000000
+      internalID: 3305956274927476868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25b389b290d1ce630800000000000000
+      internalID: 3957570097775131474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_13
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 192
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8109e5bf56f0640a0800000000000000
+      internalID: -6897808848587943912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_14
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 192
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33860631687e45c0800000000000000
+      internalID: -4229310641140759746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 026e8cdc957421be0800000000000000
+      internalID: -1508064474185538016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_16
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688596683ac842d90800000000000000
+      internalID: -7123414076630673274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash Effects_17
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c4fa1529a6771e0800000000000000
+      internalID: -2200172716278985707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

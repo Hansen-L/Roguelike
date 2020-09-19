@@ -1,4 +1,6 @@
-﻿public interface IState
+﻿using UnityEngine;
+
+public interface IState
 {
     void Tick();
     void FixedTick();
