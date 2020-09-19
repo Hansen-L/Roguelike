@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Threading;
 
-public class Running : IState 
+public class Attacking : IState 
 {
     private Animator _animator;
     private Player _player;
 
-    public Running(Player player, Animator animator)
+    public Attacking(Player player, Animator animator)
     {
         _player = player;
         _animator = animator;
@@ -15,7 +15,7 @@ public class Running : IState
     public void OnEnter() 
 	{
 		//AudioManager.Instance.Play("run");
-		_animator.SetBool("isMoving", true);
+		//_animator.SetBool("isMoving", true);
 	}
 
     public void Tick() 
@@ -24,13 +24,12 @@ public class Running : IState
 
     public void FixedTick()
     {
-		_player.ProcessMovement();
     }
 
 
     public void OnExit() 
 	{
 		//AudioManager.Instance.Stop("run");
-		_animator.SetBool("isMoving", false);
+		//_animator.SetBool("isMoving", false);
 	}
 }

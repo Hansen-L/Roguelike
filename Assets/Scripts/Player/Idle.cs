@@ -3,17 +3,17 @@
 public class Idle : IState
 {
 	private Animator _animator;
-	private Dog _dog;
+	private Player _player;
 
-	public Idle(Dog dog, Animator animator)
+	public Idle(Player player, Animator animator)
 	{
-		_dog = dog;
+		_player = player;
 		_animator = animator;
 	}
 
 	public void OnEnter()
 	{
-		AudioManager.Instance.Stop("run");
+		//AudioManager.Instance.Stop("run");
 		_animator.SetBool("isMoving", false);
 	}
 
@@ -23,7 +23,7 @@ public class Idle : IState
 
 	public void FixedTick()
 	{
-		_dog.ProcessMovement();
+		_player.ProcessMovement();
 	}
 
 

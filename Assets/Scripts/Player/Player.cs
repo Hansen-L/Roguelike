@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 	public float prevxInput = 1f;
     public float prevyInput = 1f;
 
+	public bool isAttacking = false;
+
     private StateMachine _stateMachine;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
@@ -38,10 +40,13 @@ public class Player : MonoBehaviour
 		// Instantiating states
 		var running = new Running(this, _animator);
 		var idle = new Idle(this, _animator);
+		var attacking = new Attacking(this, _animator);
 
 		// Assigning transitions
+		_stateMachine.AddAnyTransition(attacking, IsAttacking());
 		At(running, idle, IsIdle());
 		At(idle, running, IsMoving());
+		At(attacking, idle, IsNotAttacking());
 
 		// Starting state
 		_stateMachine.SetState(running);
@@ -50,6 +55,8 @@ public class Player : MonoBehaviour
 		void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
 		// Transition conditions
+		Func<bool> IsAttacking() => () => (isAttacking);
+		Func<bool> IsNotAttacking() => () => (!isAttacking);
 		Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
 		Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
 		#endregion
@@ -87,6 +94,8 @@ public class Player : MonoBehaviour
 			prevxInput = xInput;
 			prevyInput = yInput;
 		}
+
+		if (Input.GetMouseButtonDown(0)) { isAttacking = true; }
 	}
 
 	//public void ClampPosition()
