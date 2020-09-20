@@ -40,7 +40,7 @@ public class Attacking : MonoBehaviour, IState
 
     public void Tick() 
     {
-        attackTimer += Time.fixedDeltaTime;
+        attackTimer += Time.deltaTime;
         if (attackTimer >= Player.attackTime)
         {
             _player.isAttacking = false;

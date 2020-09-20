@@ -17,8 +17,11 @@ public class Idle : IState
 		_animator.SetBool("isMoving", false);
 	}
 
+	//private float test = 0f;
 	public void Tick()
 	{
+		//test += Time.deltaTime;
+		//Debug.Log(test);
 	}
 
 	public void FixedTick()

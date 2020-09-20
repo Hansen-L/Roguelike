@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     public const float friction = 0.4f;
 
 	// Attack
-	public const float attackTime = 0.467f;
-	public const float comboWindow = 3f; // Time between attacks for combo
+	public const float attackTime = 0.35f;
+	public const float comboWindow = 0.7f; // Time between attacks for combo
 	#endregion
 
 	#region Non-Constant Variables
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
 
 	public void ComboCheck()
 	{
-		if (comboCount != 0) { comboTimer += Time.fixedDeltaTime; } // Start the combo timer once the attack starts
+		if (comboCount != 0) { comboTimer += Time.deltaTime; } // Start the combo timer once the attack starts
 
 		if (comboTimer >= Player.comboWindow) // If the player took too long to attack, reset the combo
 		{
