@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Wolf : MonoBehaviour, IEnemy
 {
-    public int health = 100;
+    public const int maxHealth = 100;
+
+    public GameObject healthBar;
+
+    private int health = maxHealth;
+
+    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -16,7 +23,10 @@ public class Wolf : MonoBehaviour, IEnemy
     {
         // Check if Wolf still has health, if not then kill the wolf
         if (IsDead()) { Die(); }
+        UpdateHealthBar();
     }
+
+
 
     public int GetHealth()
     {
@@ -41,6 +51,13 @@ public class Wolf : MonoBehaviour, IEnemy
 
     public void Die()
     {
-        Destroy(gameObject, 0f);
+        _animator.SetTrigger("die");
+        GetComponent<BoxCollider2D>().enabled = false; // disable collisions
+        Destroy(gameObject, 2f);
+    }
+
+    private void UpdateHealthBar()
+    {
+        healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth()/(float)maxHealth, 0.7f), 1f);
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading;
 using System;
 
-public class Attacking : MonoBehaviour, IState 
+public class Attacking : IState
 {
     private Animator _animator;
     private Player _player;
@@ -69,14 +69,14 @@ public class Attacking : MonoBehaviour, IState
         if (_player.transform.localScale.x == -1) // Moving right
         {
             Vector2 slashEffectPosition = new Vector2(_player.transform.position.x + offsetX, _player.transform.position.y);
-            GameObject slashEffectInstance = Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 0, 90));
-            Destroy(slashEffectInstance, 2f);
+            GameObject slashEffectInstance = GameObject.Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 0, 90));
+            GameObject.Destroy(slashEffectInstance, 2f);
         }
         else // Moving left
         {
             Vector2 slashEffectPosition = new Vector2(_player.transform.position.x - offsetX, _player.transform.position.y);
-            GameObject slashEffectInstance = Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 180, 90));
-            Destroy(slashEffectInstance, 2f);
+            GameObject slashEffectInstance = GameObject.Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 180, 90));
+            GameObject.Destroy(slashEffectInstance, 2f);
         }
     }
 
@@ -89,16 +89,16 @@ public class Attacking : MonoBehaviour, IState
         if (_player.transform.localScale.x == -1) // Moving right
         {
             barkEffectPosition = new Vector2(_player.transform.position.x + offsetX, _player.transform.position.y + offsetY);
-            GameObject barkEffectInstance = Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 180f, 0f, 1));
+            GameObject barkEffectInstance = GameObject.Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 180f, 0f, 1));
             barkEffectInstance.transform.parent = _player.gameObject.transform;
-            Destroy(barkEffectInstance, 2f);
+            GameObject.Destroy(barkEffectInstance, 2f);
         }
         else // Moving left
         {
             barkEffectPosition = new Vector2(_player.transform.position.x - offsetX, _player.transform.position.y + offsetY);
-            GameObject barkEffectInstance = Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 0f, 0f, 1));
+            GameObject barkEffectInstance = GameObject.Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 0f, 0f, 1));
             barkEffectInstance.transform.parent = _player.gameObject.transform;
-            Destroy(barkEffectInstance, 2f);
+            GameObject.Destroy(barkEffectInstance, 2f);
         }
 
     }
