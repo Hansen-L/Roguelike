@@ -18,6 +18,11 @@ public class Wolf : MonoBehaviour, IEnemy
         if (IsDead()) { Die(); }
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
@@ -36,6 +41,6 @@ public class Wolf : MonoBehaviour, IEnemy
 
     public void Die()
     {
-        Destroy(this, 2f);
+        Destroy(gameObject, 0f);
     }
 }

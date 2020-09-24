@@ -29,13 +29,17 @@ public class Attacking : MonoBehaviour, IState
         _player.comboCount += 1;
         attackTimer = 0f;
 
-        Debug.Log(_player.comboCount);
+        //Debug.Log(_player.comboCount);
         if (_player.comboCount >= 3)
         {
             _player.comboCount = 0;
-            BigAttack();
+            BarkEffect();
+            LaunchAttack(_player.barkCollider, Player.barkDamage);
         }
-        else { Attack(); }
+        else {
+            SlashEffect();
+            LaunchAttack(_player.slashCollider, Player.slashDamage);
+        }
     }
 
     public void Tick() 
@@ -58,12 +62,11 @@ public class Attacking : MonoBehaviour, IState
         _animator.ResetTrigger("attack");
     }
 
-    private void Attack()
+    private void SlashEffect() // Animates the slash attack by spawning an effect
     {
         float offsetX = 0.6f;
-        float offsetY = 0.12f;
 
-        if (_spriteRenderer.flipX == true) // Moving right
+        if (_player.transform.localScale.x == -1) // Moving right
         {
             Vector2 slashEffectPosition = new Vector2(_player.transform.position.x + offsetX, _player.transform.position.y);
             GameObject slashEffectInstance = Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 0, 90));
@@ -77,13 +80,13 @@ public class Attacking : MonoBehaviour, IState
         }
     }
 
-    private void BigAttack()
+    private void BarkEffect() // Animates the bark attack by spawning an effect
     {
         float offsetX = 0.3f;
         float offsetY = 0.12f;
         Vector2 barkEffectPosition;
 
-        if (_spriteRenderer.flipX == true) // Moving right
+        if (_player.transform.localScale.x == -1) // Moving right
         {
             barkEffectPosition = new Vector2(_player.transform.position.x + offsetX, _player.transform.position.y + offsetY);
             GameObject barkEffectInstance = Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 180f, 0f, 1));
@@ -98,5 +101,20 @@ public class Attacking : MonoBehaviour, IState
             Destroy(barkEffectInstance, 2f);
         }
 
+    }
+
+    private void LaunchAttack(Collider2D hitbox, int damageAmount)
+    {
+        Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(hitbox.bounds.center, hitbox.bounds.size, 0, LayerMask.GetMask("Enemy"));
+
+        foreach (Collider2D enemyCollider in enemyColliders)
+        {
+            IEnemy enemyScript = enemyCollider.gameObject.GetComponent<IEnemy>();
+            if (!enemyScript.IsDead()) // If enemy isn't already dead, do damage
+            {
+                enemyScript.TakeDamage(damageAmount);
+                Debug.Log(enemyScript.GetHealth());
+            }
+        }
     }
 }

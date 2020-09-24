@@ -13,11 +13,15 @@ public class Player : MonoBehaviour
 	// Attack
 	public const float attackTime = 0.35f;
 	public const float comboWindow = 0.7f; // Time between attacks for combo
+	public const int slashDamage = 10;
+	public const int barkDamage = 30;
 	#endregion
 
 	#region Non-Constant Variables
 	public GameObject barkEffect;
 	public GameObject slashEffect;
+	public Collider2D barkCollider; // TODO: Reorganize these references to be more robust
+	public Collider2D slashCollider;
 
 	public float xInput = 0f;
     public float yInput = 0f;
@@ -135,9 +139,9 @@ public class Player : MonoBehaviour
 	public void FlipSprite()
 	{
 		if (_rb.velocity.x > 0) // moving right
-			{ _spriteRenderer.flipX = true; }
+			{ transform.localScale = new Vector3(-1, 1, 1); }
 		else if (_rb.velocity.x < 0) // moving left
-			{ _spriteRenderer.flipX = false; }
+			{ transform.localScale = new Vector3(1, 1, 1); }
 	}
 
 	#endregion
@@ -164,4 +168,12 @@ public class Player : MonoBehaviour
 	}
 
 	#endregion
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawWireCube(barkCollider.bounds.center, barkCollider.bounds.size);
+		Gizmos.DrawWireCube(slashCollider.bounds.center, slashCollider.bounds.size);
+		//Gizmos.DrawWireCube(new Vector2(-barkCollider.bounds.center.x, barkCollider.bounds.center.y), barkCollider.bounds.size);
+		//Gizmos.DrawWireCube(new Vector2(-slashCollider.bounds.center.x, slashCollider.bounds.center.y), slashCollider.bounds.size);
+	}
 }
