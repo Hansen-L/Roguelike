@@ -112,6 +112,7 @@ public class Attacking : IState
             IEnemy enemyScript = enemyCollider.gameObject.GetComponent<IEnemy>();
             if (!enemyScript.IsDead()) // If enemy isn't already dead, do damage
             {
+                _player.slashParticle.Play();
                 enemyScript.TakeDamage(damageAmount);
                 Debug.Log(enemyScript.GetHealth());
             }

@@ -9,6 +9,7 @@ public class Wolf : MonoBehaviour, IEnemy
     public GameObject healthBar;
 
     private int health = maxHealth;
+    private bool dead = false;
 
     private Animator _animator;
 
@@ -22,8 +23,11 @@ public class Wolf : MonoBehaviour, IEnemy
     void Update()
     {
         // Check if Wolf still has health, if not then kill the wolf
-        if (IsDead()) { Die(); }
-        UpdateHealthBar();
+        if (IsDead())
+        {
+            if (dead == false) { Die(); } // Wolf hasn't already died. TODO: Make this cleaner
+        }
+        else { UpdateHealthBar(); }
     }
 
 
@@ -51,8 +55,10 @@ public class Wolf : MonoBehaviour, IEnemy
 
     public void Die()
     {
+        dead = true;
         _animator.SetTrigger("die");
         GetComponent<BoxCollider2D>().enabled = false; // disable collisions
+        Destroy(transform.GetChild(0).gameObject);
         Destroy(gameObject, 2f);
     }
 

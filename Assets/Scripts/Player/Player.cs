@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 	#region Non-Constant Variables
 	public GameObject barkEffect;
 	public GameObject slashEffect;
+	public ParticleSystem slashParticle;
 	public Collider2D barkCollider; // TODO: Reorganize these references to be more robust
 	public Collider2D slashCollider;
 
