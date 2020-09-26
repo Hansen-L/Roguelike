@@ -29,7 +29,7 @@ public class Attacking : IState
         _player.comboCount += 1;
         attackTimer = 0f;
 
-        //Debug.Log(_player.comboCount);
+        // Decide which attack to launch based on the combo count
         if (_player.comboCount >= 3)
         {
             _player.comboCount = 0;
@@ -62,7 +62,8 @@ public class Attacking : IState
         _animator.ResetTrigger("attack");
     }
 
-    private void SlashEffect() // Animates the slash attack by spawning an effect
+	#region Private Methods
+	private void SlashEffect() // Animates the slash attack by spawning an effect
     {
         float offsetX = 0.6f;
 
@@ -114,8 +115,8 @@ public class Attacking : IState
             {
                 _player.slashParticle.Play();
                 enemyScript.TakeDamage(damageAmount);
-                Debug.Log(enemyScript.GetHealth());
             }
         }
     }
+    #endregion
 }
