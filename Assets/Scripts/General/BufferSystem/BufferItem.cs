@@ -4,11 +4,11 @@ using System.Collections.Generic;
 public class BufferItem
 {
 	public float bufferTimer = Player.bufferWindow; // Variable to hold how long this item can stay in buffer
-	private InputsEnum _input; // String representing player input
+	private StatesEnum _input; // String representing player input
 
-	public BufferItem(InputsEnum input)
+	public BufferItem(StatesEnum state)
 	{
-		_input = input;
+		_input = state;
 	}
 
 	public void ChangeBufferTimer(float deltaTime)
@@ -22,7 +22,7 @@ public class BufferItem
 		return false;
 	}
 
-	public InputsEnum GetInput()
+	public StatesEnum GetInput()
 	{
 		return _input;
 	}

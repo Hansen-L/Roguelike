@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 	// Attack
 	public const float attackTime = 0.35f;
 	public const float comboWindow = 0.7f; // Time between attacks for combo
-	public const float bufferWindow = 0.2f; // Buffer window for player combos
+	public const float bufferWindow = 0.5f; // Buffer window for player combos
 	public const int slashDamage = 10;
 	public const int barkDamage = 30;
 	#endregion
@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
 	private Rigidbody2D _rb;
-	private BufferSystem bufferSystem = new BufferSystem();
 
 	private int baseLayer;
 
@@ -90,13 +89,9 @@ public class Player : MonoBehaviour
 
 	private void Update()
     {
-        ProcessInput(); // Read player input
 		ComboCheck(); // Check if attacks are fast enough to combo
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipPlayer();
-
-		bufferSystem.UpdateBufferTimers(-Time.deltaTime);
-		ConsumeBuffer();
 
 		_stateMachine.Tick();
     }
@@ -108,43 +103,6 @@ public class Player : MonoBehaviour
 
 
 	#region Methods called every frame regardless of state
-
-	public void ProcessInput()
-	{
-		// Gives a value between -1 and 1
-		xInput = Input.GetAxisRaw("Horizontal"); // -1 is left
-		yInput = Input.GetAxisRaw("Vertical"); // -1 is down
-											   // Store previous inputs
-		if (xInput != 0 || yInput != 0) {
-			prevxInput = xInput;
-			prevyInput = yInput;
-		}
-
-		// TODO: Make this a separate subclass to handle input maybe?
-		if (Input.GetMouseButtonDown(0)) // Enqueue Attacking state if we're in another action state
-		{
-			if (_stateMachine.CurrentState() == "Idle" || _stateMachine.CurrentState() == "Running") // TODO: Make this more robust, don't use strings
-			{
-				isAttacking = true;
-			}
-			else
-			{
-				{
-					bufferSystem.Enqueue(InputsEnum.Attack);
-				}
-			}
-		}
-	}
-
-	public void ConsumeBuffer()
-	{
-		if (_stateMachine.CurrentState() == "Idle" || _stateMachine.CurrentState() == "Running") // TODO: Find a smarter way to check if we should consume buffers. Maybe delegate to a function
-		{
-			InputsEnum nextInput = bufferSystem.Dequeue();
-			if (nextInput == InputsEnum.Attack) { isAttacking = true; }
-			//			if (Input.GetMouseButtonDown(0)) { bufferSystem.Enqueue(InputsEnum.Attack); }
-		}
-	}
 
 	public void ComboCheck()
 	{
@@ -163,6 +121,18 @@ public class Player : MonoBehaviour
 			{ transform.localScale = new Vector3(-1, 1, 1); }
 		else if (_rb.velocity.x < 0) // moving left
 			{ transform.localScale = new Vector3(1, 1, 1); }
+	}
+
+	public void SetState(StatesEnum input) // Use the method to set the player state based on the input
+	{
+		switch (input)
+		{
+			case StatesEnum.Attacking:
+				isAttacking = true;
+				break;
+			default:
+				break;
+		}
 	}
 
 	//public void ClampPosition()
@@ -194,6 +164,15 @@ public class Player : MonoBehaviour
 		Vector2 total_velocity = new Vector2(xVelocity, yVelocity);
 
 		_rb.velocity = Vector2.ClampMagnitude(total_velocity, Player.maxSpeed);
+	}
+
+	#endregion
+
+	#region Miscellaneous Methods
+
+	public String CurrentState()
+	{
+		return _stateMachine.CurrentState();
 	}
 
 	#endregion

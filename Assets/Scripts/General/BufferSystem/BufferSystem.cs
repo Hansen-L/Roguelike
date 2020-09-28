@@ -6,7 +6,7 @@ public class BufferSystem
 {
 	private List<BufferItem> bufferList = new List<BufferItem>();
 
-	public void Enqueue(InputsEnum input)  // If this item is not already in the list, enqueue it
+	public void Enqueue(StatesEnum input)  // If this item is not already in the list, enqueue it
 	{
 		BufferItem bufferItem = new BufferItem(input);
 		if (!bufferList.Contains(bufferItem))
@@ -15,7 +15,7 @@ public class BufferSystem
 		}
 	}
 
-	public InputsEnum Dequeue() // Dequeues the next BufferItem, and returns the associated input
+	public StatesEnum Dequeue() // Dequeues the next BufferItem, and returns the associated input
 	{
 		if (bufferList.Count > 0)
 		{
@@ -24,7 +24,7 @@ public class BufferSystem
 
 			return dequeuedItem.GetInput();
 		}
-		return InputsEnum.None; // If list is empty, return none
+		return StatesEnum.None; // If list is empty, return none
 	}
 
 	public void UpdateBufferTimers(float deltaTime) // Decrease the bufferTimer on each BufferItem. If the timer is less than 0, remove this item from the list
