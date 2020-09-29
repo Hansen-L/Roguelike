@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Threading;
-using System;
+using System.Collections;
 
 public class Boomeranging : IState
 {
@@ -56,9 +55,22 @@ public class Boomeranging : IState
 
     private void LaunchBoomerang()
     {
-        GameObject boomerang = GameObject.Instantiate(_player.boomerangPrefab, _player.projectileFirePoint.position, _player.projectileFirePoint.rotation);
+        GameObject boomerangObject = GameObject.Instantiate(_player.boomerangPrefab, _player.projectileFirePoint.position, _player.projectileFirePoint.rotation);
+        Rigidbody2D boomerangRb = boomerangObject.GetComponent<Rigidbody2D>();
+        boomerangRb.velocity =  _player.GetPlayerDir() * Player.boomerangStartSpeed;
+        boomerangRb.AddTorque(Player.boomerangTorque);
 
-        boomerang.GetComponent<Rigidbody2D>().velocity =  _player.GetPlayerDir() * Player.boomerangStartSpeed;
+        _player.StartChildCoroutine(BoomerangPath(_player.GetPlayerDir(), boomerangRb));
     }
+
+    IEnumerator BoomerangPath(Vector2 playerDir, Rigidbody2D boomerangRb) // Make the boomerang return to the player
+    {
+        while (boomerangRb)
+        {
+            boomerangRb.velocity -= playerDir / Player.boomerangSlowdownFactor;//new Vector2(Mathf.Lerp(boomerangRb.velocity.x, 0, 0.5f), Mathf.Lerp(boomerangRb.velocity.y, 0, 0.5f));
+            yield return new WaitForFixedUpdate();
+        }
+    }
+    
     #endregion
 }

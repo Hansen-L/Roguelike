@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using Utils;
+using System.Collections;
 
 public class Player : MonoBehaviour 
 {
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour
 	public const float boomerangTime = 0.35f; // Time for animation to play out, and to pause movement inputs
 	public const int boomerangDamage = 20;
 	public const float boomerangStartSpeed = 12f;
+	public const float boomerangTorque = 500f;
+	public const float boomerangSlowdownFactor = 4f; // Governs how quickly the boomerang reverses
 
 	public const float bufferWindow = 1f; // Buffer window for player combos
 	#endregion
@@ -199,6 +202,11 @@ public class Player : MonoBehaviour
 		// If the player isn't currently giving a movement input, return the previous direction
 		if (xInput == 0 || yInput == 0) { return new Vector2(prevxInput, prevyInput).normalized; }
 		else { return new Vector2(xInput, yInput).normalized; }
+	}
+
+	public void StartChildCoroutine(IEnumerator coroutineMethod)
+	{
+		StartCoroutine(coroutineMethod);
 	}
 
 	#endregion
