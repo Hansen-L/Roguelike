@@ -26,8 +26,7 @@ public class InputManager : MonoBehaviour
         if (IsIdleOrRunning()) // TODO: Find a smarter way to check if we should consume buffers. Maybe delegate to a function
         {
             StatesEnum nextInput = bufferSystem.Dequeue();
-            if (nextInput == StatesEnum.Attacking) { _player.SetState(StatesEnum.Attacking); }
-            //			if (Input.GetMouseButtonDown(0)) { bufferSystem.Enqueue(InputsEnum.Attack); }
+			_player.SetState(nextInput);
         }
     }
 
@@ -51,6 +50,11 @@ public class InputManager : MonoBehaviour
 		{
 			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Attacking); }
 			else { bufferSystem.Enqueue(StatesEnum.Attacking); }
+		}
+		if (Input.GetMouseButtonDown(1))
+		{
+			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Boomeranging); }
+			else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
 		}
 	}
 

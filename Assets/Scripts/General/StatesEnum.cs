@@ -3,5 +3,6 @@
 	Attacking,
 	Idle,
 	Running,
+	Boomeranging,
 	None
 }

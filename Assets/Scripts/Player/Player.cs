@@ -13,9 +13,15 @@ public class Player : MonoBehaviour
 	// Attack
 	public const float attackTime = 0.35f;
 	public const float comboWindow = 0.7f; // Time between attacks for combo
-	public const float bufferWindow = 0.5f; // Buffer window for player combos
 	public const int slashDamage = 10;
 	public const int barkDamage = 30;
+
+	// Boomerang
+	public const float boomerangTime = 0.35f; // Time for animation to play out, and to pause movement inputs
+	public const int boomerangDamage = 20;
+	public const float boomerangStartSpeed = 12f;
+
+	public const float bufferWindow = 1f; // Buffer window for player combos
 	#endregion
 
 	#region Non-Constant Variables
@@ -25,15 +31,19 @@ public class Player : MonoBehaviour
 	public Collider2D barkCollider; // TODO: Reorganize these references to be more robust
 	public Collider2D slashCollider;
 
+	public GameObject boomerangPrefab;
+	public Transform projectileFirePoint;
+
 	public float xInput = 0f;
     public float yInput = 0f;
-	public float prevxInput = 1f;
-    public float prevyInput = 1f;
+	public float prevxInput = -1f;
+    public float prevyInput = 0f;
 
 	public int comboCount = 0; // Track which hit of combo we are on
 	public float comboTimer = 0f;
 
 	public bool isAttacking = false;
+	public bool isBoomeranging = false;
 
     private StateMachine _stateMachine; // Using underscores to note instance variables where it could be ambiguous
 	private Animator _animator;
@@ -59,7 +69,8 @@ public class Player : MonoBehaviour
 		// Instantiating states
 		var running = new Running(this, _animator);
 		var idle = new Idle(this, _animator);
-		var attacking = new Attacking(this, _animator, _rb, _spriteRenderer);
+		var attacking = new Attacking(this, _animator, _rb);
+		var boomeranging = new Boomeranging(this, _animator, _rb);
 
 		// Assigning transitions
 		At(running, idle, IsIdle());
@@ -67,6 +78,9 @@ public class Player : MonoBehaviour
 		At(idle, attacking, IsAttacking());
 		At(running, attacking, IsAttacking());
 		At(attacking, idle, IsNotAttacking());
+		At(idle, boomeranging, IsBoomeranging());
+		At(running, boomeranging, IsBoomeranging());
+		At(boomeranging, idle, IsNotBoomeranging());
 
 		// Starting state
 		_stateMachine.SetState(running);
@@ -77,6 +91,8 @@ public class Player : MonoBehaviour
 		// Transition conditions
 		Func<bool> IsAttacking() => () => (isAttacking);
 		Func<bool> IsNotAttacking() => () => (!isAttacking);
+		Func<bool> IsBoomeranging() => () => (isBoomeranging);
+		Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
 		Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
 		Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
 		#endregion
@@ -130,6 +146,9 @@ public class Player : MonoBehaviour
 			case StatesEnum.Attacking:
 				isAttacking = true;
 				break;
+			case StatesEnum.Boomeranging:
+				isBoomeranging = true;
+				break;
 			default:
 				break;
 		}
@@ -173,6 +192,13 @@ public class Player : MonoBehaviour
 	public String CurrentState()
 	{
 		return _stateMachine.CurrentState();
+	}
+
+	public Vector2 GetPlayerDir() // Return normalized direction that player is moving towards
+	{
+		// If the player isn't currently giving a movement input, return the previous direction
+		if (xInput == 0 || yInput == 0) { return new Vector2(prevxInput, prevyInput).normalized; }
+		else { return new Vector2(xInput, yInput).normalized; }
 	}
 
 	#endregion

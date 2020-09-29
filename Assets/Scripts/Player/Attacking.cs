@@ -7,16 +7,14 @@ public class Attacking : IState
     private Animator _animator;
     private Player _player;
     private Rigidbody2D _rb;
-    private SpriteRenderer _spriteRenderer;
 
     private float attackTimer;
 
-    public Attacking(Player player, Animator animator, Rigidbody2D rb, SpriteRenderer spriteRenderer)
+    public Attacking(Player player, Animator animator, Rigidbody2D rb)
     {
         _player = player;
         _animator = animator;
         _rb = rb;
-        _spriteRenderer = spriteRenderer;
     }
 
     public void OnEnter() 
@@ -45,7 +43,7 @@ public class Attacking : IState
     public void Tick() 
     {
         attackTimer += Time.deltaTime;
-        if (attackTimer >= Player.attackTime)
+        if (attackTimer >= Player.boomerangTime)
         {
             _player.isAttacking = false;
         }
