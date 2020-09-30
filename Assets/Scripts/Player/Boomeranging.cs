@@ -43,6 +43,7 @@ public class Boomeranging : IState
 
     public void OnExit()
     {
+        _player.isBoomeranging = false;
         //AudioManager.Instance.Stop("run");
         _animator.ResetTrigger("attack");
     }

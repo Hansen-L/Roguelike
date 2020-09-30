@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Threading;
 
-public class Running : IState 
+public class Moving : IState 
 {
     private Animator _animator;
     private Player _player;
 
-    public Running(Player player, Animator animator)
+    public Moving(Player player, Animator animator)
     {
         _player = player;
         _animator = animator;

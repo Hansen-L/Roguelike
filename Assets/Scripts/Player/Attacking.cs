@@ -56,6 +56,7 @@ public class Attacking : IState
 
     public void OnExit() 
 	{
+        _player.isAttacking = false;
         //AudioManager.Instance.Stop("run");
         _animator.ResetTrigger("attack");
     }

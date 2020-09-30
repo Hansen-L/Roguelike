@@ -1,7 +1,7 @@
 ﻿public enum StatesEnum // Enum of possible inputs (mapped to states)
 {
 	Idle,
-	Running,
+	Moving,
 	Dashing,
 	Attacking,
 	Boomeranging,

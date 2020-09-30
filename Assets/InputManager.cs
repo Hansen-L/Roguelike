@@ -23,7 +23,7 @@ public class InputManager : MonoBehaviour
 
     public void ConsumeBuffer()
     {
-        if (IsIdleOrRunning()) // TODO: Find a smarter way to check if we should consume buffers. Maybe delegate to a function
+        if (_player.IsIdleOrMoving()()) // TODO: Find a smarter way to check if we should consume buffers. Maybe delegate to a function
         {
             StatesEnum nextInput = bufferSystem.Dequeue();
 			_player.SetState(nextInput);
@@ -47,24 +47,18 @@ public class InputManager : MonoBehaviour
 
 		if (Input.GetKeyDown("space"))
 		{
-			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Dashing); }
+			if (_player.IsIdleOrMoving()() || _player.IsAttacking()()) { _player.SetState(StatesEnum.Dashing); }
 			else { bufferSystem.Enqueue(StatesEnum.Dashing); }
 		}
 		if (Input.GetMouseButtonDown(0)) // Enqueue Attacking state if we're in another action state. If we're idle/running, to the attack immediately
 		{
-			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Attacking); }
+			if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); }
 			else { bufferSystem.Enqueue(StatesEnum.Attacking); }
 		}
 		if (Input.GetMouseButtonDown(1))
 		{
-			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Boomeranging); }
+			if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
 			else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
 		}
-	}
-
-	private bool IsIdleOrRunning()
-	{
-		if (_player.CurrentState() == StatesEnum.Idle.ToString() || _player.CurrentState() == StatesEnum.Running.ToString()) { return true; }
-		return false;
 	}
 }

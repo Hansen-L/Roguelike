@@ -29,6 +29,7 @@ public class BufferSystem
 
 	public void UpdateBufferTimers(float deltaTime) // Decrease the bufferTimer on each BufferItem. If the timer is less than 0, remove this item from the list
 	{
+		//Debug.Log(bufferList.Count);
 		if (bufferList.Count <= 0) { return; }
 
 		for (int i = bufferList.Count - 1; i >= 0; i--) // Iterate backwards over the list so we can remove items as they come

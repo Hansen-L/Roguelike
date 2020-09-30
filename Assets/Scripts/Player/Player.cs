@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 	public const float dashTime = 0.2f;
 
 	// Attack
-	public const float attackTime = 0.2f;
+	public const float attackTime = 0.25f;
 	public const float comboWindow = 0.7f; // Time between attacks for combo
 	public const int slashDamage = 10;
 	public const int barkDamage = 30;
@@ -67,6 +67,22 @@ public class Player : MonoBehaviour
 	private float yVelocity;
 	#endregion
 
+	#region Boolean methods for state transitions
+	// Note: When calling these methods, we use IsMoving()() or IsMoving().Invoke()
+	public Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
+	public Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
+	public Func<bool> IsIdleOrMoving() => () => ( (CurrentState() == StatesEnum.Idle.ToString()) || (CurrentState() == StatesEnum.Moving.ToString()));
+
+	public Func<bool> IsDashing() => () => (isDashing);
+	public Func<bool> IsNotDashing() => () => (!isDashing);
+
+	public Func<bool> IsAttacking() => () => (isAttacking);
+	public Func<bool> IsNotAttacking() => () => (!isAttacking);
+
+	public Func<bool> IsBoomeranging() => () => (isBoomeranging);
+	public Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
+	#endregion
+
 	private void Start()
 	{
 		#region Configuring State Machine
@@ -78,49 +94,49 @@ public class Player : MonoBehaviour
 		_stateMachine = new StateMachine();
 
 		// Instantiating states
-		var running = new Running(this, _animator);
+		var moving = new Moving(this, _animator);
 		var idle = new Idle(this, _animator);
 		var dashing = new Dashing(this, _animator, _rb);
 		var attacking = new Attacking(this, _animator, _rb);
 		var boomeranging = new Boomeranging(this, _animator, _rb);
 
 		// Assigning transitions
-		At(running, idle, IsIdle());
-		At(idle, running, IsMoving());
+		At(moving, idle, IsIdle());
+		At(idle, moving, IsMoving());
 
 		// Dashing
 		At(idle, dashing, IsDashing());
-		At(running, dashing, IsDashing());
+		At(moving, dashing, IsDashing());
 		At(dashing, idle, IsNotDashing());
 
 		// Attacking
 		At(idle, attacking, IsAttacking());
-		At(running, attacking, IsAttacking());
+		At(moving, attacking, IsAttacking());
 		At(attacking, idle, IsNotAttacking());
 
 		// Boomeranging
 		At(idle, boomeranging, IsBoomeranging());
-		At(running, boomeranging, IsBoomeranging());
+		At(moving, boomeranging, IsBoomeranging());
 		At(boomeranging, idle, IsNotBoomeranging());
 
 		// Starting state
-		_stateMachine.SetState(running);
+		_stateMachine.SetState(moving);
 
 		// Method to assign transitions easily
 		void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
-		// Transition conditions
-		Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
-		Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
+		//// Transition conditions
+		//Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
+		//Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
 
-		Func<bool> IsDashing() => () => (isDashing);
-		Func<bool> IsNotDashing() => () => (!isDashing);
+		//Func<bool> IsDashing() => () => (isDashing);
+		//Func<bool> IsNotDashing() => () => (!isDashing);
 
-		Func<bool> IsAttacking() => () => (isAttacking);
-		Func<bool> IsNotAttacking() => () => (!isAttacking);
+		//Func<bool> IsAttacking() => () => (isAttacking);
+		//Func<bool> IsNotAttacking() => () => (!isAttacking);
 
-		Func<bool> IsBoomeranging() => () => (isBoomeranging);
-		Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
+		//Func<bool> IsBoomeranging() => () => (isBoomeranging);
+		//Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
 		#endregion
 
 		#region Instantiating instance variables
@@ -151,6 +167,8 @@ public class Player : MonoBehaviour
 		{
 			case StatesEnum.Dashing:
 				isDashing = true;
+				isAttacking = false;
+				isBoomeranging = false;
 				break;
 			case StatesEnum.Attacking:
 				isAttacking = true;
@@ -186,7 +204,7 @@ public class Player : MonoBehaviour
 
 	#region Methods called from states
 
-	public void ProcessMovement() // Called from running and idle states
+	public void ProcessMovement() // Called from moving and idle states
 	{
 		if (xInput * xVelocity <= 0)
 		{
