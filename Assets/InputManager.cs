@@ -45,7 +45,11 @@ public class InputManager : MonoBehaviour
 			_player.prevyInput = _player.yInput;
 		}
 
-		// TODO: Make this a separate subclass to handle input maybe?
+		if (Input.GetKeyDown("space"))
+		{
+			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Dashing); }
+			else { bufferSystem.Enqueue(StatesEnum.Dashing); }
+		}
 		if (Input.GetMouseButtonDown(0)) // Enqueue Attacking state if we're in another action state. If we're idle/running, to the attack immediately
 		{
 			if (IsIdleOrRunning()) { _player.SetState(StatesEnum.Attacking); }

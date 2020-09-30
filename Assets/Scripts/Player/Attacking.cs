@@ -43,7 +43,7 @@ public class Attacking : IState
     public void Tick() 
     {
         attackTimer += Time.deltaTime;
-        if (attackTimer >= Player.boomerangTime)
+        if (attackTimer >= Player.attackTime)
         {
             _player.isAttacking = false;
         }

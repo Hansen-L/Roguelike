@@ -11,8 +11,12 @@ public class Player : MonoBehaviour
     public const float maxSpeed = 7f;
     public const float friction = 0.4f;
 
+	// Dash
+	public const float dashSpeed = 15f;
+	public const float dashTime = 0.2f;
+
 	// Attack
-	public const float attackTime = 0.35f;
+	public const float attackTime = 0.2f;
 	public const float comboWindow = 0.7f; // Time between attacks for combo
 	public const int slashDamage = 10;
 	public const int barkDamage = 30;
@@ -21,13 +25,13 @@ public class Player : MonoBehaviour
 	public const float boomerangTime = 0.35f; // Time for animation to play out, and to pause movement inputs
 	public const int boomerangDamage = 20;
 	public const float boomerangStartSpeed = 12f;
-	public const float boomerangTorque = 500f;
+	public const float boomerangTorque = 1000f;
 	public const float boomerangSlowdownFactor = 4f; // Governs how quickly the boomerang reverses
 
-	public const float bufferWindow = 1f; // Buffer window for player combos
+	public const float bufferWindow = 0.4f; // Buffer window for player combos
 	#endregion
 
-	#region Non-Constant Variables
+	#region Public Non-Constant Variables
 	public GameObject barkEffect;
 	public GameObject slashEffect;
 	public ParticleSystem slashParticle;
@@ -47,8 +51,12 @@ public class Player : MonoBehaviour
 
 	public bool isAttacking = false;
 	public bool isBoomeranging = false;
+	public bool isDashing = false;
+	#endregion
 
-    private StateMachine _stateMachine; // Using underscores to note instance variables where it could be ambiguous
+
+	#region Private Non-Constant Variables
+	private StateMachine _stateMachine; // Using underscores to note instance variables where it could be ambiguous
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
 	private Rigidbody2D _rb;
@@ -72,15 +80,25 @@ public class Player : MonoBehaviour
 		// Instantiating states
 		var running = new Running(this, _animator);
 		var idle = new Idle(this, _animator);
+		var dashing = new Dashing(this, _animator, _rb);
 		var attacking = new Attacking(this, _animator, _rb);
 		var boomeranging = new Boomeranging(this, _animator, _rb);
 
 		// Assigning transitions
 		At(running, idle, IsIdle());
 		At(idle, running, IsMoving());
+
+		// Dashing
+		At(idle, dashing, IsDashing());
+		At(running, dashing, IsDashing());
+		At(dashing, idle, IsNotDashing());
+
+		// Attacking
 		At(idle, attacking, IsAttacking());
 		At(running, attacking, IsAttacking());
 		At(attacking, idle, IsNotAttacking());
+
+		// Boomeranging
 		At(idle, boomeranging, IsBoomeranging());
 		At(running, boomeranging, IsBoomeranging());
 		At(boomeranging, idle, IsNotBoomeranging());
@@ -92,12 +110,17 @@ public class Player : MonoBehaviour
 		void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
 		// Transition conditions
-		Func<bool> IsAttacking() => () => (isAttacking);
-		Func<bool> IsNotAttacking() => () => (!isAttacking);
-		Func<bool> IsBoomeranging() => () => (isBoomeranging);
-		Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
 		Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
 		Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
+
+		Func<bool> IsDashing() => () => (isDashing);
+		Func<bool> IsNotDashing() => () => (!isDashing);
+
+		Func<bool> IsAttacking() => () => (isAttacking);
+		Func<bool> IsNotAttacking() => () => (!isAttacking);
+
+		Func<bool> IsBoomeranging() => () => (isBoomeranging);
+		Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
 		#endregion
 
 		#region Instantiating instance variables
@@ -122,6 +145,23 @@ public class Player : MonoBehaviour
 
 
 	#region Methods called every frame regardless of state
+	public void SetState(StatesEnum input) // Use the method to set the player state based on the input
+	{
+		switch (input)
+		{
+			case StatesEnum.Dashing:
+				isDashing = true;
+				break;
+			case StatesEnum.Attacking:
+				isAttacking = true;
+				break;
+			case StatesEnum.Boomeranging:
+				isBoomeranging = true;
+				break;
+			default:
+				break;
+		}
+	}
 
 	public void ComboCheck()
 	{
@@ -141,30 +181,6 @@ public class Player : MonoBehaviour
 		else if (_rb.velocity.x < 0) // moving left
 			{ transform.localScale = new Vector3(1, 1, 1); }
 	}
-
-	public void SetState(StatesEnum input) // Use the method to set the player state based on the input
-	{
-		switch (input)
-		{
-			case StatesEnum.Attacking:
-				isAttacking = true;
-				break;
-			case StatesEnum.Boomeranging:
-				isBoomeranging = true;
-				break;
-			default:
-				break;
-		}
-	}
-
-	//public void ClampPosition()
-	//{
-	//	Vector2 position;
-	//	position.x = Mathf.Clamp(this.transform.position.x, -xBoundary, xBoundary);
-	//	position.y = Mathf.Clamp(this.transform.position.y, -yBoundary, yBoundary);
-	//	this.transform.position = position;
-	//}
-
 	#endregion
 
 
