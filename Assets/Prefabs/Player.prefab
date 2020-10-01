@@ -76,7 +76,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.3525606, y: 0.07183218}
+  m_Offset: {x: -1.6028501, y: 0.039176524}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -87,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1730173, y: 2.676118}
+  m_Size: {x: 2.6735961, y: 3.7210941}
   m_EdgeRadius: 0
 --- !u!1 &1491851815
 GameObject:
@@ -133,7 +133,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6104727, y: 0}
+  m_Offset: {x: -0.7450017, y: -0.014951706}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -144,7 +144,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.545207, y: 1}
+  m_Size: {x: 0.814265, y: 1.8273335}
   m_EdgeRadius: 0
 --- !u!1 &1596527608
 GameObject:
@@ -354,12 +354,13 @@ MonoBehaviour:
   projectileFirePoint: {fileID: 1596527609}
   xInput: 0
   yInput: 0
-  prevxInput: 1
-  prevyInput: 1
+  prevxInput: -1
+  prevyInput: 0
   comboCount: 0
   comboTimer: 0
   isAttacking: 0
   isBoomeranging: 0
+  isDashing: 0
 --- !u!114 &1597767043
 MonoBehaviour:
   m_ObjectHideFlags: 0

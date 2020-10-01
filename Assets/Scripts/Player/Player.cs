@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 	public const float boomerangSlowdownFactor = 4f; // Governs how quickly the boomerang reverses
 
 	public const float bufferWindow = 0.4f; // Buffer window for player combos
+	public const float shadowDelay = 0.3f; // Delay before shadow copies player input
 	#endregion
 
 	#region Public Non-Constant Variables
@@ -161,9 +162,9 @@ public class Player : MonoBehaviour
 
 
 	#region Methods called every frame regardless of state
-	public void SetState(StatesEnum input) // Use the method to set the player state based on the input
+	public void SetState(StatesEnum state) // Use the method to set the player state based on the input
 	{
-		switch (input)
+		switch (state)
 		{
 			case StatesEnum.Dashing:
 				isDashing = true;

@@ -62,6 +62,8 @@ public class Boomeranging : IState
         boomerangRb.AddTorque(Player.boomerangTorque);
 
         _player.StartChildCoroutine(BoomerangPath(_player.GetPlayerDir(), boomerangRb));
+
+        GameObject.Destroy(boomerangObject, 5f);
     }
 
     IEnumerator BoomerangPath(Vector2 playerDir, Rigidbody2D boomerangRb) // Make the boomerang return to the player

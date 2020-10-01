@@ -44,4 +44,14 @@ public class BufferSystem
 		if (bufferList.Count <= 0) { return true; }
 		return false;
 	}
+
+	public override string ToString()
+	{
+		string concatenatedString = "";
+		foreach (BufferItem bufferItem in bufferList)
+		{
+			concatenatedString = string.Join(concatenatedString, bufferItem.ToString());
+		}
+		return concatenatedString;
+	}
 }

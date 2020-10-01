@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class BufferItem
 {
@@ -36,5 +37,10 @@ public class BufferItem
 	{
 		if (this.GetInput() == otherItem.GetInput()) { return true; }
 		else { return false; }
+	}
+
+	public override string ToString()
+	{
+		return (_input.ToString() + "  ->  " + bufferTimer);
 	}
 }
