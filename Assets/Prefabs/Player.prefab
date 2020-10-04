@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 928199940}
   - component: {fileID: 928199941}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Bark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1491851817}
   - component: {fileID: 1491851816}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Slash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,12 +347,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainPlayer: {fileID: 24546750019598956}
   isShadow: 0
+  mainCamera: {fileID: 0}
   barkEffect: {fileID: 4042404542434258202, guid: 9eb8a05c0b7be2b44882ece0819dc77f, type: 3}
   slashEffect: {fileID: 1064768358488317998, guid: 3664e08adaef7bd40817fd22ac895d4e, type: 3}
   slashParticle: {fileID: 5267391715358985112}
   barkCollider: {fileID: 928199941}
   slashCollider: {fileID: 1491851816}
   boomerangPrefab: {fileID: 4576751592110199639, guid: 9b951a015b8958e45930347541c1ea91, type: 3}
+  boomerangExplosionEffect: {fileID: 4042404542434258202, guid: 9eb8a05c0b7be2b44882ece0819dc77f, type: 3}
   projectileFirePoint: {fileID: 1596527609}
   xInput: 0
   yInput: 0
@@ -360,6 +362,7 @@ MonoBehaviour:
   prevyInput: 0
   comboCount: 0
   comboTimer: 0
+  canBoomerang: 1
   isAttacking: 0
   isBoomeranging: 0
   isDashing: 0

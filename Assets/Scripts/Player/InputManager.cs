@@ -38,7 +38,10 @@ public class InputManager : MonoBehaviour
 		if (Input.GetMouseButtonDown(0))
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Attacking));
 		if (Input.GetMouseButtonDown(1))
-			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Boomeranging));
+		{
+			if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
+			else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
+		}
 	}
 
 	private IEnumerator SetMovementInputsWithDelay(float xInput, float yInput)

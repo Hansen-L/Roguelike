@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Enemy
   - Effects
-  - Projectile
-  - 
+  - Boomerang
+  - Hitboxes
   - 
   - 
   - 

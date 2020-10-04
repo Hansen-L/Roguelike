@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 	#region Constants
 	// Movement
 	public const float acceleration = 1f;
-    public const float maxSpeed = 7f;
+    public const float maxSpeed = 8f;
     public const float friction = 0.4f;
 
 	// Dash
@@ -22,19 +22,22 @@ public class Player : MonoBehaviour
 	public const int barkDamage = 30;
 
 	// Boomerang
-	public const float boomerangTime = 0.35f; // Time for animation to play out, and to pause movement inputs
+	public const float boomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
 	public const int boomerangDamage = 20;
-	public const float boomerangStartSpeed = 12f;
+	public const float boomerangStartSpeed = 20f;
+	public const float boomerangStartSpeedShadow = 21f;
 	public const float boomerangTorque = 1000f;
-	public const float boomerangSlowdownFactor = 4f; // Governs how quickly the boomerang reverses
+	public const float boomerangSlowdownFactor = 2f; // Governs how quickly the boomerang reverses (smaller number means faster reversal)
+	public const float boomerangReturnAcceleration = 1/boomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
 
 	public const float bufferWindow = 0.4f; // Buffer window for player combos
-	public const float shadowDelay = 0.5f; // Delay before shadow copies player input
+	public const float shadowDelay = 0.6f; // Delay before shadow copies player input
 	#endregion
 
 	#region Public Non-Constant Variables
 	public GameObject MainPlayer; // GameObject that isn't the shadow
 	public bool isShadow = false; // If isShadow is true, process inputs with a delay
+	public Camera mainCamera;
 
 	public GameObject barkEffect;
 	public GameObject slashEffect;
@@ -43,6 +46,7 @@ public class Player : MonoBehaviour
 	public Collider2D slashCollider;
 
 	public GameObject boomerangPrefab;
+	public GameObject boomerangExplosionEffect;
 	public Transform projectileFirePoint;
 
 	public float xInput = 0f;
@@ -53,6 +57,9 @@ public class Player : MonoBehaviour
 	public int comboCount = 0; // Track which hit of combo we are on
 	public float comboTimer = 0f;
 
+	public bool canBoomerang = true; // Determines if the player can throw a boomerang
+
+	// Used for state transitions
 	public bool isAttacking = false;
 	public bool isBoomeranging = false;
 	public bool isDashing = false;

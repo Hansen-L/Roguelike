@@ -18,13 +18,18 @@ public class Boomeranging : IState
 
     public void OnEnter()
     {
-        //AudioManager.Instance.Play("run");
-        _animator.SetTrigger("attack"); // TODO: Replace with projectile animation
-        _rb.velocity = new Vector2(0f, 0f);
+        if (!_player.canBoomerang) // If the player can't throw the boomerang, exit this state
+            _player.isBoomeranging = false;
+        else
+        {
+            _player.canBoomerang = false;
+            //AudioManager.Instance.Play("run");
+            _animator.SetTrigger("attack"); // TODO: Replace with projectile animation
 
-        boomerangTimer = 0f;
+            boomerangTimer = 0f;
 
-        LaunchBoomerang();
+            LaunchBoomerang();
+        }
     }
 
     public void Tick()
@@ -50,28 +55,54 @@ public class Boomeranging : IState
 
     #region Private Methods
 
-    private void BarkEffect() // Animates the bark attack by spawning an effect
-    {
-    }
-
     private void LaunchBoomerang()
     {
         GameObject boomerangObject = GameObject.Instantiate(_player.boomerangPrefab, _player.projectileFirePoint.position, _player.projectileFirePoint.rotation);
+        boomerangObject.GetComponent<Boomerang>().SetPlayer(_player); // Pass the player object to the boomerang script
         Rigidbody2D boomerangRb = boomerangObject.GetComponent<Rigidbody2D>();
-        boomerangRb.velocity =  _player.GetPlayerDir() * Player.boomerangStartSpeed;
         boomerangRb.AddTorque(Player.boomerangTorque);
 
-        _player.StartChildCoroutine(BoomerangPath(_player.GetPlayerDir(), boomerangRb));
-
-        GameObject.Destroy(boomerangObject, 5f);
+        // Calculate the unit vector towards the mouse, launch boomerang in that direction
+        Vector2 mousePosition = _player.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 launchDir = (mousePosition - boomerangRb.position).normalized;
+        _player.StartChildCoroutine(BoomerangPath(launchDir, boomerangRb, boomerangObject));
     }
 
-    IEnumerator BoomerangPath(Vector2 playerDir, Rigidbody2D boomerangRb) // Make the boomerang return to the player
+
+    IEnumerator BoomerangPath(Vector2 launchDir, Rigidbody2D boomerangRb, GameObject boomerangObject) // Make the boomerang return to the player
     {
+        float distToPlayer;
+        float returningMaxDistDelta = 0; // Change in position when boomerang is returning
+
+        if (_player.isShadow)
+            boomerangRb.velocity = launchDir * Player.boomerangStartSpeedShadow; // Initial velocity
+        else
+            boomerangRb.velocity = launchDir * Player.boomerangStartSpeed;
+
         while (boomerangRb)
         {
-            boomerangRb.velocity -= playerDir / Player.boomerangSlowdownFactor;//new Vector2(Mathf.Lerp(boomerangRb.velocity.x, 0, 0.5f), Mathf.Lerp(boomerangRb.velocity.y, 0, 0.5f));
-            yield return new WaitForFixedUpdate();
+            distToPlayer = Vector2.Distance(boomerangRb.position, _rb.position);
+
+            if (Vector2.Dot(boomerangRb.velocity, launchDir) >= -0.5) // When the boomerang is being thrown
+            {
+                boomerangRb.velocity -= launchDir / Player.boomerangSlowdownFactor;
+                yield return new WaitForFixedUpdate();
+            }
+            else // When the boomerang is returning
+            {
+                returningMaxDistDelta += Player.boomerangReturnAcceleration;
+                boomerangRb.position = Vector2.MoveTowards(boomerangRb.position, _rb.position, Time.deltaTime*returningMaxDistDelta);
+
+                // Destroy boomerang when it is returned
+                if (distToPlayer < 1f)
+                {
+                    GameObject.Destroy(boomerangObject);
+                    _player.canBoomerang = true;
+                }
+
+                yield return new WaitForFixedUpdate();
+            }
+
         }
     }
     

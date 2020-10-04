@@ -803,10 +803,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 24546750019598945, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 24546750019598951, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.48
@@ -856,9 +852,9 @@ PrefabInstance:
       value: Main Player
       objectReference: {fileID: 0}
     - target: {fileID: 1112453593014836222, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
-      propertyPath: prevxInput
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
 --- !u!1001 &2111521879
@@ -929,18 +925,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5791146160672145650, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1955179591
-      objectReference: {fileID: 0}
-    - target: {fileID: 5791146160672145650, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
-      propertyPath: m_SortingLayer
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5791146160672145651, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5791146160672145653, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.29
@@ -993,6 +977,14 @@ PrefabInstance:
       propertyPath: MainPlayer
       value: 
       objectReference: {fileID: 427224715}
+    - target: {fileID: 6879608269991862636, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 6879608269991862636, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
 --- !u!1001 &6928865738483120109
