@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1597767043, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: isShadow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 24546750019598944, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
       propertyPath: m_Color.r
       value: 0
@@ -18,6 +22,18 @@ PrefabInstance:
     - target: {fileID: 24546750019598944, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 24546750019598944, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1955179591
+      objectReference: {fileID: 0}
+    - target: {fileID: 24546750019598944, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 24546750019598945, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 24546750019598951, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,7 +81,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 24546750019598956, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
       propertyPath: m_Name
-      value: Player (1)
+      value: Player Shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112453593014836222, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: xInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112453593014836222, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: isShadow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112453593014836222, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: MainPlayer
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}

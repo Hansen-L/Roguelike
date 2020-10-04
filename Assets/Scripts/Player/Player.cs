@@ -5,9 +5,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour 
 {
-    #region Constants
+	#region Constants
 	// Movement
-    public const float acceleration = 1f;
+	public const float acceleration = 1f;
     public const float maxSpeed = 7f;
     public const float friction = 0.4f;
 
@@ -29,10 +29,13 @@ public class Player : MonoBehaviour
 	public const float boomerangSlowdownFactor = 4f; // Governs how quickly the boomerang reverses
 
 	public const float bufferWindow = 0.4f; // Buffer window for player combos
-	public const float shadowDelay = 0.3f; // Delay before shadow copies player input
+	public const float shadowDelay = 0.5f; // Delay before shadow copies player input
 	#endregion
 
 	#region Public Non-Constant Variables
+	public GameObject MainPlayer; // GameObject that isn't the shadow
+	public bool isShadow = false; // If isShadow is true, process inputs with a delay
+
 	public GameObject barkEffect;
 	public GameObject slashEffect;
 	public ParticleSystem slashParticle;
@@ -152,6 +155,10 @@ public class Player : MonoBehaviour
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipPlayer();
 
+		// TODO: Find a better place for this code
+		if (isShadow) // The shadow copies the main player's movement
+			StartCoroutine(ShadowMovement(MainPlayer.GetComponent<Rigidbody2D>().position));
+
 		_stateMachine.Tick();
     }
 
@@ -195,10 +202,17 @@ public class Player : MonoBehaviour
 
 	public void FlipPlayer()
 	{
-		if (_rb.velocity.x > 0) // moving right
-			{ transform.localScale = new Vector3(-1, 1, 1); }
-		else if (_rb.velocity.x < 0) // moving left
-			{ transform.localScale = new Vector3(1, 1, 1); }
+		if (prevxInput > 0) // moving right
+			transform.localScale = new Vector3(-1, 1, 1);
+		else if (prevxInput < 0) // moving left
+			transform.localScale = new Vector3(1, 1, 1);
+	}
+
+	// TODO: Find a better place for this code
+	private IEnumerator ShadowMovement(Vector3 mainPlayerPosition) // Shadow movement
+	{
+		yield return new WaitForSeconds(shadowDelay);
+		_rb.position = mainPlayerPosition;
 	}
 	#endregion
 
@@ -207,22 +221,20 @@ public class Player : MonoBehaviour
 
 	public void ProcessMovement() // Called from moving and idle states
 	{
-		if (xInput * xVelocity <= 0)
+		if (!isShadow) // If this is not the shadow gameobject, process movement as regular
 		{
-			xVelocity *= Player.friction;
-		}
-		if (yInput * yVelocity <= 0)
-		{
-			yVelocity *= Player.friction;
-		}
-		xVelocity = Mathf.Clamp(xVelocity + xInput * Player.acceleration, -Player.maxSpeed, Player.maxSpeed);
-		yVelocity = Mathf.Clamp(yVelocity + yInput * Player.acceleration, -Player.maxSpeed, Player.maxSpeed);
+			if (xInput * xVelocity <= 0)
+				xVelocity *= Player.friction;
+			if (yInput * yVelocity <= 0)
+				yVelocity *= Player.friction;
 
-		Vector2 total_velocity = new Vector2(xVelocity, yVelocity);
+			xVelocity = Mathf.Clamp(xVelocity + xInput * Player.acceleration, -Player.maxSpeed, Player.maxSpeed);
+			yVelocity = Mathf.Clamp(yVelocity + yInput * Player.acceleration, -Player.maxSpeed, Player.maxSpeed);
 
-		_rb.velocity = Vector2.ClampMagnitude(total_velocity, Player.maxSpeed);
+			Vector2 total_velocity = new Vector2(xVelocity, yVelocity);
+			_rb.velocity = Vector2.ClampMagnitude(total_velocity, Player.maxSpeed);
+		}
 	}
-
 	#endregion
 
 	#region Miscellaneous Methods

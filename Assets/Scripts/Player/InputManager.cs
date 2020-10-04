@@ -5,45 +5,33 @@ using UnityEngine;
 // This class handles all player input, and calls _player.SetState() to change the player state
 public class InputManager : MonoBehaviour
 {
-	public bool isShadow = false; // If isShadow is true, process inputs with a delay
+	private BufferSystem bufferSystem = new BufferSystem();
+	private Player _player;
 
-    private BufferSystem bufferSystem = new BufferSystem();
-    private Player _player;
+	void Start()
+	{
+		_player = GetComponent<Player>();
+	}
 
-    void Start()
-    {
-        _player = GetComponent<Player>();
-    }
-
-    void Update()
-    {
+	void Update()
+	{
 		ProcessInput(); // Read player input
 		bufferSystem.UpdateBufferTimers(-Time.deltaTime);
 		ConsumeBuffer();
 	}
 
-    public void ConsumeBuffer()
-    {
-        if (!bufferSystem.IsEmpty() && _player.IsIdleOrMoving()())
-        {
-            StatesEnum nextInput = bufferSystem.Dequeue();
+	public void ConsumeBuffer()
+	{
+		if (!bufferSystem.IsEmpty() && _player.IsIdleOrMoving()())
+		{
+			StatesEnum nextInput = bufferSystem.Dequeue();
 			_player.SetState(nextInput);
-        }
-    }
+		}
+	}
 
 	public void ProcessInput()
 	{
-		// TODO: Don't access variables from player object directly
-		// Gives a value between -1 and 1
-		_player.xInput = Input.GetAxisRaw("Horizontal"); // -1 is left
-		_player.yInput = Input.GetAxisRaw("Vertical"); // -1 is down
-		
-		// Store previous inputs
-		if (_player.xInput != 0 || _player.yInput != 0)
-		{
-			_player.prevxInput = _player.xInput;
-			_player.prevyInput = _player.yInput;
-		}
+		StartCoroutine(SetMovementInputsWithDelay(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
 
 		if (Input.GetKeyDown("space"))
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
@@ -53,10 +41,32 @@ public class InputManager : MonoBehaviour
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Boomeranging));
 	}
 
+	private IEnumerator SetMovementInputsWithDelay(float xInput, float yInput)
+	// If this is shadow, wait before modifying the xInput/yInput. 
+	// This is so that the attacks will go in the right direction, and so that the animations match up with the motion of the shadow.
+	{
+		if (!_player.isShadow)
+			yield return null;
+		else
+			yield return new WaitForSeconds(Player.shadowDelay);
+
+		// TODO: Don't access variables from player object directly
+		// Gives a value between -1 and 1
+		_player.xInput = xInput; // -1 is left
+		_player.yInput = yInput; // -1 is down
+
+		// Store previous inputs
+		if (_player.xInput != 0 || _player.yInput != 0)
+		{
+			_player.prevxInput = _player.xInput;
+			_player.prevyInput = _player.yInput;
+		}
+	}
+
 	private IEnumerator SetStateOrEnqueueWithDelay(StatesEnum state)
 	// If this is the shadow, wait for a delay before processing the input. Then, either change the state immediately or enqueue it.
 	{
-		if (!isShadow)
+		if (!_player.isShadow)
 			yield return null;
 		else
 			yield return new WaitForSeconds(Player.shadowDelay);

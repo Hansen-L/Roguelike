@@ -105,12 +105,13 @@ public class Attacking : IState
 
     private void LaunchAttack(Collider2D hitbox, int damageAmount)
     {
-        Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(hitbox.bounds.center, hitbox.bounds.size, 0, LayerMask.GetMask("Enemy"));
+        Collider2D[] allColliders = Physics2D.OverlapBoxAll(hitbox.bounds.center, hitbox.bounds.size, 0);
 
-        foreach (Collider2D enemyCollider in enemyColliders)
+        foreach (Collider2D collider in allColliders)
         {
-            IEnemy enemyScript = enemyCollider.gameObject.GetComponent<IEnemy>();
-            if (!enemyScript.IsDead()) // If enemy isn't already dead, do damage
+            IEnemy enemyScript = collider.gameObject.GetComponent<IEnemy>();
+            // Check if the enemy script exists to confirm that this is an enemy's collider
+            if (enemyScript!=null && !enemyScript.IsDead()) // If enemy isn't already dead, do damage
             {
                 _player.slashParticle.Play();
                 enemyScript.TakeDamage(damageAmount);
