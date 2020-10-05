@@ -61,6 +61,7 @@ public class Boomeranging : IState
         boomerangObject.GetComponent<Boomerang>().SetPlayer(_player); // Pass the player object to the boomerang script
         Rigidbody2D boomerangRb = boomerangObject.GetComponent<Rigidbody2D>();
         boomerangRb.AddTorque(Player.boomerangTorque);
+        _player.SetColorToBlack(boomerangObject);
 
         // Calculate the unit vector towards the mouse, launch boomerang in that direction
         Vector2 mousePosition = _player.mainCamera.ScreenToWorldPoint(Input.mousePosition);

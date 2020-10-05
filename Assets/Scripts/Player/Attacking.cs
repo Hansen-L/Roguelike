@@ -65,19 +65,22 @@ public class Attacking : IState
 	private void SlashEffect() // Animates the slash attack by spawning an effect
     {
         float offsetX = 0.6f;
+        GameObject slashEffectInstance;
 
         if (_player.transform.localScale.x == -1) // Moving right
         {
             Vector2 slashEffectPosition = new Vector2(_player.transform.position.x + offsetX, _player.transform.position.y);
-            GameObject slashEffectInstance = GameObject.Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 0, 90));
+            slashEffectInstance = GameObject.Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 0, 90));
             GameObject.Destroy(slashEffectInstance, 2f);
         }
         else // Moving left
         {
             Vector2 slashEffectPosition = new Vector2(_player.transform.position.x - offsetX, _player.transform.position.y);
-            GameObject slashEffectInstance = GameObject.Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 180, 90));
+            slashEffectInstance = GameObject.Instantiate(_player.slashEffect, slashEffectPosition, Quaternion.Euler(0, 180, 90));
             GameObject.Destroy(slashEffectInstance, 2f);
         }
+
+        _player.SetColorToBlack(slashEffectInstance);
     }
 
     private void BarkEffect() // Animates the bark attack by spawning an effect
@@ -85,22 +88,24 @@ public class Attacking : IState
         float offsetX = 0.3f;
         float offsetY = 0.12f;
         Vector2 barkEffectPosition;
+        GameObject barkEffectInstance;
 
         if (_player.transform.localScale.x == -1) // Moving right
         {
             barkEffectPosition = new Vector2(_player.transform.position.x + offsetX, _player.transform.position.y + offsetY);
-            GameObject barkEffectInstance = GameObject.Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 180f, 0f, 1));
+            barkEffectInstance = GameObject.Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 180f, 0f, 1));
             barkEffectInstance.transform.parent = _player.gameObject.transform;
             GameObject.Destroy(barkEffectInstance, 2f);
         }
         else // Moving left
         {
             barkEffectPosition = new Vector2(_player.transform.position.x - offsetX, _player.transform.position.y + offsetY);
-            GameObject barkEffectInstance = GameObject.Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 0f, 0f, 1));
+            barkEffectInstance = GameObject.Instantiate(_player.barkEffect, barkEffectPosition, new Quaternion(0f, 0f, 0f, 1));
             barkEffectInstance.transform.parent = _player.gameObject.transform;
             GameObject.Destroy(barkEffectInstance, 2f);
         }
 
+        _player.SetColorToBlack(barkEffectInstance);
     }
 
     private void LaunchAttack(Collider2D hitbox, int damageAmount)

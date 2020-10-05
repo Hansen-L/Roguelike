@@ -36,8 +36,10 @@ public class Player : MonoBehaviour
 
 	#region Public Non-Constant Variables
 	public GameObject MainPlayer; // GameObject that isn't the shadow
-	public bool isShadow = false; // If isShadow is true, process inputs with a delay
 	public Camera mainCamera;
+
+	public bool isShadow = false; // If isShadow is true, process inputs with a delay
+	public bool shadowCanMove = true;
 
 	public GameObject barkEffect;
 	public GameObject slashEffect;
@@ -209,17 +211,21 @@ public class Player : MonoBehaviour
 
 	public void FlipPlayer()
 	{
-		if (prevxInput > 0) // moving right
-			transform.localScale = new Vector3(-1, 1, 1);
-		else if (prevxInput < 0) // moving left
-			transform.localScale = new Vector3(1, 1, 1);
+		if (IsIdleOrMoving()())
+		{
+			if (prevxInput > 0) // moving right
+				transform.localScale = new Vector3(-1, 1, 1);
+			else if (prevxInput < 0) // moving left
+				transform.localScale = new Vector3(1, 1, 1);
+		}
 	}
 
 	// TODO: Find a better place for this code
 	private IEnumerator ShadowMovement(Vector3 mainPlayerPosition) // Shadow movement
 	{
 		yield return new WaitForSeconds(shadowDelay);
-		_rb.position = mainPlayerPosition;
+		if (shadowCanMove)
+			_rb.position = Vector3.Lerp(_rb.position, mainPlayerPosition, 0.05f);
 	}
 	#endregion
 
@@ -261,6 +267,12 @@ public class Player : MonoBehaviour
 	public void StartChildCoroutine(IEnumerator coroutineMethod)
 	{
 		StartCoroutine(coroutineMethod);
+	}
+
+	public void SetColorToBlack(GameObject obj)
+	{
+		if (isShadow == true)
+			obj.GetComponent<SpriteRenderer>().color = Color.black;
 	}
 
 	#endregion

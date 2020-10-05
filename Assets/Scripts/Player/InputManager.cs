@@ -37,11 +37,13 @@ public class InputManager : MonoBehaviour
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
 		if (Input.GetMouseButtonDown(0))
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Attacking));
-		if (Input.GetMouseButtonDown(1))
+		if (Input.GetMouseButtonDown(1)) // No delay for boomerang
 		{
 			if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
 			else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
 		}
+		if (Input.GetKeyDown("q")) // Freeze shadow in place
+			_player.shadowCanMove = !_player.shadowCanMove;
 	}
 
 	private IEnumerator SetMovementInputsWithDelay(float xInput, float yInput)

@@ -969,6 +969,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5791146160672145653, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5791146160672145653, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5791146160672145662, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
       propertyPath: m_Name
       value: Player Shadow
