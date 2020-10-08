@@ -7,10 +7,12 @@ public class InputManager : MonoBehaviour
 {
 	private BufferSystem bufferSystem = new BufferSystem();
 	private Player _player;
+	private Rigidbody2D _rb;
 
 	void Start()
 	{
 		_player = GetComponent<Player>();
+		_rb = GetComponent<Rigidbody2D>();
 	}
 
 	void Update()
@@ -33,17 +35,31 @@ public class InputManager : MonoBehaviour
 	{
 		StartCoroutine(SetMovementInputsWithDelay(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
 
-		if (Input.GetKeyDown("space"))
-			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
+		if (Input.GetKeyDown(KeyCode.Space))
+			if (_player.CanMove())
+				StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
+
 		if (Input.GetMouseButtonDown(0))
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Attacking));
+
 		if (Input.GetMouseButtonDown(1)) // No delay for boomerang
 		{
 			if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
 			else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
 		}
-		if (Input.GetKeyDown("q")) // Freeze shadow in place
+
+		if (Input.GetKeyDown(KeyCode.Q)) // Freeze/unfreeze shadow in place
+		{
 			_player.shadowCanMove = !_player.shadowCanMove;
+			if (_player.isShadow)
+				_rb.velocity = new Vector2(0f, 0f);
+			// TODO: This code is a hacky way of preventing the 'moving' state when the shadow is frozen. Find a way to refactor.
+			_player.xInput = 0;
+			_player.yInput = 0;
+		}
+
+		if (Input.GetKeyDown(KeyCode.LeftShift))
+			_player.SetState(StatesEnum.Swapping);
 	}
 
 	private IEnumerator SetMovementInputsWithDelay(float xInput, float yInput)
@@ -57,15 +73,12 @@ public class InputManager : MonoBehaviour
 
 		// TODO: Don't access variables from player object directly
 		// Gives a value between -1 and 1
-		_player.xInput = xInput; // -1 is left
-		_player.yInput = yInput; // -1 is down
+		if (_player.CanMove()) // If the player is a shadow and isn't frozen, or if the player is not a shadow
+			_player.SetCurrentInput(new Vector2(xInput, yInput));
 
-		// Store previous inputs
-		if (_player.xInput != 0 || _player.yInput != 0)
-		{
-			_player.prevxInput = _player.xInput;
-			_player.prevyInput = _player.yInput;
-		}
+		// Store previous inputs. These are used to flip the sprite and to aim attacks
+		if (xInput != 0 || yInput != 0)
+			_player.SetPrevInput(new Vector2(xInput, yInput));
 	}
 
 	private IEnumerator SetStateOrEnqueueWithDelay(StatesEnum state)
@@ -84,13 +97,13 @@ public class InputManager : MonoBehaviour
 				break;
 			case StatesEnum.Attacking:
 				// Enqueue Attacking state if we're in another action state. If we're idle/running, to the attack immediately
-				if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); } 
+				if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); }
 				else { bufferSystem.Enqueue(StatesEnum.Attacking); }
 				break;
-			case StatesEnum.Boomeranging:
-				if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
-				else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
-				break;
+			//case StatesEnum.Boomeranging:
+			//	if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
+			//	else { bufferSystem.Enqueue(StatesEnum.Boomeranging); }
+			//	break;
 			default:
 				break;
 		}

@@ -345,9 +345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788a8ceecbde3ea4ab42c6c36a12e3c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainPlayer: {fileID: 24546750019598956}
-  isShadow: 0
+  mainPlayer: {fileID: 24546750019598956}
+  shadowPlayer: {fileID: 0}
   mainCamera: {fileID: 0}
+  isShadow: 0
+  shadowCanMove: 1
   barkEffect: {fileID: 4042404542434258202, guid: 9eb8a05c0b7be2b44882ece0819dc77f, type: 3}
   slashEffect: {fileID: 1064768358488317998, guid: 3664e08adaef7bd40817fd22ac895d4e, type: 3}
   slashParticle: {fileID: 5267391715358985112}
@@ -366,6 +368,7 @@ MonoBehaviour:
   isAttacking: 0
   isBoomeranging: 0
   isDashing: 0
+  isSwapping: 0
 --- !u!114 &1597767043
 MonoBehaviour:
   m_ObjectHideFlags: 0

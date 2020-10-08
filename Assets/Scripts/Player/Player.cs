@@ -30,12 +30,17 @@ public class Player : MonoBehaviour
 	public const float boomerangSlowdownFactor = 2f; // Governs how quickly the boomerang reverses (smaller number means faster reversal)
 	public const float boomerangReturnAcceleration = 1/boomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
 
+	// Swap
+	public const float swapTime = 0.3f;
+
 	public const float bufferWindow = 0.4f; // Buffer window for player combos
 	public const float shadowDelay = 0.6f; // Delay before shadow copies player input
 	#endregion
 
 	#region Public Non-Constant Variables
-	public GameObject MainPlayer; // GameObject that isn't the shadow
+	// TODO: Maybe these gameobject references should live in a game manager
+	public GameObject mainPlayer; // GameObject that isn't the shadow
+	public GameObject shadowPlayer;
 	public Camera mainCamera;
 
 	public bool isShadow = false; // If isShadow is true, process inputs with a delay
@@ -65,6 +70,7 @@ public class Player : MonoBehaviour
 	public bool isAttacking = false;
 	public bool isBoomeranging = false;
 	public bool isDashing = false;
+	public bool isSwapping = false;
 	#endregion
 
 
@@ -94,6 +100,9 @@ public class Player : MonoBehaviour
 
 	public Func<bool> IsBoomeranging() => () => (isBoomeranging);
 	public Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
+
+	public Func<bool> IsSwapping() => () => (isSwapping);
+	public Func<bool> IsNotSwapping() => () => (!isSwapping);
 	#endregion
 
 	private void Start()
@@ -112,6 +121,7 @@ public class Player : MonoBehaviour
 		var dashing = new Dashing(this, _animator, _rb);
 		var attacking = new Attacking(this, _animator, _rb);
 		var boomeranging = new Boomeranging(this, _animator, _rb);
+		var swapping = new Swapping(this, _animator, _rb);
 
 		// Assigning transitions
 		At(moving, idle, IsIdle());
@@ -132,24 +142,15 @@ public class Player : MonoBehaviour
 		At(moving, boomeranging, IsBoomeranging());
 		At(boomeranging, idle, IsNotBoomeranging());
 
+		// Swapping
+		_stateMachine.AddAnyTransition(swapping, IsSwapping());
+		At(swapping, idle, IsNotSwapping());
+
 		// Starting state
 		_stateMachine.SetState(moving);
 
 		// Method to assign transitions easily
 		void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
-
-		//// Transition conditions
-		//Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
-		//Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
-
-		//Func<bool> IsDashing() => () => (isDashing);
-		//Func<bool> IsNotDashing() => () => (!isDashing);
-
-		//Func<bool> IsAttacking() => () => (isAttacking);
-		//Func<bool> IsNotAttacking() => () => (!isAttacking);
-
-		//Func<bool> IsBoomeranging() => () => (isBoomeranging);
-		//Func<bool> IsNotBoomeranging() => () => (!isBoomeranging);
 		#endregion
 
 		#region Instantiating instance variables
@@ -166,7 +167,7 @@ public class Player : MonoBehaviour
 
 		// TODO: Find a better place for this code
 		if (isShadow) // The shadow copies the main player's movement
-			StartCoroutine(ShadowMovement(MainPlayer.GetComponent<Rigidbody2D>().position));
+			StartCoroutine(ShadowMovement(mainPlayer.GetComponent<Rigidbody2D>().position));
 
 		_stateMachine.Tick();
     }
@@ -192,6 +193,9 @@ public class Player : MonoBehaviour
 				break;
 			case StatesEnum.Boomeranging:
 				isBoomeranging = true;
+				break;
+			case StatesEnum.Swapping:
+				isSwapping = true;
 				break;
 			default:
 				break;
@@ -221,11 +225,12 @@ public class Player : MonoBehaviour
 	}
 
 	// TODO: Find a better place for this code
-	private IEnumerator ShadowMovement(Vector3 mainPlayerPosition) // Shadow movement
+	private IEnumerator ShadowMovement(Vector2 mainPlayerPosition) // Shadow movement
 	{
 		yield return new WaitForSeconds(shadowDelay);
 		if (shadowCanMove)
-			_rb.position = Vector3.Lerp(_rb.position, mainPlayerPosition, 0.05f);
+			_rb.position = Vector2.Lerp(_rb.position, mainPlayerPosition, 0.05f);
+			//_rb.position = Vector2.MoveTowards(_rb.position, mainPlayerPosition, maxSpeed * Time.deltaTime);
 	}
 	#endregion
 
@@ -273,6 +278,23 @@ public class Player : MonoBehaviour
 	{
 		if (isShadow == true)
 			obj.GetComponent<SpriteRenderer>().color = Color.black;
+	}
+
+	public void SetCurrentInput(Vector2 input)
+	{
+		xInput = input.x;
+		yInput = input.y;
+	}
+
+	public void SetPrevInput(Vector2 prevInput)
+	{
+		prevxInput = prevInput.x;
+		prevyInput = prevInput.y;
+	}
+
+	public bool CanMove() // Check if the player/shadow can move
+	{
+		return ((isShadow && shadowCanMove) || (!isShadow));
 	}
 
 	#endregion

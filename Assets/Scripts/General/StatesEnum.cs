@@ -5,5 +5,6 @@
 	Dashing,
 	Attacking,
 	Boomeranging,
+	Swapping,
 	None
 }

@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 2008867890}
   - component: {fileID: 2008867891}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: Audio Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -852,6 +852,10 @@ PrefabInstance:
       value: Main Player
       objectReference: {fileID: 0}
     - target: {fileID: 1112453593014836222, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
+      propertyPath: shadowPlayer
+      value: 
+      objectReference: {fileID: 2127566979}
+    - target: {fileID: 1112453593014836222, guid: c0e0cbf8109c7eb4f86af8b1eed2e17c, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 519420031}
@@ -918,6 +922,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2dc0a18226643c408c1c089b257ff9b, type: 3}
+--- !u!1 &2127566979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5791146160672145662, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+  m_PrefabInstance: {fileID: 714601949830122899}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &714601949830122899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -979,7 +988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5791146160672145662, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
       propertyPath: m_Name
-      value: Player Shadow
+      value: Shadow Player
       objectReference: {fileID: 0}
     - target: {fileID: 6879608269991862636, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
       propertyPath: MainPlayer
@@ -993,6 +1002,18 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6879608269991862636, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: ShadowPlayer
+      value: 
+      objectReference: {fileID: 2127566979}
+    - target: {fileID: 6879608269991862636, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: shadowPlayer
+      value: 
+      objectReference: {fileID: 2127566979}
+    - target: {fileID: 6879608269991862636, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
+      propertyPath: mainPlayer
+      value: 
+      objectReference: {fileID: 427224715}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f923ea9991cc94788c59c837e191ad, type: 3}
 --- !u!1001 &6928865738483120109
