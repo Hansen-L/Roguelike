@@ -18,4 +18,14 @@ public class GameManager : MonoBehaviour
 
 		DontDestroyOnLoad(gameObject);
 	}
+
+	public static GameObject GetMainPlayer()
+	{
+		return Instance.mainPlayer;
+	}
+
+	public static GameObject GetShadowPlayer()
+	{
+		return Instance.shadowPlayer;
+	}
 }

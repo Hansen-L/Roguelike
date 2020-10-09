@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
 	#region Public Non-Constant Variables
 	// TODO: Maybe these gameobject references should live in a game manager
 	public GameObject mainPlayer; // GameObject that isn't the shadow
-	public GameObject shadowPlayer;
 	public Camera mainCamera;
 
 	public bool isShadow = false; // If isShadow is true, process inputs with a delay
@@ -88,7 +87,9 @@ public class Player : MonoBehaviour
 
 	#region Boolean methods for state transitions
 	// Note: When calling these methods, we use IsMoving()() or IsMoving().Invoke()
-	public Func<bool> IsMoving() => () => (xInput != 0 || yInput != 0);
+	public Func<bool> HasMovementInput() => () => (xInput != 0 || yInput != 0);
+	public Func<bool> HasVelocity() => () => (_rb.velocity.magnitude > 0.01f);
+	public Func<bool> IsMoving() => () => (HasMovementInput()() || HasVelocity()());
 	public Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
 	public Func<bool> IsIdleOrMoving() => () => ( (CurrentState() == StatesEnum.Idle.ToString()) || (CurrentState() == StatesEnum.Moving.ToString()));
 
@@ -165,10 +166,6 @@ public class Player : MonoBehaviour
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipPlayer();
 
-		// TODO: Find a better place for this code
-		if (isShadow) // The shadow copies the main player's movement
-			StartCoroutine(ShadowMovement(mainPlayer.GetComponent<Rigidbody2D>().position));
-
 		_stateMachine.Tick();
     }
 
@@ -222,15 +219,6 @@ public class Player : MonoBehaviour
 			else if (prevxInput < 0) // moving left
 				transform.localScale = new Vector3(1, 1, 1);
 		}
-	}
-
-	// TODO: Find a better place for this code
-	private IEnumerator ShadowMovement(Vector2 mainPlayerPosition) // Shadow movement
-	{
-		yield return new WaitForSeconds(shadowDelay);
-		if (shadowCanMove)
-			_rb.position = Vector2.Lerp(_rb.position, mainPlayerPosition, 0.05f);
-			//_rb.position = Vector2.MoveTowards(_rb.position, mainPlayerPosition, maxSpeed * Time.deltaTime);
 	}
 	#endregion
 

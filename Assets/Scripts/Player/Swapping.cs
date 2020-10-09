@@ -48,9 +48,9 @@ public class Swapping : IState
 
 	private void SwapPositions()
 	{
-		Vector2 tempVector = _player.mainPlayer.transform.position;
-		_player.mainPlayer.transform.position = _player.shadowPlayer.transform.position;
-		_player.shadowPlayer.transform.position = tempVector;
+		Vector2 tempVector = GameManager.GetMainPlayer().transform.position;
+		GameManager.GetMainPlayer().transform.position = GameManager.GetShadowPlayer().transform.position;
+		GameManager.GetShadowPlayer().transform.position = tempVector;
 	}
 }
 
