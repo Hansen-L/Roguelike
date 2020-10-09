@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 	public const float boomerangReturnAcceleration = 1/boomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
 
 	// Swap
-	public const float swapTime = 0.3f;
+	public const float swapTime = 0.1f;
 
 	public const float bufferWindow = 0.4f; // Buffer window for player combos
 	public const float shadowDelay = 0.6f; // Delay before shadow copies player input
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 	#region Boolean methods for state transitions
 	// Note: When calling these methods, we use IsMoving()() or IsMoving().Invoke()
 	public Func<bool> HasMovementInput() => () => (xInput != 0 || yInput != 0);
-	public Func<bool> HasVelocity() => () => (_rb.velocity.magnitude > 0.01f);
+	public Func<bool> HasVelocity() => () => (_rb.velocity.magnitude > 0.001f);
 	public Func<bool> IsMoving() => () => (HasMovementInput()() || HasVelocity()());
 	public Func<bool> IsIdle() => () => (xInput == 0 && yInput == 0);
 	public Func<bool> IsIdleOrMoving() => () => ( (CurrentState() == StatesEnum.Idle.ToString()) || (CurrentState() == StatesEnum.Moving.ToString()));
@@ -214,7 +214,11 @@ public class Player : MonoBehaviour
 	{
 		if (IsIdleOrMoving()())
 		{
-			if (prevxInput > 0) // moving right
+			if (_rb.velocity.x > 0) // moving right
+				transform.localScale = new Vector3(-1, 1, 1);
+			else if (_rb.velocity.x < 0) // moving left
+				transform.localScale = new Vector3(1, 1, 1);
+			else if (prevxInput > 0) // moving right
 				transform.localScale = new Vector3(-1, 1, 1);
 			else if (prevxInput < 0) // moving left
 				transform.localScale = new Vector3(1, 1, 1);

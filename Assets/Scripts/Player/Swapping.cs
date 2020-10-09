@@ -18,17 +18,25 @@ public class Swapping : IState
 
 	public void OnEnter()
 	{
-		//_animator.SetTrigger("dash");
+		if (!_player.isShadow)
+			SwapPositions();
+
 		_rb.velocity = new Vector2(0f, 0f);
 		swapTimer = 0f;
 
 		if (!_player.isShadow)
-			SwapPositions();
+			_animator.SetTrigger("swapMain");
+		else
+			_animator.SetTrigger("swapShadow");
 	}
 
 	public void Tick()
 	{
-		swapTimer += Time.deltaTime;
+	}
+
+	public void FixedTick()
+	{
+		swapTimer += Time.fixedDeltaTime;
 
 		if (swapTimer >= Player.swapTime)
 		{
@@ -36,14 +44,11 @@ public class Swapping : IState
 		}
 	}
 
-	public void FixedTick()
-	{
-	}
-
 
 	public void OnExit()
 	{
-		//_animator.ResetTrigger("dash");
+		_animator.ResetTrigger("swapMain");
+		_animator.ResetTrigger("swapShadow");
 	}
 
 	private void SwapPositions()
@@ -51,6 +56,7 @@ public class Swapping : IState
 		Vector2 tempVector = GameManager.GetMainPlayer().transform.position;
 		GameManager.GetMainPlayer().transform.position = GameManager.GetShadowPlayer().transform.position;
 		GameManager.GetShadowPlayer().transform.position = tempVector;
+		ShadowMovementManager.ResetPositionQueue();
 	}
 }
 
