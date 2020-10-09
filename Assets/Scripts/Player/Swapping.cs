@@ -32,16 +32,16 @@ public class Swapping : IState
 
 	public void Tick()
 	{
-	}
-
-	public void FixedTick()
-	{
-		swapTimer += Time.fixedDeltaTime;
+		swapTimer += Time.deltaTime;
 
 		if (swapTimer >= Player.swapTime)
 		{
 			_player.isSwapping = false;
 		}
+	}
+
+	public void FixedTick()
+	{
 	}
 
 

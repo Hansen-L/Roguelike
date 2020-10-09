@@ -50,10 +50,6 @@ public class ShadowMovementManager : MonoBehaviour
 			Vector2 deltaPosition = mainPlayerPosition - shadowPlayerRb.position;
 			Vector2 newPosition = shadowPlayerRb.position + Vector2.ClampMagnitude(deltaPosition, Player.maxSpeed * Time.fixedDeltaTime);
 			shadowPlayerRb.velocity = (newPosition - prevPosition) / Time.fixedDeltaTime;
-
-			//Debug.Log("1   " + ((shadowPlayerRb.position - prevPosition) / Time.deltaTime).magnitude);
-			//Debug.Log("2    " + shadowPlayerRb.velocity.magnitude);
-			//Debug.Log(shadowPlayerRb.velocity.magnitude);
 		}
 		else
 			shadowPlayerRb.velocity = new Vector2(0f, 0f);

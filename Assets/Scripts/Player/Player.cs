@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 	// Boomerang
 	public const float boomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
 	public const int boomerangDamage = 20;
+	public const int boomerangExplosionDamage = 40;
 	public const float boomerangStartSpeed = 20f;
 	public const float boomerangStartSpeedShadow = 21f;
 	public const float boomerangTorque = 1000f;
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
 	public const float boomerangReturnAcceleration = 1/boomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
 
 	// Swap
-	public const float swapTime = 0.1f;
+	public const float swapTime = 0.2f;
 
 	public const float bufferWindow = 0.4f; // Buffer window for player combos
 	public const float shadowDelay = 0.6f; // Delay before shadow copies player input
