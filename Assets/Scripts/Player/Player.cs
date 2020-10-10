@@ -3,9 +3,11 @@ using System;
 using Utils;
 using System.Collections;
 
-public class Player : MonoBehaviour 
+public class Player : MonoBehaviour, IHealth
 {
-	#region Constants
+	#region Gameplay constants
+	public const int maxHealth = 100;
+
 	// Movement
 	public const float acceleration = 1f;
     public const float maxSpeed = 8f;
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
 	public const int boomerangDamage = 20;
 	public const int boomerangExplosionDamage = 40;
 	public const float boomerangStartSpeed = 20f;
-	public const float boomerangStartSpeedShadow = 21f;
+	public const float boomerangStartSpeedShadow = 20.5f;
 	public const float boomerangTorque = 1000f;
 	public const float boomerangSlowdownFactor = 2f; // Governs how quickly the boomerang reverses (smaller number means faster reversal)
 	public const float boomerangReturnAcceleration = 1/boomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
@@ -56,15 +58,15 @@ public class Player : MonoBehaviour
 	public GameObject boomerangExplosionEffect;
 	public Transform projectileFirePoint;
 
-	public float xInput = 0f;
-    public float yInput = 0f;
-	public float prevxInput = -1f;
-    public float prevyInput = 0f;
+	public bool canBoomerang = true; // Determines if the player can throw a boomerang
 
 	public int comboCount = 0; // Track which hit of combo we are on
 	public float comboTimer = 0f;
-
-	public bool canBoomerang = true; // Determines if the player can throw a boomerang
+	
+	public float xInput = 0f;
+	public float yInput = 0f;
+	public float prevxInput = -1f;
+	public float prevyInput = 0f;
 
 	// Used for state transitions
 	public bool isAttacking = false;
@@ -84,6 +86,9 @@ public class Player : MonoBehaviour
 
 	private float xVelocity;
 	private float yVelocity;
+
+	private int health = maxHealth;
+
 	#endregion
 
 	#region Boolean methods for state transitions
@@ -167,6 +172,9 @@ public class Player : MonoBehaviour
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipPlayer();
 
+		if (IsDead())
+			Debug.Log("Player has died");
+
 		_stateMachine.Tick();
     }
 
@@ -175,6 +183,29 @@ public class Player : MonoBehaviour
         _stateMachine.FixedTick();
 	}
 
+	#region Health functions
+	// TODO: Could put this in a separate script?
+	public int GetHealth()
+	{
+		return health;
+	}
+
+	public void TakeDamage(int damageAmount)
+	{
+		health -= damageAmount;
+		if (health < 0) { health = 0; }
+	}
+
+	public void GainHealth(int healthAmount)
+	{
+	}
+
+	public bool IsDead()
+	{
+		// If health less than 0, return true
+		return (health <= 0) ? true : false;
+	}
+	#endregion
 
 	#region Methods called every frame regardless of state
 	public void SetState(StatesEnum state) // Use the method to set the player state based on the input

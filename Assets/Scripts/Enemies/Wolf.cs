@@ -5,11 +5,12 @@ using UnityEngine;
 public class Wolf : MonoBehaviour, IEnemy
 {
     public const int maxHealth = 100;
+    public const float deathAnimationTime = 0.8f;
 
     public GameObject healthBar;
 
     private int health = maxHealth;
-    private bool dead = false;
+    private bool isDead = false;
 
     private Animator _animator;
 
@@ -25,7 +26,8 @@ public class Wolf : MonoBehaviour, IEnemy
         // Check if Wolf still has health, if not then kill the wolf
         if (IsDead())
         {
-            if (dead == false) { Die(); } // Wolf hasn't already died. TODO: Make this cleaner
+            if (isDead == false)  // Wolf hasn't already died. TODO: Make this cleaner
+                Die();
         }
         else { UpdateHealthBar(); }
     }
@@ -55,12 +57,12 @@ public class Wolf : MonoBehaviour, IEnemy
 
     public void Die()
     {
-        dead = true;
+        isDead = true;
         _animator.SetTrigger("die");
         GetComponent<BoxCollider2D>().enabled = false; // disable collisions
         Destroy(transform.GetChild(0).gameObject);
-        Destroy(gameObject, 2f);
-    }
+		Destroy(gameObject, deathAnimationTime);
+	}
 
     private void UpdateHealthBar()
     {
