@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wolf : MonoBehaviour, IEnemy
+public class Wolf : MonoBehaviour
 {
     public const int maxHealth = 100;
     public const float deathAnimationTime = 0.8f;

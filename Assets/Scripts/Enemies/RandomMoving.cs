@@ -4,13 +4,13 @@ using System.Threading;
 public class RandomMoving : IState
 {
 	private Animator _animator;
-	private IEnemy _enemy;
+	private AEnemy _enemy;
 	private Rigidbody2D _rb;
 
 	private float moveTimer;
 	private Vector2 moveDirection;
 
-	public RandomMoving(IEnemy enemy, Animator animator, Rigidbody2D rb)
+	public RandomMoving(AEnemy enemy, Animator animator, Rigidbody2D rb)
 	{
 		_enemy = enemy;
 		_animator = animator;
@@ -19,24 +19,20 @@ public class RandomMoving : IState
 
 	public void OnEnter()
 	{
-		_animator.SetTrigger("moving");
+		//_animator.SetTrigger("moving");
 
 		moveTimer = 0f;
-
-		moveDirection = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
+		moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+		Debug.Log(moveDirection);
 	}
 
 	public void Tick()
 	{
 		moveTimer += Time.deltaTime;
-		//_rb.velocity = _enemy.moveSpeed * moveDirection;
+		_rb.velocity = _enemy.MoveSpeed * moveDirection;
 
-
-		//if (moveTimer >= Player.dashTime)
-		//{
-		//	_enemy.isMoving = false;
-			//_player.isStunned = true; // Stun at the end of dash
-		//}
+		if (moveTimer >= _enemy.MoveTime)
+			_enemy.isMoving = false;
 	}
 
 	public void FixedTick()
@@ -47,6 +43,5 @@ public class RandomMoving : IState
 	public void OnExit()
 	{
 		_rb.velocity = new Vector2(0, 0);
-		_animator.ResetTrigger("dash");
 	}
 }

@@ -114,7 +114,7 @@ public class Attacking : IState
 
         foreach (Collider2D collider in allColliders)
         {
-            IEnemy enemyScript = collider.gameObject.GetComponent<IEnemy>();
+            AEnemy enemyScript = collider.gameObject.GetComponent<AEnemy>();
             // Check if the enemy script exists to confirm that this is an enemy's collider
             if (enemyScript!=null && !enemyScript.IsDead()) // If enemy isn't already dead, do damage
             {
