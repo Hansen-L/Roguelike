@@ -32,18 +32,18 @@ public class Attacking : IState
         {
             _player.comboCount = 0;
             BarkEffect();
-            LaunchAttack(_player.barkCollider, Player.barkDamage);
+            LaunchAttack(_player.barkCollider, Player.BarkDamage);
         }
         else {
             SlashEffect();
-            LaunchAttack(_player.slashCollider, Player.slashDamage);
+            LaunchAttack(_player.slashCollider, Player.SlashDamage);
         }
     }
 
     public void Tick() 
     {
         attackTimer += Time.deltaTime;
-        if (attackTimer >= Player.attackTime)
+        if (attackTimer >= Player.AttackTime)
         {
             _player.isAttacking = false;
         }

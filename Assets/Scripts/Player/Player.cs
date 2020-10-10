@@ -6,38 +6,38 @@ using System.Collections;
 public class Player : MonoBehaviour, IHealth
 {
 	#region Gameplay constants
-	public const int maxHealth = 100;
+	public const int MaxHealth = 100;
 
 	// Movement
-	public const float acceleration = 1f;
-    public const float maxSpeed = 8f;
-    public const float friction = 0.4f;
+	public const float Acceleration = 1f;
+    public const float MaxSpeed = 8f;
+    public const float Friction = 0.4f;
 
 	// Dash
-	public const float dashSpeed = 15f;
-	public const float dashTime = 0.2f;
+	public const float DashSpeed = 15f;
+	public const float DashTime = 0.2f;
 
 	// Attack
-	public const float attackTime = 0.25f;
-	public const float comboWindow = 0.7f; // Time between attacks for combo
-	public const int slashDamage = 10;
-	public const int barkDamage = 30;
+	public const float AttackTime = 0.25f;
+	public const float ComboWindow = 0.7f; // Time between attacks for combo
+	public const int SlashDamage = 10;
+	public const int BarkDamage = 30;
 
 	// Boomerang
-	public const float boomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
-	public const int boomerangDamage = 20;
-	public const int boomerangExplosionDamage = 40;
-	public const float boomerangStartSpeed = 20f;
-	public const float boomerangStartSpeedShadow = 20.5f;
-	public const float boomerangTorque = 1000f;
-	public const float boomerangSlowdownFactor = 2f; // Governs how quickly the boomerang reverses (smaller number means faster reversal)
-	public const float boomerangReturnAcceleration = 1/boomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
+	public const float BoomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
+	public const int BoomerangDamage = 20;
+	public const int BoomerangExplosionDamage = 40;
+	public const float BoomerangStartSpeed = 20f;
+	public const float BoomerangStartSpeedShadow = 20.5f;
+	public const float BoomerangTorque = 1000f;
+	public const float BoomerangSlowdownFactor = 2f; // Governs how quickly the boomerang reverses (smaller number means faster reversal)
+	public const float BoomerangReturnAcceleration = 1/BoomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
 
 	// Swap
-	public const float swapTime = 0.2f;
+	public const float SwapTime = 0.2f;
 
-	public const float bufferWindow = 0.4f; // Buffer window for player combos
-	public const float shadowDelay = 0.6f; // Delay before shadow copies player input
+	public const float BufferWindow = 0.4f; // Buffer window for player combos
+	public const float ShadowDelay = 0.6f; // Delay before shadow copies player input
 	#endregion
 
 	#region Public Non-Constant Variables
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour, IHealth
 	private float xVelocity;
 	private float yVelocity;
 
-	private int health = maxHealth;
+	private int health = MaxHealth;
 
 	#endregion
 
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour, IHealth
 	{
 		if (comboCount != 0) { comboTimer += Time.deltaTime; } // Start the combo timer once the attack starts
 
-		if (comboTimer >= Player.comboWindow) // If the player took too long to attack, reset the combo
+		if (comboTimer >= Player.ComboWindow) // If the player took too long to attack, reset the combo
 		{
 			comboCount = 0;
 			comboTimer = 0;
@@ -266,15 +266,15 @@ public class Player : MonoBehaviour, IHealth
 		if (!isShadow) // If this is not the shadow gameobject, process movement as regular
 		{
 			if (xInput * xVelocity <= 0)
-				xVelocity *= Player.friction;
+				xVelocity *= Player.Friction;
 			if (yInput * yVelocity <= 0)
-				yVelocity *= Player.friction;
+				yVelocity *= Player.Friction;
 
-			xVelocity = Mathf.Clamp(xVelocity + xInput * Player.acceleration, -Player.maxSpeed, Player.maxSpeed);
-			yVelocity = Mathf.Clamp(yVelocity + yInput * Player.acceleration, -Player.maxSpeed, Player.maxSpeed);
+			xVelocity = Mathf.Clamp(xVelocity + xInput * Player.Acceleration, -Player.MaxSpeed, Player.MaxSpeed);
+			yVelocity = Mathf.Clamp(yVelocity + yInput * Player.Acceleration, -Player.MaxSpeed, Player.MaxSpeed);
 
 			Vector2 total_velocity = new Vector2(xVelocity, yVelocity);
-			_rb.velocity = Vector2.ClampMagnitude(total_velocity, Player.maxSpeed);
+			_rb.velocity = Vector2.ClampMagnitude(total_velocity, Player.MaxSpeed);
 		}
 	}
 	#endregion

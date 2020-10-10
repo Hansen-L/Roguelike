@@ -27,8 +27,8 @@ public class ShadowMovementManager : MonoBehaviour
 	{
 		shadowPlayerScript = GameManager.GetShadowPlayer().GetComponent<Player>();
 		mainPlayerScript = GameManager.GetMainPlayer().GetComponent<Player>();
-		shadowPlayerRb = GameManager.GetShadowPlayer().GetComponent<Rigidbody2D>();
-		mainPlayerRb = GameManager.GetMainPlayer().GetComponent<Rigidbody2D>();
+		shadowPlayerRb = GameManager.GetShadowPlayerRb();
+		mainPlayerRb = GameManager.GetMainPlayerRb();
 	}
 
 	private void FixedUpdate()
@@ -40,7 +40,7 @@ public class ShadowMovementManager : MonoBehaviour
 	private IEnumerator ShadowMovement() // Shadow movement
 	{
 		//yield return new WaitForSeconds(Player.shadowDelay);
-		for (int i=0; i < Player.shadowDelay/Time.fixedDeltaTime; i++)
+		for (int i=0; i < Player.ShadowDelay/Time.fixedDeltaTime; i++)
 			yield return new WaitForFixedUpdate();
 
 		Vector2 mainPlayerPosition = mainPlayerPositionQueue.Dequeue();
@@ -48,7 +48,7 @@ public class ShadowMovementManager : MonoBehaviour
 		{
 			Vector2 prevPosition = shadowPlayerRb.position;
 			Vector2 deltaPosition = mainPlayerPosition - shadowPlayerRb.position;
-			Vector2 newPosition = shadowPlayerRb.position + Vector2.ClampMagnitude(deltaPosition, Player.maxSpeed * Time.fixedDeltaTime);
+			Vector2 newPosition = shadowPlayerRb.position + Vector2.ClampMagnitude(deltaPosition, Player.MaxSpeed * Time.fixedDeltaTime);
 			shadowPlayerRb.velocity = (newPosition - prevPosition) / Time.fixedDeltaTime;
 		}
 		else

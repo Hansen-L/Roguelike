@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BufferItem
 {
-	public float bufferTimer = Player.bufferWindow; // Variable to hold how long this item can stay in buffer
+	public float bufferTimer = Player.BufferWindow; // Variable to hold how long this item can stay in buffer
 	private StatesEnum _input; // String representing player input
 
 	public BufferItem(StatesEnum state)

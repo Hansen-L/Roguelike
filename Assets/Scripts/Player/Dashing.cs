@@ -33,10 +33,10 @@ public class Dashing : IState
 	public void Tick()
 	{
 		dashTimer += Time.deltaTime;
-		_rb.velocity = Player.dashSpeed * dashDirection;
+		_rb.velocity = Player.DashSpeed * dashDirection;
 
 
-		if (dashTimer >= Player.dashTime)
+		if (dashTimer >= Player.DashTime)
 		{
 			_player.isDashing = false;
 			//_player.isStunned = true; // Stun at the end of dash

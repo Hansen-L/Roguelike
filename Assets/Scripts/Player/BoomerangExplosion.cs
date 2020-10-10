@@ -22,6 +22,6 @@ public class BoomerangExplosion : MonoBehaviour
         AEnemy enemyScript = otherCollider.gameObject.GetComponent<AEnemy>();
         // Check if the object is an enemy by looking for an enemy script
         if (enemyScript != null && !enemyScript.IsDead()) // If enemy isn't already dead, do damage
-            enemyScript.TakeDamage(Player.boomerangExplosionDamage);
+            enemyScript.TakeDamage(Player.BoomerangExplosionDamage);
     }
 }

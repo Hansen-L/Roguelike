@@ -35,7 +35,7 @@ public class Boomeranging : IState
     public void Tick()
     {
         boomerangTimer += Time.deltaTime;
-        if (boomerangTimer >= Player.boomerangTime)
+        if (boomerangTimer >= Player.BoomerangTime)
         {
             _player.isBoomeranging = false;
         }
@@ -60,7 +60,7 @@ public class Boomeranging : IState
         GameObject boomerangObject = GameObject.Instantiate(_player.boomerangPrefab, _player.projectileFirePoint.position, _player.projectileFirePoint.rotation);
         boomerangObject.GetComponent<Boomerang>().SetPlayer(_player); // Pass the player object to the boomerang script
         Rigidbody2D boomerangRb = boomerangObject.GetComponent<Rigidbody2D>();
-        boomerangRb.AddTorque(Player.boomerangTorque);
+        boomerangRb.AddTorque(Player.BoomerangTorque);
         _player.SetColorToBlack(boomerangObject);
 
         // Calculate the unit vector towards the mouse, launch boomerang in that direction
@@ -76,9 +76,9 @@ public class Boomeranging : IState
         float returningMaxDistDelta = 0; // Change in position when boomerang is returning
 
         if (_player.isShadow)
-            boomerangRb.velocity = launchDir * Player.boomerangStartSpeedShadow; // Initial velocity
+            boomerangRb.velocity = launchDir * Player.BoomerangStartSpeedShadow; // Initial velocity
         else
-            boomerangRb.velocity = launchDir * Player.boomerangStartSpeed;
+            boomerangRb.velocity = launchDir * Player.BoomerangStartSpeed;
 
         while (boomerangRb)
         {
@@ -86,12 +86,12 @@ public class Boomeranging : IState
 
             if (Vector2.Dot(boomerangRb.velocity, launchDir) >= -0.5) // When the boomerang is being thrown
             {
-                boomerangRb.velocity -= launchDir / Player.boomerangSlowdownFactor;
+                boomerangRb.velocity -= launchDir / Player.BoomerangSlowdownFactor;
                 yield return new WaitForFixedUpdate();
             }
             else // When the boomerang is returning
             {
-                returningMaxDistDelta += Player.boomerangReturnAcceleration;
+                returningMaxDistDelta += Player.BoomerangReturnAcceleration;
                 boomerangRb.position = Vector2.MoveTowards(boomerangRb.position, _rb.position, Time.deltaTime*returningMaxDistDelta);
 
                 // Destroy boomerang when it is returned

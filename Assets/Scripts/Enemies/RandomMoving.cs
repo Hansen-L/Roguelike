@@ -21,9 +21,8 @@ public class RandomMoving : IState
 	{
 		//_animator.SetTrigger("moving");
 
-		moveTimer = 0f;
+		moveTimer = Random.Range(-2f,0f);
 		moveDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-		Debug.Log(moveDirection);
 	}
 
 	public void Tick()

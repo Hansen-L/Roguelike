@@ -20,7 +20,7 @@ public class EnemyIdle : IState
 	{
 		//_animator.SetTrigger("idle");
 
-		idleTimer = 0f;
+		idleTimer = Random.Range(-2f, 0f);
 		_rb.velocity = new Vector2(0f, 0f);
 	}
 

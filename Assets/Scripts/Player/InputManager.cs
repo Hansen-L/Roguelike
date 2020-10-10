@@ -68,7 +68,7 @@ public class InputManager : MonoBehaviour
 		if (!_player.isShadow)
 			yield return null;
 		else
-			yield return new WaitForSeconds(Player.shadowDelay);
+			yield return new WaitForSeconds(Player.ShadowDelay);
 
 		// TODO: Don't access variables from player object directly
 		// Gives a value between -1 and 1
@@ -86,7 +86,7 @@ public class InputManager : MonoBehaviour
 		if (!_player.isShadow)
 			yield return null;
 		else
-			yield return new WaitForSeconds(Player.shadowDelay);
+			yield return new WaitForSeconds(Player.ShadowDelay);
 
 		switch (state)
 		{

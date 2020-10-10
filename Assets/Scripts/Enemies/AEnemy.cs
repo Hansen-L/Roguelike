@@ -22,6 +22,8 @@ public abstract class AEnemy: MonoBehaviour, IHealth
 
 	public bool isDead = false;
 	public bool isMoving = false;
+    public bool isAttacking = false;
+    public bool canAttack = true;
 
 
 	public int GetHealth()

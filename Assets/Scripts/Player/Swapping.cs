@@ -34,7 +34,7 @@ public class Swapping : IState
 	{
 		swapTimer += Time.deltaTime;
 
-		if (swapTimer >= Player.swapTime)
+		if (swapTimer >= Player.SwapTime)
 		{
 			_rb.velocity = new Vector2(0f, 0f);
 			_player.isSwapping = false;
