@@ -16,7 +16,7 @@ public class Cat : AEnemy
 	public override float AttackRange { get { return 3f; } }
 
 	// Cat specific constants
-	public float ChargeTime { get { return 0.3f; } }
+	public float ChargeTime { get { return 0.5f; } }
 	public float DashTime { get { return 0.5f; } }
 	public float DashSpeed { get { return 7f; } }
 	public float AttackCooldown { get { return 1f; } }

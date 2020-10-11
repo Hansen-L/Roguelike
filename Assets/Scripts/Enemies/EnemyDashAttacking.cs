@@ -21,7 +21,8 @@ public class EnemyDashAttacking : IState
 
 	public void OnEnter()
 	{
-		//_animator.SetTrigger("moving");
+		_animator.SetTrigger("charging");
+		Debug.Log("charging");
 		_cat.isAttacking = true;
 
 		attackTimer = 0f;
@@ -55,5 +56,6 @@ public class EnemyDashAttacking : IState
 	public void OnExit()
 	{
 		_rb.velocity = new Vector2(0, 0);
+		_animator.ResetTrigger("charging");
 	}
 }
