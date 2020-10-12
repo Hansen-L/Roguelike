@@ -38,6 +38,7 @@ public class Cat : AEnemy
 
 	public GameObject healthBar;
 	public float attackCooldownTimer = 0f;
+	public bool hitboxActive = false;
 
 
 	// Start is called before the first frame update
@@ -98,7 +99,7 @@ public class Cat : AEnemy
 	private void OnTriggerEnter2D(Collider2D otherCollider)
 	{
 		bool hasDoneDamage = false; // Only hit player once
-		if (isAttacking && !hasDoneDamage) // Enable hitbox when attacking
+		if (hitboxActive && !hasDoneDamage) // Enable hitbox when attacking
 		{
 			Player playerScript = otherCollider.gameObject.GetComponent<Player>();
 			if (playerScript!= null && !playerScript.isShadow) // If we hit th emain player

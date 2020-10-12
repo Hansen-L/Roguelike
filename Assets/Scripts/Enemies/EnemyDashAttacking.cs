@@ -43,6 +43,7 @@ public class EnemyDashAttacking : IState
 			if (!hasDashed)
 			{
 				hasDashed = true;
+				_cat.hitboxActive = true;
 				_rb.velocity = _cat.DashSpeed * attackDirection;
 
 				if (attackDirection.x > 0)
@@ -54,6 +55,7 @@ public class EnemyDashAttacking : IState
 		else if (attackTimer > _cat.ChargeTime + _cat.DashTime) // If done charging and dashing
 		{
 			_cat.isAttacking = false;
+			_cat.hitboxActive = false;
 			_cat.ResetAttackCooldown();
 		}
 	}
