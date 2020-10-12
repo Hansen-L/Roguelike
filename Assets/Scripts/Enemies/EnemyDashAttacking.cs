@@ -12,6 +12,8 @@ public class EnemyDashAttacking : IState
 	private float attackTimer;
 	private Vector2 attackDirection;
 
+	private bool hasDashed = false;
+
 	public EnemyDashAttacking(Cat cat, Animator animator, Rigidbody2D rb)
 	{
 		_cat = cat;
@@ -22,11 +24,10 @@ public class EnemyDashAttacking : IState
 	public void OnEnter()
 	{
 		_animator.SetTrigger("charging");
-		Debug.Log("charging");
 		_cat.isAttacking = true;
 
 		attackTimer = 0f;
-		attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
+
 	}
 
 	public void Tick()
@@ -39,7 +40,17 @@ public class EnemyDashAttacking : IState
 		}
 		else if ((attackTimer > _cat.ChargeTime) && (attackTimer <= _cat.ChargeTime + _cat.DashTime))
 		{
-			_rb.velocity = _cat.DashSpeed * attackDirection;
+			if (!hasDashed)
+			{
+				hasDashed = true;
+				attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
+				_rb.velocity = _cat.DashSpeed * attackDirection;
+
+				if (attackDirection.x > 0)
+					_animator.SetTrigger("dashing right");
+				else
+					_animator.SetTrigger("dashing left");
+			}
 		}
 		else if (attackTimer > _cat.ChargeTime + _cat.DashTime) // If done charging and dashing
 		{
@@ -55,7 +66,11 @@ public class EnemyDashAttacking : IState
 
 	public void OnExit()
 	{
+		_cat.transform.localScale = new Vector3(1, 1, 1);
 		_rb.velocity = new Vector2(0, 0);
+		_animator.ResetTrigger("dashing right");
+		_animator.ResetTrigger("dashing left");
 		_animator.ResetTrigger("charging");
+		hasDashed = false;
 	}
 }

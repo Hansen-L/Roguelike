@@ -118,8 +118,8 @@ public class Cat : AEnemy
 	}
 	#endregion
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.DrawWireSphere(this.transform.position, AttackRange);
-	}
+	//private void OnDrawGizmos()
+	//{
+	//	Gizmos.DrawWireSphere(this.transform.position, AttackRange);
+	//}
 }
