@@ -27,7 +27,7 @@ public class EnemyDashAttacking : IState
 		_cat.isAttacking = true;
 
 		attackTimer = 0f;
-
+		attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
 	}
 
 	public void Tick()
@@ -43,7 +43,6 @@ public class EnemyDashAttacking : IState
 			if (!hasDashed)
 			{
 				hasDashed = true;
-				attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
 				_rb.velocity = _cat.DashSpeed * attackDirection;
 
 				if (attackDirection.x > 0)

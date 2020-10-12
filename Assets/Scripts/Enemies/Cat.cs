@@ -20,6 +20,7 @@ public class Cat : AEnemy
 	public float DashTime { get { return 0.5f; } }
 	public float DashSpeed { get { return 7f; } }
 	public float AttackCooldown { get { return 1f; } }
+	public int AttackDamage { get { return 10; } }
 	#endregion
 
 
@@ -73,9 +74,12 @@ public class Cat : AEnemy
 	// Update is called once per frame
 	void Update()
 	{
-		_stateMachine.Tick();
-		CheckIfDead();
-		CheckAttackCooldown();
+		if (!isDead)
+		{
+			_stateMachine.Tick();
+			CheckIfDead();
+			CheckAttackCooldown();
+		}
 	}
 
 	private void CheckAttackCooldown()
@@ -89,6 +93,17 @@ public class Cat : AEnemy
 	{
 		canAttack = false;
 		attackCooldownTimer = 0f;
+	}
+
+	private void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		bool hasDoneDamage = false; // Only hit player once
+		if (isAttacking && !hasDoneDamage) // Enable hitbox when attacking
+		{
+			Player playerScript = otherCollider.gameObject.GetComponent<Player>();
+			if (playerScript!= null && !playerScript.isShadow) // If we hit th emain player
+				playerScript.TakeDamage(AttackDamage);
+		}
 	}
 
 	#region Health methods

@@ -44,6 +44,7 @@ public class Player : MonoBehaviour, IHealth
 	// TODO: Maybe these gameobject references should live in a game manager
 	public GameObject mainPlayer; // GameObject that isn't the shadow
 	public Camera mainCamera;
+	public GameObject healthBar;
 
 	public bool isShadow = false; // If isShadow is true, process inputs with a delay
 	public bool shadowCanMove = true;
@@ -172,8 +173,13 @@ public class Player : MonoBehaviour, IHealth
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipPlayer();
 
-		if (IsDead())
-			Debug.Log("Player has died");
+		// TODO: Make a health check method
+		if (!isShadow)
+		{
+			if (IsDead())
+				Debug.Log("Player has died");
+			UpdateHealthBar();
+		}
 
 		_stateMachine.Tick();
     }
@@ -198,12 +204,20 @@ public class Player : MonoBehaviour, IHealth
 
 	public void GainHealth(int healthAmount)
 	{
+		health += healthAmount;
+		if (health >= MaxHealth)
+			health = MaxHealth;
 	}
 
 	public bool IsDead()
 	{
 		// If health less than 0, return true
 		return (health <= 0) ? true : false;
+	}
+
+	private void UpdateHealthBar()
+	{
+		healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.3f), 1f);
 	}
 	#endregion
 

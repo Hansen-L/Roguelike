@@ -18,8 +18,8 @@ TagManager:
   - Effects
   - Boomerang
   - Hitboxes
-  - 
-  - 
+  - Walls
+  - Wall Colliders
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 241575495
+    locked: 0
   - name: Background
     uniqueID: 3391803461
     locked: 0
