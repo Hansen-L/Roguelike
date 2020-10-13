@@ -48,7 +48,7 @@ public class ShadowMovementManager : MonoBehaviour
 		{
 			Vector2 prevPosition = shadowPlayerRb.position;
 			Vector2 deltaPosition = mainPlayerPosition - shadowPlayerRb.position;
-			Vector2 newPosition = shadowPlayerRb.position + Vector2.ClampMagnitude(deltaPosition, Player.MaxSpeed * Time.fixedDeltaTime);
+			Vector2 newPosition = shadowPlayerRb.position + Vector2.ClampMagnitude(deltaPosition, Player.MaxSpeed * Player.ShadowSpeedRatio * Time.fixedDeltaTime);
 			shadowPlayerRb.velocity = (newPosition - prevPosition) / Time.fixedDeltaTime;
 		}
 		else

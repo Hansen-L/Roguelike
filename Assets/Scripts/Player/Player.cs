@@ -27,8 +27,8 @@ public class Player : MonoBehaviour, IHealth
 	public const float BoomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
 	public const int BoomerangDamage = 20;
 	public const int BoomerangExplosionDamage = 40;
-	public const float BoomerangStartSpeed = 20f;
-	public const float BoomerangStartSpeedShadow = 20.5f;
+	public const float BoomerangStartSpeed = 15f;
+	public const float BoomerangStartSpeedShadow = 15.5f;
 	public const float BoomerangTorque = 1000f;
 	public const float BoomerangSlowdownFactor = 2f; // Governs how quickly the boomerang reverses (smaller number means faster reversal)
 	public const float BoomerangReturnAcceleration = 1/BoomerangSlowdownFactor; // Affects how fast the boomerang accelerates when returning. Not actual acceleration units though.
@@ -37,7 +37,8 @@ public class Player : MonoBehaviour, IHealth
 	public const float SwapTime = 0.2f;
 
 	public const float BufferWindow = 0.4f; // Buffer window for player combos
-	public const float ShadowDelay = 0.6f; // Delay before shadow copies player input
+	public const float ShadowDelay = 0.3f; // Delay before shadow copies player input
+	public const float ShadowSpeedRatio = 0.8f; // What percent of player speed the shadow can move at
 	#endregion
 
 	#region Public Non-Constant Variables

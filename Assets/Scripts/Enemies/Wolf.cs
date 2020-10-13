@@ -17,9 +17,9 @@ public class Wolf : AProjectileEnemy
 	public override float AttackCooldown { get { return 4f; } }
 	public override int AttackDamage { get { return 10; } }
 
-	public override float ChargeTime { get { return 0.5f; } }
+	public override float ProjectileChargeTime { get { return 0.5f; } }
 	public override float ProjectileDuration { get { return 0.5f; } }
-	public override float ProjectileSpeed { get { return 7f; } }
+	public override float ProjectileSpeed { get { return 2f; } }
 	#endregion
 
 	public GameObject healthBar;
@@ -36,10 +36,14 @@ public class Wolf : AProjectileEnemy
 
 		var randomMoving = new RandomMoving(this, _animator, _rb);
 		var enemyIdle = new EnemyIdle(this, _animator, _rb);
+		var enemyProjectiling = new EnemyProjectiling(this, _animator, _rb);
 
 		// Assigning transitions
 		At(randomMoving, enemyIdle, IsIdle());
 		At(enemyIdle, randomMoving, IsMoving());
+
+		_stateMachine.AddAnyTransition(enemyProjectiling, IsInRangeAndCanAttack());
+		At(enemyProjectiling, enemyIdle, IsNotAttacking());
 
 		// Starting state
 		_stateMachine.SetState(enemyIdle);
@@ -73,7 +77,7 @@ public class Wolf : AProjectileEnemy
 		else if (_rb.velocity.x < 0) // moving left
 		{
 			transform.localScale = new Vector3(-1, 1, 1);
-			transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
+			transform.GetChild(0).transform.localScale = new Vector3(-1, 1, 1);
 		}
 }
 
