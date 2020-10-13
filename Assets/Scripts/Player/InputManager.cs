@@ -39,9 +39,9 @@ public class InputManager : MonoBehaviour
 			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
 
 		if (Input.GetMouseButtonDown(0))
-			if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); }
-			else { bufferSystem.Enqueue(StatesEnum.Attacking); }
-		//StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Attacking));
+			//if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); }
+			//else { bufferSystem.Enqueue(StatesEnum.Attacking); }
+			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Attacking));
 
 		if (Input.GetMouseButtonDown(1)) // No delay for boomerang
 		{

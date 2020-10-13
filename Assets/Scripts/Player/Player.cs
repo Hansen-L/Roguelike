@@ -14,11 +14,11 @@ public class Player : MonoBehaviour, IHealth
     public const float Friction = 0.4f;
 
 	// Dash
-	public const float DashSpeed = 15f;
-	public const float DashTime = 0.2f;
+	public const float DashSpeed = 20f;
+	public const float DashTime = 0.15f;
 
 	// Attack
-	public const float AttackTime = 0.25f;
+	public const float AttackTime = 0.15f;
 	public const float ComboWindow = 0.7f; // Time between attacks for combo
 	public const int SlashDamage = 10;
 	public const int BarkDamage = 30;
@@ -82,6 +82,7 @@ public class Player : MonoBehaviour, IHealth
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
 	private Rigidbody2D _rb;
+	private Collider2D _collider;
 
 	private int baseLayer;
 
@@ -120,13 +121,14 @@ public class Player : MonoBehaviour, IHealth
 		_animator = GetComponent<Animator>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_rb = GetComponent<Rigidbody2D>();
+		_collider = GetComponent<Collider2D>();
 
 		_stateMachine = new StateMachine();
 
 		// Instantiating states
 		var moving = new Moving(this, _animator);
 		var idle = new Idle(this, _animator);
-		var dashing = new Dashing(this, _animator, _rb);
+		var dashing = new Dashing(this, _animator, _rb, _collider);
 		var attacking = new Attacking(this, _animator, _rb);
 		var boomeranging = new Boomeranging(this, _animator, _rb);
 		var swapping = new Swapping(this, _animator, _rb);
@@ -245,7 +247,7 @@ public class Player : MonoBehaviour, IHealth
 		}
 	}
 
-	public void ComboCheck()
+	private void ComboCheck()
 	{
 		if (comboCount != 0) { comboTimer += Time.deltaTime; } // Start the combo timer once the attack starts
 
@@ -256,7 +258,7 @@ public class Player : MonoBehaviour, IHealth
 		}
 	}
 
-	public void FlipPlayer()
+	private void FlipPlayer()
 	{
 		if (IsIdleOrMoving()())
 		{

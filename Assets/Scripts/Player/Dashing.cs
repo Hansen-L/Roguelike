@@ -6,20 +6,23 @@ public class Dashing : IState
 	private Animator _animator;
 	private Player _player;
 	private Rigidbody2D _rb;
+	private Collider2D _collider;
 
 	private float dashTimer;
 	private Vector2 dashDirection;
 
-	public Dashing(Player player, Animator animator, Rigidbody2D rb)
+	public Dashing(Player player, Animator animator, Rigidbody2D rb, Collider2D collider)
 	{
 		_player = player;
 		_animator = animator;
 		_rb = rb;
+		_collider = collider;
 	}
 
 	public void OnEnter()
 	{
 		_animator.SetTrigger("dash");
+		_collider.enabled = false;
 
 		dashTimer = 0f;
 
@@ -52,5 +55,6 @@ public class Dashing : IState
 	{
 		_rb.velocity = new Vector2(0, 0);
 		_animator.ResetTrigger("dash");
+		_collider.enabled = true;
 	}
 }

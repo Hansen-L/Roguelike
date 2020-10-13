@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Threading;
 
 public class Swapping : IState
 {
@@ -33,12 +32,10 @@ public class Swapping : IState
 	public void Tick()
 	{
 		swapTimer += Time.deltaTime;
+		_rb.velocity = new Vector2(0f, 0f);
 
 		if (swapTimer >= Player.SwapTime)
-		{
-			_rb.velocity = new Vector2(0f, 0f);
 			_player.isSwapping = false;
-		}
 	}
 
 	public void FixedTick()

@@ -1,71 +1,92 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
+using Utils;
+using System.Collections;
 
-public class Wolf : MonoBehaviour
+public class Wolf : AProjectileEnemy
 {
-    public const int maxHealth = 100;
-    public const float deathAnimationTime = 0.8f;
+	#region Gameplay Constants
+	// These override properties in AEnemy
+	public override int MaxHealth { get { return 100; } }
+	public override float DeathAnimationTime { get { return 0.84f; } }
 
-    public GameObject healthBar;
+	public override float IdleTime { get { return 2f; } }
+	public override float MoveTime { get { return 4f; } } // How long enemy moves for
+	public override float MoveSpeed { get { return 1f; } }
+	public override float AttackRange { get { return 6f; } }
+	public override float AttackCooldown { get { return 4f; } }
+	public override int AttackDamage { get { return 10; } }
 
-    private int health = maxHealth;
-    private bool isDead = false;
+	public override float ChargeTime { get { return 0.5f; } }
+	public override float ProjectileDuration { get { return 0.5f; } }
+	public override float ProjectileSpeed { get { return 7f; } }
+	#endregion
 
-    private Animator _animator;
+	public GameObject healthBar;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
+	// Start is called before the first frame update
+	void Start()
+	{
+		#region Configuring State Machine
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Check if Wolf still has health, if not then kill the wolf
-        if (IsDead())
-        {
-            if (isDead == false)  // Wolf hasn't already died. TODO: Make this cleaner
-                Die();
-        }
-        else { UpdateHealthBar(); }
-    }
+		_animator = GetComponent<Animator>();
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_rb = GetComponent<Rigidbody2D>();
+		_stateMachine = new StateMachine();
 
+		var randomMoving = new RandomMoving(this, _animator, _rb);
+		var enemyIdle = new EnemyIdle(this, _animator, _rb);
 
+		// Assigning transitions
+		At(randomMoving, enemyIdle, IsIdle());
+		At(enemyIdle, randomMoving, IsMoving());
 
-    public int GetHealth()
-    {
-        return health;
-    }
+		// Starting state
+		_stateMachine.SetState(enemyIdle);
 
-    public void TakeDamage(int damageAmount)
-    {
-        health -= damageAmount;
-        if (health < 0) { health = 0; }
-    }
+		// Method to assign transitions easily
+		void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+		#endregion
 
-    public void GainHealth(int healthAmount)
-    {
-    }
-
-    public bool IsDead()
-    {
-        // If health less than 0, return true
-        return (health <= 0) ? true : false;
-    }
-
-    public void Die()
-    {
-        isDead = true;
-        _animator.SetTrigger("die");
-        GetComponent<BoxCollider2D>().enabled = false; // disable collisions
-        Destroy(transform.GetChild(0).gameObject);
-		Destroy(gameObject, deathAnimationTime);
+		health = MaxHealth;
 	}
 
-    private void UpdateHealthBar()
-    {
-        healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth()/(float)maxHealth, 0.7f), 1f);
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		if (!isDead)
+		{
+			_stateMachine.Tick();
+			CheckIfDead();
+			CheckAttackCooldown();
+			FlipSprite();
+		}
+	}
+
+	private void FlipSprite()
+	{
+		if (_rb.velocity.x > 0) // moving right
+		{
+			transform.localScale = new Vector3(1, 1, 1);
+			transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1); // Flipping the health bar
+		}
+		else if (_rb.velocity.x < 0) // moving left
+		{
+			transform.localScale = new Vector3(-1, 1, 1);
+			transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
+		}
+}
+
+	#region Health methods
+
+	protected override void UpdateHealthBar()
+	{
+		healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.7f), 1f);
+	}
+	#endregion
+
+	//private void OnDrawGizmos()
+	//{
+	//	Gizmos.DrawWireSphere(this.transform.position, AttackRange);
+	//}
 }
