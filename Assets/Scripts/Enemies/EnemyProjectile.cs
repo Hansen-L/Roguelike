@@ -22,5 +22,8 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(gameObject);
             // TODO: Play explosion animation, destroy fireball object
         }
+
+        if (otherCollider.gameObject.layer == LayerMask.NameToLayer(LayersEnum.Walls.ToString()))
+            Destroy(gameObject);
     }
 }

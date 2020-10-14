@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, IHealth
 
 	// Movement
 	public const float Acceleration = 1f;
-    public const float MaxSpeed = 8f;
+    public const float MaxSpeed = 6f;
     public const float Friction = 0.4f;
 
 	// Dash
@@ -18,10 +18,11 @@ public class Player : MonoBehaviour, IHealth
 	public const float DashTime = 0.15f;
 
 	// Attack
-	public const float AttackTime = 0.15f;
+	public const float AttackTime = 0.2f;
 	public const float ComboWindow = 0.7f; // Time between attacks for combo
 	public const int SlashDamage = 10;
 	public const int BarkDamage = 30;
+	public const float BarkMovementSpeed = 7f; // How much the player moves after barking
 
 	// Boomerang
 	public const float BoomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
@@ -36,8 +37,8 @@ public class Player : MonoBehaviour, IHealth
 	// Swap
 	public const float SwapTime = 0.2f;
 
-	public const float BufferWindow = 0.4f; // Buffer window for player combos
-	public const float ShadowDelay = 0.3f; // Delay before shadow copies player input
+	public const float BufferWindow = 0.7f; // Buffer window for player combos
+	public const float ShadowDelay = 0.5f; // Delay before shadow copies player input
 	public const float ShadowSpeedRatio = 0.8f; // What percent of player speed the shadow can move at
 	#endregion
 

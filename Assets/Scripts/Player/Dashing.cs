@@ -21,6 +21,9 @@ public class Dashing : IState
 
 	public void OnEnter()
 	{
+		if (!_player.isShadow)
+			AudioManager.Instance.PlayOneShot("DogDash");
+
 		_animator.SetTrigger("dash");
 		_collider.enabled = false;
 
@@ -30,7 +33,6 @@ public class Dashing : IState
 		else { dashDirection = new Vector2(_player.prevxInput, _player.prevyInput); } // If we aren't holding a direction, dash in last direction
 
 		dashDirection.Normalize();
-		//AudioManager.Instance.PlayOneShot("dash");
 	}
 
 	public void Tick()

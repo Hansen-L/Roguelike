@@ -22,8 +22,9 @@ public class Boomeranging : IState
             _player.isBoomeranging = false;
         else
         {
+            if (!_player.isShadow)
+                AudioManager.Instance.PlayOneShot("DogBark");
             _player.canBoomerang = false;
-            //AudioManager.Instance.Play("run");
             _animator.SetTrigger("attack"); // TODO: Replace with projectile animation
 
             boomerangTimer = 0f;

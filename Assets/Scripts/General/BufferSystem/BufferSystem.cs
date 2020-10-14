@@ -6,10 +6,10 @@ public class BufferSystem
 {
 	private List<BufferItem> bufferList = new List<BufferItem>();
 
-	public void Enqueue(StatesEnum input)  // If this item is not already in the list, enqueue it
+	public void Enqueue(StatesEnum input, bool stackBuffer = false)  // If this item is not already in the list, enqueue it. Or, we can choose to stack the buffers.
 	{
 		BufferItem bufferItem = new BufferItem(input);
-		if (!bufferList.Contains(bufferItem))
+		if (!bufferList.Contains(bufferItem) || stackBuffer)
 		{
 			bufferList.Add(bufferItem);
 		}

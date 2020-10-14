@@ -14,7 +14,7 @@ public class Moving : IState
 
     public void OnEnter() 
 	{
-		//AudioManager.Instance.Play("run");
+		AudioManager.Instance.Play("DogRun");
 		_animator.SetBool("isMoving", true);
 	}
 
@@ -30,7 +30,7 @@ public class Moving : IState
 
     public void OnExit() 
 	{
-		//AudioManager.Instance.Stop("run");
+		AudioManager.Instance.Stop("DogRun");
 		_animator.SetBool("isMoving", false);
 	}
 }

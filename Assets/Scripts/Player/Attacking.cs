@@ -19,7 +19,6 @@ public class Attacking : IState
 
     public void OnEnter() 
 	{
-		//AudioManager.Instance.Play("run");
 		_animator.SetTrigger("attack");
         _rb.velocity = new Vector2(0f, 0f);
 
@@ -33,10 +32,23 @@ public class Attacking : IState
             _player.comboCount = 0;
             BarkEffect();
             LaunchAttack(_player.barkCollider, Player.BarkDamage);
+
+            if (!_player.isShadow)
+                AudioManager.Instance.PlayPitch("DogBark", 0.9f);
+            else
+                AudioManager.Instance.PlayPitch("ShadowBark", 0.9f);
         }
         else {
             SlashEffect();
             LaunchAttack(_player.slashCollider, Player.SlashDamage);
+
+            if (_player.comboCount == 2) // Move player forward on 2nd hit
+                _rb.velocity = _player.GetPlayerDir() * Player.BarkMovementSpeed;
+
+            if (!_player.isShadow)
+                AudioManager.Instance.PlayPitch("DogBark", 1.2f);
+            else
+                AudioManager.Instance.PlayPitch("ShadowBark", 1.2f);
         }
     }
 

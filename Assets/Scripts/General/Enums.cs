@@ -8,3 +8,8 @@
 	Swapping,
 	None
 }
+
+public enum LayersEnum // layer names
+{
+	Walls,
+}

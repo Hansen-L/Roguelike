@@ -99,7 +99,7 @@ public class InputManager : MonoBehaviour
 			case StatesEnum.Attacking:
 				// Enqueue Attacking state if we're in another action state. If we're idle/running, to the attack immediately
 				if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); }
-				else { bufferSystem.Enqueue(StatesEnum.Attacking); }
+				else { bufferSystem.Enqueue(StatesEnum.Attacking, true); }
 				break;
 			//case StatesEnum.Boomeranging:
 			//	if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Boomeranging); }
