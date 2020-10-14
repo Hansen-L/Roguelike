@@ -42,7 +42,7 @@ public class Cat : ADashAttackEnemy
 		At(randomMoving, enemyIdle, IsIdle());
 		At(enemyIdle, randomMoving, IsMoving());
 
-		_stateMachine.AddAnyTransition(enemyDashAttacking, IsInRangeAndCanAttack());
+		_stateMachine.AddAnyTransition(enemyDashAttacking, IsInRangeAndAttackReady());
 		At(enemyDashAttacking, enemyIdle, IsNotAttacking());
 
 		// Starting state

@@ -23,14 +23,14 @@ public abstract class AEnemy: MonoBehaviour, IHealth // Different abstract class
     public bool isDead = false;
 	public bool isMoving = false;
     public bool isAttacking = false;
-    public bool canAttack = true;
+    public bool attackCooldownReady = true;
 
     // Note: When calling these methods, we use IsMoving()() or IsMoving().Invoke()
     public Func<bool> IsMoving() => () => (isMoving);
     public Func<bool> IsIdle() => () => (!isMoving);
 
     public Func<bool> IsInRange() => () => (Vector2.Distance(_rb.position, GameManager.GetMainPlayerRb().position) < AttackRange);
-    public Func<bool> IsInRangeAndCanAttack() => () => (IsInRange()() && canAttack);
+    public Func<bool> IsInRangeAndAttackReady() => () => (IsInRange()() && attackCooldownReady);
 
     public Func<bool> IsAttacking() => () => (isAttacking);
     public Func<bool> IsNotAttacking() => () => (!isAttacking);
@@ -44,7 +44,7 @@ public abstract class AEnemy: MonoBehaviour, IHealth // Different abstract class
 
     public void ResetAttackCooldown()
     {
-        canAttack = false;
+        attackCooldownReady = false;
         attackCooldownTimer = 0f;
     }
 
@@ -74,7 +74,7 @@ public abstract class AEnemy: MonoBehaviour, IHealth // Different abstract class
     {
         attackCooldownTimer += Time.deltaTime;
         if (attackCooldownTimer >= AttackCooldown)
-            canAttack = true;
+            attackCooldownReady = true;
     }
 
     protected abstract void UpdateHealthBar();

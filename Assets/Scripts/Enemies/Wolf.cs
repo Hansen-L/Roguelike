@@ -42,7 +42,7 @@ public class Wolf : AProjectileEnemy
 		At(randomMoving, enemyIdle, IsIdle());
 		At(enemyIdle, randomMoving, IsMoving());
 
-		_stateMachine.AddAnyTransition(enemyProjectiling, IsInRangeAndCanAttack());
+		_stateMachine.AddAnyTransition(enemyProjectiling, IsInRangeAndAttackReady());
 		At(enemyProjectiling, enemyIdle, IsNotAttacking());
 
 		// Starting state
