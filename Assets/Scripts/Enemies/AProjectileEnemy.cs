@@ -8,4 +8,6 @@ public abstract class AProjectileEnemy : AEnemy
 
 	public GameObject projectilePrefab;
 	public Transform projectileFirePoint;
+
+	public abstract void LaunchProjectile(Vector2 attackDirection);
 }

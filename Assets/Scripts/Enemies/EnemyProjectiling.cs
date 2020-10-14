@@ -44,7 +44,7 @@ public class EnemyProjectiling : IState
 			{
 				hasFired = true;
 
-				LaunchProjectile();
+				_enemy.LaunchProjectile(attackDirection);
 
 				_enemy.isAttacking = false;
 				_enemy.ResetAttackCooldown();
@@ -62,16 +62,5 @@ public class EnemyProjectiling : IState
 		_rb.velocity = new Vector2(0, 0);
 		_animator.ResetTrigger("charging");
 		hasFired = false;
-	}
-
-	private void LaunchProjectile()
-	{
-		Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 90) * attackDirection;
-		Quaternion targetRotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVectorToTarget);
-
-		GameObject projectileObject = GameObject.Instantiate(_enemy.projectilePrefab, _enemy.projectileFirePoint.position, targetRotation);
-		Rigidbody2D projectileRb = projectileObject.GetComponent<Rigidbody2D>();
-
-		projectileRb.velocity = _enemy.ProjectileSpeed * attackDirection;
 	}
 }

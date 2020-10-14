@@ -79,7 +79,20 @@ public class Wolf : AProjectileEnemy
 			transform.localScale = new Vector3(-1, 1, 1);
 			transform.GetChild(0).transform.localScale = new Vector3(-1, 1, 1);
 		}
-}
+	}
+
+	public override void LaunchProjectile(Vector2 attackDirection)
+	{
+		Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 90) * attackDirection;
+		Quaternion targetRotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVectorToTarget);
+
+		GameObject projectileObject = GameObject.Instantiate(projectilePrefab, projectileFirePoint.position, targetRotation);
+		EnemyProjectile projectileScript = projectileObject.GetComponent<EnemyProjectile>();
+		Rigidbody2D projectileRb = projectileObject.GetComponent<Rigidbody2D>();
+
+		projectileScript.SetEnemy(this);
+		projectileRb.velocity = ProjectileSpeed * attackDirection;
+	}
 
 	#region Health methods
 
