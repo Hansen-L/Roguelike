@@ -7,7 +7,7 @@ public class Cat : ADashAttackEnemy
 {
 	#region Gameplay Constants
 	// Abstract class overrides
-	public override int MaxHealth { get { return 100; } }
+	public override int MaxHealth { get { return 30; } }
 	public override float DeathAnimationTime { get { return 0.84f; } }
 
 	public override float IdleTime { get { return 2f; } }

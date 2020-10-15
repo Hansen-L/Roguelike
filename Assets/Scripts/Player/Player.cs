@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, IHealth
 
 	// Boomerang
 	public const float BoomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
-	public const int BoomerangDamage = 20;
+	public const int BoomerangDamage = 10;
 	public const int BoomerangExplosionDamage = 40;
 	public const float BoomerangStartSpeed = 25f;
 	public const float BoomerangStartSpeedShadow = 25.5f;
