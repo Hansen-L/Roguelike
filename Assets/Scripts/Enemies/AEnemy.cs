@@ -1,52 +1,23 @@
 ﻿using UnityEngine;
 using System;
 
-public abstract class AEnemy: MonoBehaviour, IHealth // Different abstract classes for enemy types will inherit from this
+// All enemies inherit from this. This class has health methods. Also has the instance variables for _stateMachine,_animator,_spirteRenderer, and _rb.
+public abstract class AEnemy : MonoBehaviour, IHealth // Different abstract classes for enemy types will inherit from this
 {
     #region Gameplay Constants
     // These are default values, should all be overriden in inheriting class
     public abstract int MaxHealth { get; }
     public abstract float DeathAnimationTime { get; }
-
-    public abstract float IdleTime { get; }
-    public abstract float MoveTime { get; }
-    public abstract float MoveSpeed { get; }
-    public abstract float AttackRange { get; }
-    public abstract int AttackDamage { get; }
-    public abstract float AttackCooldown { get; }
     #endregion
 
     protected int health = 0;
-    protected float attackCooldownTimer = 0f;
-
-    #region Boolean methods for state transitions
+    public GameObject currentHealthBar;
     public bool isDead = false;
-	public bool isMoving = false;
-    public bool isAttacking = false;
-    public bool attackCooldownReady = true;
-
-    // Note: When calling these methods, we use IsMoving()() or IsMoving().Invoke()
-    public Func<bool> IsMoving() => () => (isMoving);
-    public Func<bool> IsIdle() => () => (!isMoving);
-
-    public Func<bool> IsInRange() => () => (Vector2.Distance(_rb.position, GameManager.GetMainPlayerRb().position) < AttackRange);
-    public Func<bool> IsInRangeAndAttackReady() => () => (IsInRange()() && attackCooldownReady);
-
-    public Func<bool> IsAttacking() => () => (isAttacking);
-    public Func<bool> IsNotAttacking() => () => (!isAttacking);
-    #endregion
 
     protected StateMachine _stateMachine; // Using underscores to note instance variables where it could be ambiguous
-	protected Animator _animator;
-	protected SpriteRenderer _spriteRenderer;
-	protected Rigidbody2D _rb;
-
-
-    public void ResetAttackCooldown()
-    {
-        attackCooldownReady = false;
-        attackCooldownTimer = 0f;
-    }
+    protected Animator _animator;
+    protected SpriteRenderer _spriteRenderer;
+    protected Rigidbody2D _rb;
 
     #region Health/death Methods
     public int GetHealth()
@@ -70,14 +41,10 @@ public abstract class AEnemy: MonoBehaviour, IHealth // Different abstract class
         return (health <= 0) ? true : false;
     }
 
-    protected void CheckAttackCooldown()
+    protected void UpdateHealthBar()
     {
-        attackCooldownTimer += Time.deltaTime;
-        if (attackCooldownTimer >= AttackCooldown)
-            attackCooldownReady = true;
+        currentHealthBar.transform.localScale = new Vector3(Mathf.Lerp(currentHealthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.7f), 1f);
     }
-
-    protected abstract void UpdateHealthBar();
 
     protected void CheckIfDead()
     {
@@ -89,14 +56,6 @@ public abstract class AEnemy: MonoBehaviour, IHealth // Different abstract class
         else { UpdateHealthBar(); }
     }
 
-    protected void Die()
-    {
-        isDead = true;
-        _animator.SetTrigger("die");
-        _rb.velocity = new Vector2(0f, 0f);
-        GetComponent<BoxCollider2D>().enabled = false; // disable collisions
-        Destroy(transform.GetChild(0).gameObject); // Destroy healthbar
-        Destroy(gameObject, DeathAnimationTime); // Destroy when death animation is done
-    }
-	#endregion
+    protected abstract void Die();
+    #endregion
 }

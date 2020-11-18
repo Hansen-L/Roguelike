@@ -19,14 +19,12 @@ public class BrownWolf : AProjectileEnemy
 
 	public override float ProjectileChargeTime { get { return 0.5f; } }
 	public override float ProjectileDuration { get { return 0.5f; } }
-	public override float ProjectileSpeed { get { return 2f; } }
+	public override float ProjectileSpeed { get { return 3f; } }
 
 	public int ProjectileNumber { get { return 3; } } // How many projectiles to shoot in succession for brown wolf
 	public float DelayBetweenProjectiles { get { return 0.3f; } }
 	public float SpreadAngle { get { return 20f; } } // Range that projectiles can spread
 	#endregion
-
-	public GameObject healthBar;
 
 	// Start is called before the first frame update
 	void Start()
@@ -121,11 +119,6 @@ public class BrownWolf : AProjectileEnemy
 	}
 
 	#region Health methods
-
-	protected override void UpdateHealthBar()
-	{
-		healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.7f), 1f);
-	}
 	#endregion
 
 	//private void OnDrawGizmos()

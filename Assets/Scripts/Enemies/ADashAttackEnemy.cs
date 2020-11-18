@@ -1,6 +1,6 @@
 ﻿using System;
 
-public abstract class ADashAttackEnemy : AEnemy
+public abstract class ADashAttackEnemy : ABasicEnemy
 {
 	public abstract float DashChargeTime { get; }
 	public abstract float DashSpeed { get; }

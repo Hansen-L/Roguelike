@@ -17,12 +17,10 @@ public class Cat : ADashAttackEnemy
 	public override float AttackCooldown { get { return 2f; } }
 	public override int AttackDamage { get { return 10; } }
 
-	public override float DashChargeTime { get { return 0.5f; } }
+	public override float DashChargeTime { get { return 0.3f; } }
 	public override float DashTime { get { return 0.5f; } }
 	public override float DashSpeed { get { return 7f; } }
 	#endregion
-
-	public GameObject healthBar;
 
 	// Start is called before the first frame update
 	void Start()
@@ -76,14 +74,6 @@ public class Cat : ADashAttackEnemy
 				playerScript.TakeDamage(AttackDamage);
 		}
 	}
-
-	#region Health methods
-
-	protected override void UpdateHealthBar()
-	{
-		healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.7f), 1f);
-	}
-	#endregion
 
 	//private void OnDrawGizmos()
 	//{

@@ -4,12 +4,12 @@ using System.Threading;
 public class EnemyIdle : IState
 {
 	private Animator _animator;
-	private AEnemy _enemy;
+	private ABasicEnemy _enemy;
 	private Rigidbody2D _rb;
 
 	private float idleTimer;
 
-	public EnemyIdle(AEnemy enemy, Animator animator, Rigidbody2D rb)
+	public EnemyIdle(ABasicEnemy enemy, Animator animator, Rigidbody2D rb)
 	{
 		_enemy = enemy;
 		_animator = animator;

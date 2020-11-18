@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class AProjectileEnemy : AEnemy
+public abstract class AProjectileEnemy : ABasicEnemy
 {
 	public abstract float ProjectileChargeTime { get; }
 	public abstract float ProjectileDuration { get; }

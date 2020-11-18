@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Threading;
 
-public class EnemyProjectiling : IState
+// Sheep boss sends out projectiles
+public class SheepProjectiling : IState
 {
 	private Animator _animator;
-	private AProjectileEnemy _enemy;
+	private SheepBoss _sheep;
 	private Rigidbody2D _rb;
 
 	private float attackTimer;
@@ -12,9 +13,9 @@ public class EnemyProjectiling : IState
 
 	private bool hasFired = false;
 
-	public EnemyProjectiling(AProjectileEnemy enemy, Animator animator, Rigidbody2D rb)
+	public SheepProjectiling(SheepBoss sheep, Animator animator, Rigidbody2D rb)
 	{
-		_enemy = enemy;
+		_sheep = sheep;
 		_animator = animator;
 		_rb = rb;
 	}
@@ -22,30 +23,29 @@ public class EnemyProjectiling : IState
 	public void OnEnter()
 	{
 		_animator.SetTrigger("charging");
-		_enemy.isAttacking = true;
+		_sheep.isProjectiling = true;
 
 		attackTimer = 0f;
-		attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
 	}
 
 	public void Tick()
 	{
 		attackTimer += Time.deltaTime;
 
-		if (attackTimer <= _enemy.ProjectileChargeTime)
+		if (attackTimer <= _sheep.ProjectileChargeTime)
 		{
 			_rb.velocity = new Vector2(0f, 0f);
 		}
-		else if (attackTimer > _enemy.ProjectileChargeTime)
+		else if (attackTimer > _sheep.ProjectileChargeTime)
 		{
 			if (!hasFired)
 			{
 				hasFired = true;
 
-				_enemy.LaunchProjectile(attackDirection);
+				_sheep.LaunchProjectile();
 
-				_enemy.isAttacking = false;
-				_enemy.ResetAttackCooldown();
+				_sheep.isProjectiling = false;
+				_sheep.isMoving = true; //Transition to walking after projectiling
 			}
 		}
 	}

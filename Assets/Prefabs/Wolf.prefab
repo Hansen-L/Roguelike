@@ -167,10 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5792745bc5d9ed4468a91a5be853b5a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealthBar: {fileID: 6243970061679617780}
   isDead: 0
   isMoving: 0
   isAttacking: 0
-  canAttack: 1
+  attackCooldownReady: 1
   projectilePrefab: {fileID: 8352151676385168803, guid: fa962633fff5dff4aa718b89703865bf, type: 3}
   projectileFirePoint: {fileID: 1758553927487713802}
   healthBar: {fileID: 6243970061679617780}

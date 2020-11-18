@@ -19,7 +19,7 @@ public class Wolf : AProjectileEnemy
 
 	public override float ProjectileChargeTime { get { return 0.5f; } }
 	public override float ProjectileDuration { get { return 0.5f; } }
-	public override float ProjectileSpeed { get { return 2f; } }
+	public override float ProjectileSpeed { get { return 3f; } }
 	#endregion
 
 	public GameObject healthBar;
@@ -93,14 +93,6 @@ public class Wolf : AProjectileEnemy
 		projectileScript.SetEnemy(this);
 		projectileRb.velocity = ProjectileSpeed * attackDirection;
 	}
-
-	#region Health methods
-
-	protected override void UpdateHealthBar()
-	{
-		healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.7f), 1f);
-	}
-	#endregion
 
 	//private void OnDrawGizmos()
 	//{

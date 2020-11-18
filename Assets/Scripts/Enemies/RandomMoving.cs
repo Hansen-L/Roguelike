@@ -4,13 +4,13 @@ using System.Threading;
 public class RandomMoving : IState
 {
 	private Animator _animator;
-	private AEnemy _enemy;
+	private ABasicEnemy _enemy;
 	private Rigidbody2D _rb;
 
 	private float moveTimer;
 	private Vector2 moveDirection;
 
-	public RandomMoving(AEnemy enemy, Animator animator, Rigidbody2D rb)
+	public RandomMoving(ABasicEnemy enemy, Animator animator, Rigidbody2D rb)
 	{
 		_enemy = enemy;
 		_animator = animator;
