@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5560294297001330494
+--- !u!1 &5833347768791466807
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5560294297001330492}
-  - component: {fileID: 5560294297001330493}
+  - component: {fileID: 5833347768791466804}
+  - component: {fileID: 5833347768791466805}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -17,36 +17,72 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5560294297001330492
+--- !u!4 &5833347768791466804
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560294297001330494}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.797956, y: 13.258101, z: -6.7339716}
+  m_GameObject: {fileID: 5833347768791466807}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -21.977295, y: -15.848571, z: 8.222612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5560294297001330493
+--- !u!114 &5833347768791466805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560294297001330494}
+  m_GameObject: {fileID: 5833347768791466807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a5e4212d7569604092af3765b7e625c, type: 3}
+  m_Script: {fileID: 11500000, guid: 68a1f1dcc4539a84894f4fed5ab0a42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: BGM
-    clip: {fileID: 8300000, guid: 31441c7d414f9204f9c64bf1adc41112, type: 3}
-    volume: 0.5
+  - name: DogDash
+    clip: {fileID: 8300000, guid: 9588cc2463789ec4382b85bfb2a94e8d, type: 3}
+    volume: 0.4
     pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: DogBark
+    clip: {fileID: 8300000, guid: 6cbc6f58e9be1d54583b5e1fbe4b51c3, type: 3}
+    volume: 0.15
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: DogRun
+    clip: {fileID: 8300000, guid: 3945dafc1ee3d114fa3e31a4f0e2bcc2, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: ShadowBark
+    clip: {fileID: 8300000, guid: 6cbc6f58e9be1d54583b5e1fbe4b51c3, type: 3}
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Stomp
+    clip: {fileID: 8300000, guid: 54dcefa4737c07d42997503010a58d0d, type: 3}
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Sheep1
+    clip: {fileID: 8300000, guid: 67c7b313120c9b646aac927ad6b0cbae, type: 3}
+    volume: 0.7
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 3b1a2eef2fb7e0e4abe0d359cbe6f85f, type: 3}
+    volume: 0.3
+    pitch: 1.69
     source: {fileID: 0}
     loop: 1

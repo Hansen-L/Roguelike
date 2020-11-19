@@ -32,22 +32,23 @@ public class SheepProjectiling : IState
 	{
 		attackTimer += Time.deltaTime;
 
-		if (attackTimer <= _sheep.ProjectileChargeTime)
+		if (attackTimer <= _sheep.ScatterProjectileChargeTime)
 		{
 			_rb.velocity = new Vector2(0f, 0f);
 		}
-		else if (attackTimer > _sheep.ProjectileChargeTime)
+		else if (attackTimer > _sheep.ScatterProjectileChargeTime  &&  attackTimer <= _sheep.ScatterProjectileAnimationTime)
 		{
 			if (!hasFired)
 			{
+				AudioManager.Instance.PlayOneShot("Sheep1");
 				hasFired = true;
 
-				_sheep.LaunchProjectile();
-
-				_sheep.isProjectiling = false;
-				_sheep.isMoving = true; //Transition to walking after projectiling
+				_sheep.LaunchProjectilesScatter();
 			}
 		}
+		else if (attackTimer > _sheep.ScatterProjectileAnimationTime) // Once animation has ended, exit this state
+			_sheep.isProjectiling = false;
+
 	}
 
 	public void FixedTick()

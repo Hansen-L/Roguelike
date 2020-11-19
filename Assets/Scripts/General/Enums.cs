@@ -9,6 +9,14 @@
 	None
 }
 
+public enum SheepBossStatesEnum // Sheep boss states
+{
+	SheepCentralState,
+	SheepMoving,
+	SheepProjectiling,
+	SheepDashAttacking
+}
+
 public enum LayersEnum // layer names
 {
 	Walls,

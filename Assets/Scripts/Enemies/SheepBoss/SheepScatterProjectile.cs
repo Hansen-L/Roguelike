@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SheepBouncyProjectile : MonoBehaviour
+public class SheepScatterProjectile : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private SheepBoss _sheep;
-    private int bouncesRemaining;
 
 	public void Start()
 	{
@@ -16,7 +15,6 @@ public class SheepBouncyProjectile : MonoBehaviour
 	public void SetEnemy(SheepBoss sheep)
     {
         _sheep = sheep;
-        bouncesRemaining = _sheep.BouncyProjectileBounces;
     }
 
     private void OnTriggerEnter2D(Collider2D otherCollider)
@@ -31,12 +29,8 @@ public class SheepBouncyProjectile : MonoBehaviour
         }
     }
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	private void OnCollisionEnter2D(Collision2D collision) // If wall collider hits a wall
 	{
-        // Projectile bounces, destroys when out of bounces
-        if (bouncesRemaining > 0)
-            bouncesRemaining -= 1;
-        else
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

@@ -8,6 +8,7 @@ public class BoomerangExplosion : MonoBehaviour
 
     private void Awake()
     {
+        AudioManager.Instance.PlayOneShot("Explosion");
         ps = GetComponent<ParticleSystem>();
     }
 

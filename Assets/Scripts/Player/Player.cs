@@ -6,7 +6,9 @@ using System.Collections;
 public class Player : MonoBehaviour, IHealth
 {
 	#region Gameplay constants
+	// Health and taking damage
 	public const int MaxHealth = 100;
+	public const float DamageInvulnDuration = 1f; // How long player is invuln for after getting hit
 
 	// Movement
 	public const float Acceleration = 1f;
@@ -65,6 +67,8 @@ public class Player : MonoBehaviour, IHealth
 
 	public int comboCount = 0; // Track which hit of combo we are on
 	public float comboTimer = 0f;
+
+	public float prevDamageTime = 0f; // Last time player took damage. Used for invuln calculations
 	
 	public float xInput = 0f;
 	public float yInput = 0f;
@@ -202,7 +206,11 @@ public class Player : MonoBehaviour, IHealth
 
 	public void TakeDamage(int damageAmount)
 	{
-		health -= damageAmount;
+		if (Time.time - prevDamageTime > DamageInvulnDuration) // checking if invulnerability time is up
+		{
+			prevDamageTime = Time.time;
+			health -= damageAmount;
+		}
 		if (health < 0) { health = 0; }
 	}
 

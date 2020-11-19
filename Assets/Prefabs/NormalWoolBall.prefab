@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 571249087801509980}
   - component: {fileID: 2532578840017385964}
-  - component: {fileID: 38673301443027788}
   - component: {fileID: 2692981959731519181}
   - component: {fileID: 4881500414558506555}
+  - component: {fileID: 7271349253820029922}
   m_Layer: 15
-  m_Name: WoolBall
+  m_Name: NormalWoolBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &38673301443027788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072513816387117097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73877988b3d50f24ba5885ad7274976b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2692981959731519181
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,6 +123,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7271349253820029922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072513816387117097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e46acfb640c724ca463882b1574687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5216017638252356468
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 5216017638252356468}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 23ae723f0101a274a9392b392bef83eb, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

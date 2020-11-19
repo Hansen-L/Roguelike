@@ -22,6 +22,9 @@ public class SheepMoving : IState
 
 	public void OnEnter()
 	{
+		_sheep.LaunchBouncyProjectiles(); // Launch bouncy projectiles when entering move state
+
+		AudioManager.Instance.Play("Stomp");
 		_animator.SetBool("isMoving", true);
 
 		moveTimer = Random.Range(-2f, 0f); // initializing timer with a bit of randomness
@@ -37,7 +40,7 @@ public class SheepMoving : IState
 		if (moveTimer >= _sheep.MoveTime)
 		{
 			_sheep.isMoving = false;
-			_sheep.isProjectiling = true; // Go into projectile after moving
+			_sheep.isDashing = true; // Go into dash after moving
 		}
 	}
 
@@ -48,6 +51,7 @@ public class SheepMoving : IState
 
 	public void OnExit()
 	{
+		AudioManager.Instance.Stop("Stomp");
 		_animator.SetBool("isMoving", false);
 		_rb.velocity = new Vector2(0, 0);
 	}
