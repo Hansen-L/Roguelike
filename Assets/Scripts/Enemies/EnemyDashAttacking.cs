@@ -9,7 +9,7 @@ public class EnemyDashAttacking : IState
 	private ADashAttackEnemy _enemy;
 	private Rigidbody2D _rb;
 
-	private float attackTimer;
+	private float dashTimer;
 	private Vector2 attackDirection;
 
 	private bool hasDashed = false;
@@ -26,19 +26,19 @@ public class EnemyDashAttacking : IState
 		_animator.SetTrigger("charging");
 		_enemy.isAttacking = true;
 
-		attackTimer = 0f;
+		dashTimer = 0f;
 		attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
 	}
 
 	public void Tick()
 	{
-		attackTimer += Time.deltaTime;
+		dashTimer += Time.deltaTime;
 
-		if (attackTimer <= _enemy.DashChargeTime)
+		if (dashTimer <= _enemy.DashChargeTime)
 		{
 			_rb.velocity = new Vector2(0f, 0f);
 		}
-		else if ((attackTimer > _enemy.DashChargeTime) && (attackTimer <= _enemy.DashChargeTime + _enemy.DashTime))
+		else if ((dashTimer > _enemy.DashChargeTime) && (dashTimer <= _enemy.DashChargeTime + _enemy.DashTime))
 		{
 			if (!hasDashed)
 			{
@@ -52,7 +52,7 @@ public class EnemyDashAttacking : IState
 					_animator.SetTrigger("dashing left");
 			}
 		}
-		else if (attackTimer > _enemy.DashChargeTime + _enemy.DashTime) // If done charging and dashing
+		else if (dashTimer > _enemy.DashChargeTime + _enemy.DashTime) // If done charging and dashing
 		{
 			_enemy.isAttacking = false;
 			_enemy.hitboxActive = false;

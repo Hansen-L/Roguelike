@@ -22,7 +22,7 @@ public class SheepProjectiling : IState
 
 	public void OnEnter()
 	{
-		_animator.SetTrigger("charging");
+		_animator.SetTrigger("isProjectiling");
 		_sheep.isProjectiling = true;
 
 		attackTimer = 0f;
@@ -59,7 +59,7 @@ public class SheepProjectiling : IState
 	public void OnExit()
 	{
 		_rb.velocity = new Vector2(0, 0);
-		_animator.ResetTrigger("charging");
+		_animator.ResetTrigger("isProjectiling");
 		hasFired = false;
 	}
 }

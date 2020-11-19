@@ -7,7 +7,7 @@ public class SheepDashAttacking : IState
 	private SheepBoss _sheep;
 	private Rigidbody2D _rb;
 
-	private float attackTimer;
+	private float dashTimer;
 	private Vector2 attackDirection;
 
 	private bool hasDashed = false;
@@ -21,36 +21,32 @@ public class SheepDashAttacking : IState
 
 	public void OnEnter()
 	{
-		_animator.SetTrigger("charging");
+		_animator.SetTrigger("isDashing");
 		_sheep.isDashing = true;
 
-		attackTimer = 0f;
-		attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
+		dashTimer = 0f;
 	}
 
 	public void Tick()
 	{
-		attackTimer += Time.deltaTime;
+		dashTimer += Time.deltaTime;
 
-		if (attackTimer <= _sheep.DashChargeTime)
+		if (dashTimer <= _sheep.DashChargeTime)
 		{
 			_rb.velocity = new Vector2(0f, 0f);
 		}
-		else if ((attackTimer > _sheep.DashChargeTime) && (attackTimer <= _sheep.DashChargeTime + _sheep.DashTime))
+		else if ((dashTimer > _sheep.DashChargeTime) && (dashTimer <= _sheep.DashChargeTime + _sheep.DashTime))
 		{
 			if (!hasDashed)
 			{
+				_sheep.StartCoroutine(_sheep.SpawnDashTrail());
+				attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
 				hasDashed = true;
 				_sheep.dashHitboxActive = true;
 				_rb.velocity = _sheep.DashSpeed * attackDirection;
-
-				if (attackDirection.x > 0)
-					_animator.SetTrigger("dashing right");
-				else
-					_animator.SetTrigger("dashing left");
 			}
 		}
-		else if (attackTimer > _sheep.DashChargeTime + _sheep.DashTime) // If done charging and dashing
+		else if (dashTimer > _sheep.DashChargeTime + _sheep.DashTime) // If done charging and dashing
 		{
 			_sheep.isDashing = false;
 			_sheep.dashHitboxActive = false;
@@ -67,7 +63,7 @@ public class SheepDashAttacking : IState
 	public void OnExit()
 	{
 		_rb.velocity = new Vector2(0, 0);
-		_animator.ResetTrigger("charging");
+		_animator.ResetTrigger("isDashing");
 		hasDashed = false;
 	}
 }

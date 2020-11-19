@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using Utils;
+using System.Collections;
 
 public class SheepBoss : AEnemy
 {
@@ -25,15 +26,17 @@ public class SheepBoss : AEnemy
 	public int BouncyProjectileDamage { get { return 15; } }
 	public int BouncyProjectileBounces { get { return 1; } }
 
-	public float DashChargeTime { get { return 0.3f; } }
-	public float DashTime { get { return 0.5f; } }
-	public float DashSpeed { get { return 7f; } }
+	public float DashChargeTime { get { return 1f; } }
+	public float DashTime { get { return 1f; } }
+	public float DashSpeed { get { return 16f; } }
 	public int DashDamage { get { return 20; } }
+	public float DashTrailSpawnRate { get { return 0.15f; } } // How often to spawn the trail effect
 	#endregion
 
 	private Collider2D _collider;
 	public GameObject bouncyProjectilePrefab;
 	public GameObject scatterProjectilePrefab;
+	public GameObject dashTrailPrefab;
 
 	public bool dashHitboxActive = false;
 
@@ -155,12 +158,15 @@ public class SheepBoss : AEnemy
 	public void LaunchProjectilesScatter() // Launch a scatter of projectiles at the player
 	{
 		Vector2 playerDir = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
+		float safeAngle = UnityEngine.Random.Range(-ScatterRange, ScatterRange);
 
 		int count = 0;
 		while (count < ScatterProjectileNumber)
 		{
 			count += 1;
 			float angle = UnityEngine.Random.Range(-ScatterRange, ScatterRange); // Add some randomness to angles
+			if (Mathf.Abs(angle - safeAngle) < 5f) // Leave a spot for the player to pass through
+				continue;
 			Vector2 projectileDir = (Quaternion.AngleAxis(angle, Vector3.forward) * playerDir).normalized;
 
 			GameObject scatterProjectileObject = GameObject.Instantiate(scatterProjectilePrefab, _rb.position, Quaternion.identity);
@@ -200,5 +206,21 @@ public class SheepBoss : AEnemy
 		string curState = _stateMachine.CurrentState().ToString();
 		if (curState != prevState)
 			prevState = curState;
+	}
+
+
+	public void StartDashTrailCoroutine() // Necessary so that coroutine can start from states
+	{
+		StartCoroutine(SpawnDashTrail());
+	}
+	public IEnumerator SpawnDashTrail()
+	{
+		int numTrails = (int)(DashTime / DashTrailSpawnRate);
+		for (int i = 0; i < numTrails; i++)
+		{
+			GameObject dashTrailObject = GameObject.Instantiate(dashTrailPrefab, this.transform.position, Quaternion.identity);
+			dashTrailObject.transform.localScale = this.transform.localScale;
+			yield return new WaitForSeconds(DashTrailSpawnRate);
+		}
 	}
 }

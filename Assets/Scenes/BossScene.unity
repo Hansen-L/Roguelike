@@ -2459,9 +2459,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4403675840255408745, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403675840255408745, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403675840255408745, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4403675840255408749, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
       propertyPath: m_Name
       value: Sheep Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403675840255408749, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403675840299360505, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403675840787701608, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403675840867297925, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4649713274831164751, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
