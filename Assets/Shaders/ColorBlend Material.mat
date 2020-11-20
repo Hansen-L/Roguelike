@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cat Material
-  m_Shader: {fileID: -6465566751694194690, guid: 26242a54fc425124da9a5eff326614b8, type: 3}
+  m_Name: ColorBlend Material
+  m_Shader: {fileID: -6465566751694194690, guid: 57c36afe48f109b4a9d4cba197e9743f, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -23,16 +23,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_9F03BB39_Out_0:
-        m_Texture: {fileID: 2800000, guid: 7d5641bd163b2244db55f1d78363724b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Boolean_1103FAD0: 1
-    - _DistortAmount: 0
-    - _IsFlashing: 0
-    - _OutlineThickness: 2
-    - _WhiteStrength: 0
+    m_Floats: []
     m_Colors:
-    - Color_C48EF019: {r: 0, g: 0.8121667, b: 1, a: 0}
+    - Color_B32C00B8: {r: 0, g: 0.5415698, b: 0.9056604, a: 1}
   m_BuildTextureStacks: []

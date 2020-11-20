@@ -216,6 +216,7 @@ MonoBehaviour:
   canBoomerang: 1
   comboCount: 0
   comboTimer: 0
+  prevDamageTime: 0
   xInput: 0
   yInput: 0
   prevxInput: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   isBoomeranging: 0
   isDashing: 0
   isSwapping: 0
+  dashTrailPrefab: {fileID: 8724555887923480942, guid: c2e7c445f6ae3424fbd5b4505468d290, type: 3}
 --- !u!114 &1597767043
 MonoBehaviour:
   m_ObjectHideFlags: 0

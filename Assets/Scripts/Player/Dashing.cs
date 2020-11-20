@@ -22,7 +22,10 @@ public class Dashing : IState
 	public void OnEnter()
 	{
 		if (!_player.isShadow)
+		{
 			AudioManager.Instance.PlayOneShot("DogDash");
+			_player.StartDashTrailCoroutine();
+		}
 
 		_animator.SetTrigger("dash");
 		_collider.enabled = false;

@@ -18,6 +18,8 @@ public class Player : MonoBehaviour, IHealth
 	// Dash
 	public const float DashSpeed = 20f;
 	public const float DashTime = 0.15f;
+	public const float DashTrailSpawnRate = 0.03f;
+	public const float DashTrailDuration = 0.6f;
 
 	// Attack
 	public const float AttackTime = 0.2f;
@@ -89,6 +91,8 @@ public class Player : MonoBehaviour, IHealth
 	private SpriteRenderer _spriteRenderer;
 	private Rigidbody2D _rb;
 	private Collider2D _collider;
+
+	public GameObject dashTrailPrefab;
 
 	private int baseLayer;
 
@@ -286,6 +290,21 @@ public class Player : MonoBehaviour, IHealth
 
 
 	#region Methods called from states
+	public void StartDashTrailCoroutine() // Necessary so that coroutine can start from states
+	{
+		StartCoroutine(SpawnDashTrail());
+	}
+	public IEnumerator SpawnDashTrail()
+	{
+		int numTrails = (int)(DashTime / DashTrailSpawnRate);
+		for (int i = 0; i < numTrails; i++)
+		{
+			GameObject dashTrailObject = GameObject.Instantiate(dashTrailPrefab, this.transform.position, Quaternion.identity);
+			Destroy(dashTrailObject, DashTrailDuration);
+			dashTrailObject.transform.localScale = this.transform.localScale;
+			yield return new WaitForSeconds(DashTrailSpawnRate);
+		}
+	}
 
 	public void ProcessMovement() // Called from moving and idle states
 	{

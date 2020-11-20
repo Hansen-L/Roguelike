@@ -31,6 +31,12 @@ public class SheepBoss : AEnemy
 	public float DashSpeed { get { return 16f; } }
 	public int DashDamage { get { return 20; } }
 	public float DashTrailSpawnRate { get { return 0.15f; } } // How often to spawn the trail effect
+	public float DashTrailDuration { get { return 0.6f; } }
+
+
+	// For small exploding sheep
+	public float SmallSheepTimeBeforeExploding { get { return 10f; } }
+	public int SmallSheepBouncyProjectileNumber { get { return 20; } }
 	#endregion
 
 	private Collider2D _collider;
@@ -41,6 +47,7 @@ public class SheepBoss : AEnemy
 	public bool dashHitboxActive = false;
 
 	public String prevState = SheepBossStatesEnum.SheepMoving.ToString();
+	public SheepBossStatesEnum? nextState = null;
 
 	#region Boolean methods for state transitions
 	public bool isMoving = true;
@@ -116,9 +123,19 @@ public class SheepBoss : AEnemy
 		}
 	}
 
-	public void PickNextState() // Randomly pick next state
+	public void PickNextState() // If we have set a nextState, pick it. Otherwise, pick randomly.
 	{
-		if (!isMoving && !isDashing && !isProjectiling) // Only pick next state if we haven't set one already
+		if (nextState != null)
+		{
+			if (nextState == SheepBossStatesEnum.SheepDashAttacking)
+				isDashing = true;
+			else if (nextState == SheepBossStatesEnum.SheepProjectiling)
+				isProjectiling = true;
+			else if (nextState == SheepBossStatesEnum.SheepMoving)
+				isMoving = true;
+			nextState = null;
+		}
+		else if (!isMoving && !isDashing && !isProjectiling) // Only pick next state if we haven't set one already
 		{
 			float rand = UnityEngine.Random.Range(0, 1f);
 
@@ -179,8 +196,12 @@ public class SheepBoss : AEnemy
 		}
 	}
 
-	public void LaunchBouncyProjectiles() // Launch a circle of projectiles that bounce on walls
+	// Launch a circle of projectiles that bounce on walls. Launches at boss location by default, but we can override it.
+	public void LaunchBouncyProjectiles(Vector3? launchPosition = null)
 	{
+		if (launchPosition == null) // Default to sheep boss location
+			launchPosition = transform.position;
+
 		Vector2 vec = new Vector2(1, 0); // Unit vector to use for rotations
 										 // Launch projectiles in a circle
 		int count = 0;
@@ -191,7 +212,7 @@ public class SheepBoss : AEnemy
 			//angle += UnityEngine.Random.Range(-5f, 5f); // Add some randomness to angles
 			Vector2 projectileDir = (Quaternion.AngleAxis(angle, Vector3.forward) * vec).normalized;
 
-			GameObject bouncyProjectileObject = GameObject.Instantiate(bouncyProjectilePrefab, _rb.position, Quaternion.identity);
+			GameObject bouncyProjectileObject = GameObject.Instantiate(bouncyProjectilePrefab, (Vector3)launchPosition, Quaternion.identity);
 			SheepBouncyProjectile projectileScript = bouncyProjectileObject.GetComponent<SheepBouncyProjectile>();
 			Rigidbody2D projectileRb = bouncyProjectileObject.GetComponent<Rigidbody2D>();
 
@@ -219,6 +240,7 @@ public class SheepBoss : AEnemy
 		for (int i = 0; i < numTrails; i++)
 		{
 			GameObject dashTrailObject = GameObject.Instantiate(dashTrailPrefab, this.transform.position, Quaternion.identity);
+			Destroy(dashTrailObject, DashTrailDuration);
 			dashTrailObject.transform.localScale = this.transform.localScale;
 			yield return new WaitForSeconds(DashTrailSpawnRate);
 		}

@@ -40,7 +40,7 @@ public class SheepMoving : IState
 		if (moveTimer >= _sheep.MoveTime)
 		{
 			_sheep.isMoving = false;
-			_sheep.isDashing = true; // Go into dash after moving
+			_sheep.nextState = SheepBossStatesEnum.SheepDashAttacking; // Go into dash after moving
 		}
 	}
 
