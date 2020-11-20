@@ -6,7 +6,7 @@ using System.Collections;
 public class SheepBoss : AEnemy
 {
 	#region Gameplay Constants
-	public override int MaxHealth { get { return 2000; } }
+	public override int MaxHealth { get { return 1000; } }
 	public override float DeathAnimationTime { get { return 0.84f; } }
 
 	public float IdleTime { get { return 1f; } }

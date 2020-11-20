@@ -93,6 +93,7 @@ public class Player : MonoBehaviour, IHealth
 	private Collider2D _collider;
 
 	public GameObject dashTrailPrefab;
+	public GameObject dashWindPrefab;
 
 	private int baseLayer;
 

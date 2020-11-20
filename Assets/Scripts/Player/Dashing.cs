@@ -25,6 +25,10 @@ public class Dashing : IState
 		{
 			AudioManager.Instance.PlayOneShot("DogDash");
 			_player.StartDashTrailCoroutine();
+
+			// Spawn dashwind effect
+			GameObject dashWind = GameObject.Instantiate(_player.dashWindPrefab, new Vector2(_rb.position.x, _rb.position.y + 0.5f), _player.transform.rotation);
+			dashWind.transform.localScale =  new Vector3(Mathf.Sign(_player.transform.localScale.x)* dashWind.transform.localScale.x, dashWind.transform.localScale.y, 1);
 		}
 
 		_animator.SetTrigger("dash");
