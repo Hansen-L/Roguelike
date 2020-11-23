@@ -209,10 +209,12 @@ public class Player : MonoBehaviour, IHealth
 		return health;
 	}
 
+	// Checks if player is invulnerable. If not, reduces health by damageAmount.
 	public void TakeDamage(int damageAmount)
 	{
 		if (Time.time - prevDamageTime > DamageInvulnDuration) // checking if invulnerability time is up
 		{
+			WhiteFlashManager.FlashWhite(gameObject);
 			prevDamageTime = Time.time;
 			health -= damageAmount;
 		}
