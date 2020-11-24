@@ -175,14 +175,16 @@ public class SheepBoss : AEnemy
 	public void LaunchProjectilesScatter() // Launch a scatter of projectiles at the player
 	{
 		Vector2 playerDir = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
-		float safeAngle = UnityEngine.Random.Range(-ScatterRange, ScatterRange);
+		float safeAngle1 = UnityEngine.Random.Range(-ScatterRange, ScatterRange);
+		float safeAngle2 = UnityEngine.Random.Range(-ScatterRange, ScatterRange);
 
 		int count = 0;
 		while (count < ScatterProjectileNumber)
 		{
 			count += 1;
+			//float angle = ScatterRange * (count - ScatterProjectileNumber / 2) / (ScatterProjectileNumber/2);
 			float angle = UnityEngine.Random.Range(-ScatterRange, ScatterRange); // Add some randomness to angles
-			if (Mathf.Abs(angle - safeAngle) < 5f) // Leave a spot for the player to pass through
+			if (Mathf.Abs(angle - safeAngle1) < 3f  ||  Mathf.Abs(angle - safeAngle2) < 3f) // Leave a spot for the player to pass through
 				continue;
 			Vector2 projectileDir = (Quaternion.AngleAxis(angle, Vector3.forward) * playerDir).normalized;
 

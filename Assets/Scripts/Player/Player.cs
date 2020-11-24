@@ -214,6 +214,7 @@ public class Player : MonoBehaviour, IHealth
 	{
 		if (Time.time - prevDamageTime > DamageInvulnDuration) // checking if invulnerability time is up
 		{
+			AudioManager.Instance.PlayPitch("Hurt", UnityEngine.Random.Range(1.5f, 2f));
 			CinemachineImpulseManager.Play("Strong Impulse");
 			WhiteFlashManager.FlashWhite(gameObject);
 
