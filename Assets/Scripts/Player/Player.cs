@@ -214,7 +214,9 @@ public class Player : MonoBehaviour, IHealth
 	{
 		if (Time.time - prevDamageTime > DamageInvulnDuration) // checking if invulnerability time is up
 		{
+			CinemachineImpulseManager.Play("Strong Impulse");
 			WhiteFlashManager.FlashWhite(gameObject);
+
 			prevDamageTime = Time.time;
 			health -= damageAmount;
 		}

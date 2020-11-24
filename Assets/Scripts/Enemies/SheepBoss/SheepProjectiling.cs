@@ -40,6 +40,7 @@ public class SheepProjectiling : IState
 		{
 			if (!hasFired)
 			{
+				CinemachineImpulseManager.Play("Strong Impulse");
 				AudioManager.Instance.PlayOneShot("Sheep1");
 				hasFired = true;
 

@@ -37,6 +37,7 @@ public class SheepDashAttacking : IState
 		}
 		else if ((dashTimer > _sheep.DashChargeTime) && (dashTimer <= _sheep.DashChargeTime + _sheep.DashTime))
 		{
+			CinemachineImpulseManager.Play("Weak Impulse");
 			if (!hasDashed)
 			{
 				_sheep.StartCoroutine(_sheep.SpawnDashTrail());
