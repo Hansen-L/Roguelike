@@ -20,9 +20,17 @@ public class SheepBoss : AEnemy
 	public float ScatterProjectileChargeTime { get { return 1f; } }
 	public float ScatterProjectileAnimationTime { get { return 1.85f; } }
 	public float ScatterProjectileSpeed { get { return 8f; } }
-	public int ScatterProjectileNumber { get { return 45; } }
 	public int ScatterProjectileDamage { get { return 15; } }
-	public float ScatterRange { get { return 40f; } } // Range of angles that the scatter fires in
+	public float ScatterRange { get {  // Range of angles that the scatter fires in
+			if (curPhase == 1)
+				return 40f;
+			return 60f;
+		} }
+	public int ScatterProjectileNumber { get {
+			if (curPhase == 1)
+				return 45;
+			return 70;
+		} }
 
 	public float BouncyProjectileSpeed { get { return 4f; } }
 	public int BouncyProjectileNumber { get { return 20; } }
@@ -53,7 +61,7 @@ public class SheepBoss : AEnemy
 	public String prevState = SheepBossStatesEnum.SheepMoving.ToString();
 	public SheepBossStatesEnum? nextState = null;
 
-	private int curPhase = 1; // Boss phase. Should be 1 or 2.
+	public int curPhase = 1; // Boss phase. Should be 1 or 2.
 
 	#region Boolean methods for state transitions
 	public bool isMoving = true;
@@ -67,6 +75,9 @@ public class SheepBoss : AEnemy
 	public Func<bool> IsNotProjectiling() => () => (!isProjectiling);
 	public Func<bool> IsDashing() => () => (isDashing);
 	public Func<bool> IsNotDashing() => () => (!isDashing);
+
+	// Only becomes true once, when we switch phases.
+	public Func<bool> IsPhaseChanging() => () => ((health <= (MaxHealth - Phase1Health)) && (curPhase == 1));
 
 	//public Func<bool> IsAttacking() => () => (isAttacking);
 	#endregion
@@ -86,6 +97,7 @@ public class SheepBoss : AEnemy
 		var sheepMoving = new SheepMoving(this, _animator, _rb);
 		var sheepProjectiling = new SheepProjectiling(this, _animator, _rb);
 		var sheepDashing = new SheepDashAttacking(this, _animator, _rb);
+		var sheepPhaseChangeState = new SheepPhaseChangeState(this, _animator, _spriteRenderer);
 
 		//// Assigning transitions
 		At(sheepCentralState, sheepProjectiling, IsProjectiling());
@@ -96,11 +108,15 @@ public class SheepBoss : AEnemy
 		At(sheepMoving, sheepCentralState, IsNotMoving());
 		At(sheepDashing, sheepCentralState, IsNotDashing());
 
+		// Can go into phase change state from any state. Only triggers once.
+		_stateMachine.AddAnyTransition(sheepPhaseChangeState, IsPhaseChanging());
+		At(sheepPhaseChangeState, sheepMoving, IsMoving()); 
+
 		//// Starting state
 		_stateMachine.SetState(sheepMoving);
 
 		// Method to assign transitions easily
-		void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+		void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
 		#endregion
 
 		health = MaxHealth;
@@ -113,7 +129,6 @@ public class SheepBoss : AEnemy
 		{
 			_stateMachine.Tick();
 			CheckIfDead();
-			CheckPhase();
 			FlipSprite();
 			UpdatePreviousState();
 		}
@@ -130,25 +145,7 @@ public class SheepBoss : AEnemy
 		}
 	}
 
-	private void CheckPhase() // Checks if the boss's health is below the phase 1 health. If so, transition to phase 2.
-	{
-		if ((health <= (MaxHealth - Phase1Health)) && (curPhase == 1))
-		{
-			curPhase = 2;
-
-			// Transition to phase 2
-			angryVeinParticle.SetActive(true);
-
-			// Set color of sheep to red
-			// We need to disable the RuntimeAnimatorController for the color to update properly.
-			RuntimeAnimatorController runtimeAnimatorController = _animator.runtimeAnimatorController;
-			_animator.runtimeAnimatorController = null;
-			_spriteRenderer.color = new Color(1, 0.25f, 0.25f);
-			_animator.runtimeAnimatorController = runtimeAnimatorController;
-		}
-	}
-
-	public void PickNextState() // If we have set a nextState, activate it. Otherwise, pick randomly.
+	public void PickNextState() // If we have set a nextState, activate it. Otherwise, pick randomly. Set the nextstate by using sheep.nextState = ...
 	{
 		if (nextState != null)
 		{

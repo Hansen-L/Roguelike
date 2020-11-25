@@ -51,6 +51,8 @@ public class SheepMoving : IState
 
 	public void OnExit()
 	{
+		_sheep.isMoving = false;
+
 		AudioManager.Instance.Stop("Stomp");
 		_animator.SetBool("isMoving", false);
 		_rb.velocity = new Vector2(0, 0);

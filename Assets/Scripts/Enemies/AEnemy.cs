@@ -27,8 +27,8 @@ public abstract class AEnemy : MonoBehaviour, IHealth // Different abstract clas
 
     public void TakeDamage(int damageAmount)
     {
-        //WhiteFlashManager.FlashWhite(gameObject);
-        health -= damageAmount;
+		WhiteFlashManager.FlashWhite(gameObject);
+		health -= damageAmount;
         if (health < 0) { health = 0; }
     }
 

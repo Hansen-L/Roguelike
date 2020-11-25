@@ -59,6 +59,8 @@ public class SheepProjectiling : IState
 
 	public void OnExit()
 	{
+		_sheep.isProjectiling = false;
+
 		_rb.velocity = new Vector2(0, 0);
 		_animator.ResetTrigger("isProjectiling");
 		hasFired = false;

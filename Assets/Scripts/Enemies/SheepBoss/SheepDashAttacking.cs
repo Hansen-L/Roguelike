@@ -63,6 +63,8 @@ public class SheepDashAttacking : IState
 
 	public void OnExit()
 	{
+		_sheep.isDashing = false;
+
 		_rb.velocity = new Vector2(0, 0);
 		_animator.ResetTrigger("isDashing");
 		hasDashed = false;
