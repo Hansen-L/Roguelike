@@ -7,6 +7,9 @@ public class SheepBoss : AEnemy
 {
 	#region Gameplay Constants
 	public override int MaxHealth { get { return 1000; } }
+	public int Phase1Health { get { return 10; } }
+	public int Phase2Health { get { return MaxHealth - Phase1Health; } }
+
 	public override float DeathAnimationTime { get { return 0.84f; } }
 
 	public float IdleTime { get { return 1f; } }
@@ -43,11 +46,14 @@ public class SheepBoss : AEnemy
 	public GameObject bouncyProjectilePrefab;
 	public GameObject scatterProjectilePrefab;
 	public GameObject dashTrailPrefab;
+	public GameObject angryVeinParticle;
 
 	public bool dashHitboxActive = false;
 
 	public String prevState = SheepBossStatesEnum.SheepMoving.ToString();
 	public SheepBossStatesEnum? nextState = null;
+
+	private int curPhase = 1; // Boss phase. Should be 1 or 2.
 
 	#region Boolean methods for state transitions
 	public bool isMoving = true;
@@ -107,6 +113,7 @@ public class SheepBoss : AEnemy
 		{
 			_stateMachine.Tick();
 			CheckIfDead();
+			CheckPhase();
 			FlipSprite();
 			UpdatePreviousState();
 		}
@@ -123,7 +130,25 @@ public class SheepBoss : AEnemy
 		}
 	}
 
-	public void PickNextState() // If we have set a nextState, pick it. Otherwise, pick randomly.
+	private void CheckPhase() // Checks if the boss's health is below the phase 1 health. If so, transition to phase 2.
+	{
+		if ((health <= (MaxHealth - Phase1Health)) && (curPhase == 1))
+		{
+			curPhase = 2;
+
+			// Transition to phase 2
+			angryVeinParticle.SetActive(true);
+
+			// Set color of sheep to red
+			// We need to disable the RuntimeAnimatorController for the color to update properly.
+			RuntimeAnimatorController runtimeAnimatorController = _animator.runtimeAnimatorController;
+			_animator.runtimeAnimatorController = null;
+			_spriteRenderer.color = new Color(1, 0.25f, 0.25f);
+			_animator.runtimeAnimatorController = runtimeAnimatorController;
+		}
+	}
+
+	public void PickNextState() // If we have set a nextState, activate it. Otherwise, pick randomly.
 	{
 		if (nextState != null)
 		{

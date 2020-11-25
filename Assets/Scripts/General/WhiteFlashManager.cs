@@ -35,9 +35,12 @@ public class WhiteFlashManager : MonoBehaviour
                 renderer.material = whiteMaterial;
                 yield return new WaitForSeconds(flashDuration);
 
-                // Check if enemy did not die. If so, reset the material.
+                // Check if enemy did not die, reset the material.
                 if (targetObject)
                     renderer.material = originalMaterial;
+
+                //// If the boss changed color during the flash.
+                //if (originalMaterial.color == renderer.material.color)
             }
         }
         yield return null;
