@@ -45,7 +45,7 @@ public class SheepBoss : AEnemy
 	public float DashTrailDuration { get { return 0.6f; } }
 
 	public float LaunchExplodingSheepChargeTime { get { return 1f; } }
-	public float LaunchExplodingSheepShootingTime { get { return 2f; } } // How long it takes to shoot out all exploding sheep
+	public float LaunchExplodingSheepShootingTime { get { return 5f; } } // How long it takes to shoot out all exploding sheep
 	public int NumExplodingSheepLaunched { get { return 6; } }
 	public float ExplodingSheepLaunchSpeed { get { return 16f; } }
 	// For small exploding sheep
@@ -284,11 +284,12 @@ public class SheepBoss : AEnemy
 		float timeBetweenLaunches = LaunchExplodingSheepShootingTime / NumExplodingSheepLaunched;
 		for (int i = 0; i < NumExplodingSheepLaunched; i++)
 		{
+			AudioManager.Instance.PlayOneShot("Throw");
 			GameObject explodingSheepObject = GameObject.Instantiate(explodingSheepPrefab, this.transform.position, Quaternion.identity);
 			// Randomize launch direction
 			float angle = UnityEngine.Random.Range(0f, 360f);
 			Vector2 launchDir = (Quaternion.AngleAxis(angle, Vector3.forward) * vec).normalized;
-			explodingSheepObject.GetComponent<Rigidbody2D>().velocity = launchDir * ExplodingSheepLaunchSpeed;
+			explodingSheepObject.GetComponent<Rigidbody2D>().velocity = launchDir * ExplodingSheepLaunchSpeed * UnityEngine.Random.Range(1f, 1.5f);
 			yield return new WaitForSeconds(timeBetweenLaunches);
 		}
 	}

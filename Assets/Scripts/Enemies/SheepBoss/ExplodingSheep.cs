@@ -39,6 +39,7 @@ public class ExplodingSheep : AEnemy
 
     protected override void Die()
     {
+        AudioManager.Instance.PlayPitch("Sheep1", UnityEngine.Random.Range(1.8f, 2.5f));
         _animator.SetTrigger("die");
         isDead = true;
         GetComponent<Collider2D>().enabled = false; // disable collisions
