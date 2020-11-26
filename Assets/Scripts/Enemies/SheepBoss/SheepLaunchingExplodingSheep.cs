@@ -59,6 +59,7 @@ public class SheepLaunchingExplodingSheep : IState
 	public void OnExit()
 	{
 		_sheep.isLaunchingExplodingSheep = false;
+		hasLaunched = false;
 
 		_rb.velocity = new Vector2(0, 0);
 		_animator.ResetTrigger("isLaunchingExplodingSheep");

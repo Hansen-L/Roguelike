@@ -169,14 +169,34 @@ public class SheepBoss : AEnemy
 				isLaunchingExplodingSheep = true;
 			nextState = null;
 		}
-		else if (!isMoving && !isDashing && !isProjectiling) // Only pick next state if we haven't set one already
+		else if (!isMoving && !isDashing && !isProjectiling && !isLaunchingExplodingSheep) // Only pick next state if we haven't set one already
 		{
-			float rand = UnityEngine.Random.Range(0, 1f);
-
-			if (rand < 0.5)
-				isMoving = true;
-			else
-				isProjectiling = true;
+			if (curPhase == 1)
+			{
+				float rand = UnityEngine.Random.Range(0, 1f);
+				if (rand < 0.5)
+					isMoving = true;
+				else
+					isProjectiling = true;
+			}
+			else if (curPhase == 2)
+			{
+				float rand = UnityEngine.Random.Range(0, 1f);
+				if (prevState == SheepBossStatesEnum.SheepProjectiling.ToString()) // Projectile can loop or go into launchingExplodingSheep
+				{
+					if (rand < 0.5)
+						isProjectiling = true;
+					else
+						isLaunchingExplodingSheep = true;
+				}
+				else
+				{
+					if (rand < 0.5)
+						isMoving = true;
+					else
+						isProjectiling = true;
+				}
+			}
 		}
 	}
 
