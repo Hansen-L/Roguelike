@@ -40,6 +40,7 @@ public class SheepDashAttacking : IState
 			CinemachineImpulseManager.Play("Weak Impulse");
 			if (!hasDashed)
 			{
+				AudioManager.Instance.Play("Stampede");
 				_sheep.StartCoroutine(_sheep.SpawnDashTrail());
 				attackDirection = (GameManager.GetMainPlayerRb().position - _rb.position).normalized;
 				hasDashed = true;
@@ -49,6 +50,7 @@ public class SheepDashAttacking : IState
 		}
 		else if (dashTimer > _sheep.DashChargeTime + _sheep.DashTime) // If done charging and dashing
 		{
+			AudioManager.Instance.Stop("Stampede");
 			_sheep.isDashing = false;
 			_sheep.dashHitboxActive = false;
 

@@ -7,7 +7,7 @@ public class SheepBoss : AEnemy
 {
 	#region Gameplay Constants
 	public override int MaxHealth { get { return 1000; } }
-	public int Phase1Health { get { return 10; } }
+	public int Phase1Health { get { return 5; } }
 	public int Phase2Health { get { return MaxHealth - Phase1Health; } }
 
 	public override float DeathAnimationTime { get { return 0.84f; } }
@@ -19,7 +19,7 @@ public class SheepBoss : AEnemy
 
 	public float ScatterProjectileChargeTime { get { return 1f; } }
 	public float ScatterProjectileAnimationTime { get { return 1.85f; } }
-	public float ScatterProjectileSpeed { get { return 8f; } }
+	public float ScatterProjectileSpeed { get { return 6f; } }
 	public int ScatterProjectileDamage { get { return 15; } }
 	public float ScatterRange { get {  // Range of angles that the scatter fires in
 			if (curPhase == 1)
@@ -32,7 +32,7 @@ public class SheepBoss : AEnemy
 			return 70;
 		} }
 
-	public float BouncyProjectileSpeed { get { return 4f; } }
+	public float BouncyProjectileSpeed { get { return 3f; } }
 	public int BouncyProjectileNumber { get { return 20; } }
 	public int BouncyProjectileDamage { get { return 15; } }
 	public int BouncyProjectileBounces { get { return 1; } }
@@ -245,7 +245,7 @@ public class SheepBoss : AEnemy
 			count += 1;
 			//float angle = ScatterRange * (count - ScatterProjectileNumber / 2) / (ScatterProjectileNumber/2);
 			float angle = UnityEngine.Random.Range(-ScatterRange, ScatterRange); // Add some randomness to angles
-			if (Mathf.Abs(angle - safeAngle1) < 3f  ||  Mathf.Abs(angle - safeAngle2) < 3f) // Leave a spot for the player to pass through
+			if (Mathf.Abs(angle - safeAngle1) < 5f  ||  Mathf.Abs(angle - safeAngle2) < 5f) // Leave a spot for the player to pass through
 				continue;
 			Vector2 projectileDir = (Quaternion.AngleAxis(angle, Vector3.forward) * playerDir).normalized;
 

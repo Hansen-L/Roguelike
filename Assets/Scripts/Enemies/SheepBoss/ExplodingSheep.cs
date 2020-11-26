@@ -9,6 +9,7 @@ public class ExplodingSheep : AEnemy
 
     public SheepBoss _sheepBoss;
 
+    private Collider2D _collider;
     private float lifeTimer = 0f;
 
     // Start is called before the first frame update
@@ -16,12 +17,17 @@ public class ExplodingSheep : AEnemy
     {
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
         health = MaxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Only enable the hitbox once the sheep has slowed down
+        if (_rb.velocity.magnitude < 0.5f)
+            _collider.enabled = true;
+
         lifeTimer += Time.deltaTime;
         
         if (!isDead)

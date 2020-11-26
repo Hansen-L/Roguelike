@@ -20,6 +20,8 @@ public class SheepPhaseChangeState : IState // Empty state to make transitioning
 
 		// Transition to phase 2
 		_sheep.angryVeinParticle.SetActive(true);
+		AudioManager.Instance.Play("SheepAngry");
+		CinemachineImpulseManager.Play("Extra Strong Impulse");
 
 		// Set color of sheep to red
 		// We need to disable the RuntimeAnimatorController for the color to update properly.
