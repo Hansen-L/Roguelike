@@ -184,14 +184,21 @@ public class SheepBoss : AEnemy
 				float rand = UnityEngine.Random.Range(0, 1f);
 				if (prevState == SheepBossStatesEnum.SheepProjectiling.ToString()) // Projectile can loop or go into launchingExplodingSheep
 				{
-					if (rand < 0.5)
+					if (rand < 0.5f)
 						isProjectiling = true;
 					else
 						isLaunchingExplodingSheep = true;
 				}
+				else if (prevState == SheepBossStatesEnum.SheepDashAttacking.ToString())
+				{
+					if (rand < 0.5f)
+						isDashing = true;
+					else
+						isProjectiling = true;
+				}
 				else
 				{
-					if (rand < 0.5)
+					if (rand < 0.5f)
 						isMoving = true;
 					else
 						isProjectiling = true;

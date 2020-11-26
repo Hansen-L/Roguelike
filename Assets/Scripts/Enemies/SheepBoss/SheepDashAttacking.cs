@@ -52,7 +52,8 @@ public class SheepDashAttacking : IState
 			_sheep.isDashing = false;
 			_sheep.dashHitboxActive = false;
 
-			_sheep.nextState = SheepBossStatesEnum.SheepProjectiling; // Transition into projectile after dashing
+			if (_sheep.curPhase == 1)
+				_sheep.nextState = SheepBossStatesEnum.SheepProjectiling; // Transition into projectile after dashing
 		}
 	}
 
