@@ -44,15 +44,19 @@ public class SheepBoss : AEnemy
 	public float DashTrailSpawnRate { get { return 0.15f; } } // How often to spawn the trail effect
 	public float DashTrailDuration { get { return 0.6f; } }
 
-
+	public float LaunchExplodingSheepChargeTime { get { return 1f; } }
+	public float LaunchExplodingSheepShootingTime { get { return 2f; } } // How long it takes to shoot out all exploding sheep
+	public int NumExplodingSheepLaunched { get { return 6; } }
+	public float ExplodingSheepLaunchSpeed { get { return 16f; } }
 	// For small exploding sheep
-	public float SmallSheepTimeBeforeExploding { get { return 10f; } }
-	public int SmallSheepBouncyProjectileNumber { get { return 20; } }
+	public float ExplodingSheepTimeBeforeExploding { get { return 10f; } }
+	public int ExplodingSheepBouncyProjectileNumber { get { return 10; } }
 	#endregion
 
 	private Collider2D _collider;
 	public GameObject bouncyProjectilePrefab;
 	public GameObject scatterProjectilePrefab;
+	public GameObject explodingSheepPrefab;
 	public GameObject dashTrailPrefab;
 	public GameObject angryVeinParticle;
 
@@ -67,6 +71,7 @@ public class SheepBoss : AEnemy
 	public bool isMoving = true;
 	public bool isProjectiling = false;
 	public bool isDashing = false;
+	public bool isLaunchingExplodingSheep = false;
 
 	// Note: When calling these methods, we use IsMoving()() or IsMoving().Invoke()
 	public Func<bool> IsMoving() => () => (isMoving);
@@ -75,6 +80,8 @@ public class SheepBoss : AEnemy
 	public Func<bool> IsNotProjectiling() => () => (!isProjectiling);
 	public Func<bool> IsDashing() => () => (isDashing);
 	public Func<bool> IsNotDashing() => () => (!isDashing);
+	public Func<bool> IsLaunchingExplodingSheep() => () => (isLaunchingExplodingSheep);
+	public Func<bool> IsNotLaunchingExplodingSheep() => () => (!isLaunchingExplodingSheep);
 
 	// Only becomes true once, when we switch phases.
 	public Func<bool> IsPhaseChanging() => () => ((health <= (MaxHealth - Phase1Health)) && (curPhase == 1));
@@ -97,20 +104,23 @@ public class SheepBoss : AEnemy
 		var sheepMoving = new SheepMoving(this, _animator, _rb);
 		var sheepProjectiling = new SheepProjectiling(this, _animator, _rb);
 		var sheepDashing = new SheepDashAttacking(this, _animator, _rb);
+		var sheepLaunchingExplodingSheep = new SheepLaunchingExplodingSheep(this, _animator, _rb);
 		var sheepPhaseChangeState = new SheepPhaseChangeState(this, _animator, _spriteRenderer);
 
 		//// Assigning transitions
 		At(sheepCentralState, sheepProjectiling, IsProjectiling());
 		At(sheepCentralState, sheepMoving, IsMoving());
 		At(sheepCentralState, sheepDashing, IsDashing());
+		At(sheepCentralState, sheepLaunchingExplodingSheep, IsLaunchingExplodingSheep());
 
 		At(sheepProjectiling, sheepCentralState, IsNotProjectiling());
 		At(sheepMoving, sheepCentralState, IsNotMoving());
 		At(sheepDashing, sheepCentralState, IsNotDashing());
+		At(sheepLaunchingExplodingSheep, sheepCentralState, IsNotLaunchingExplodingSheep());
 
 		// Can go into phase change state from any state. Only triggers once.
 		_stateMachine.AddAnyTransition(sheepPhaseChangeState, IsPhaseChanging());
-		At(sheepPhaseChangeState, sheepMoving, IsMoving()); 
+		At(sheepPhaseChangeState, sheepLaunchingExplodingSheep, IsLaunchingExplodingSheep()); 
 
 		//// Starting state
 		_stateMachine.SetState(sheepMoving);
@@ -155,6 +165,8 @@ public class SheepBoss : AEnemy
 				isProjectiling = true;
 			else if (nextState == SheepBossStatesEnum.SheepMoving)
 				isMoving = true;
+			else if (nextState == SheepBossStatesEnum.SheepLaunchingExplodingSheep)
+				isLaunchingExplodingSheep = true;
 			nextState = null;
 		}
 		else if (!isMoving && !isDashing && !isProjectiling) // Only pick next state if we haven't set one already
@@ -253,11 +265,6 @@ public class SheepBoss : AEnemy
 			prevState = curState;
 	}
 
-
-	public void StartDashTrailCoroutine() // Necessary so that coroutine can start from states
-	{
-		StartCoroutine(SpawnDashTrail());
-	}
 	public IEnumerator SpawnDashTrail()
 	{
 		int numTrails = (int)(DashTime / DashTrailSpawnRate);
@@ -267,6 +274,22 @@ public class SheepBoss : AEnemy
 			Destroy(dashTrailObject, DashTrailDuration);
 			dashTrailObject.transform.localScale = this.transform.localScale;
 			yield return new WaitForSeconds(DashTrailSpawnRate);
+		}
+	}
+
+	public IEnumerator LaunchExplodingSheep()
+	{
+		Vector2 vec = new Vector2(1, 0); // Unit vector to use for rotations
+
+		float timeBetweenLaunches = LaunchExplodingSheepShootingTime / NumExplodingSheepLaunched;
+		for (int i = 0; i < NumExplodingSheepLaunched; i++)
+		{
+			GameObject explodingSheepObject = GameObject.Instantiate(explodingSheepPrefab, this.transform.position, Quaternion.identity);
+			// Randomize launch direction
+			float angle = UnityEngine.Random.Range(0f, 360f);
+			Vector2 launchDir = (Quaternion.AngleAxis(angle, Vector3.forward) * vec).normalized;
+			explodingSheepObject.GetComponent<Rigidbody2D>().velocity = launchDir * ExplodingSheepLaunchSpeed;
+			yield return new WaitForSeconds(timeBetweenLaunches);
 		}
 	}
 }

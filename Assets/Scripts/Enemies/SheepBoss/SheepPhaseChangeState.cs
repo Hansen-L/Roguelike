@@ -28,13 +28,12 @@ public class SheepPhaseChangeState : IState // Empty state to make transitioning
 		_sr.color = new Color(1, 0.25f, 0.25f);
 		_animator.runtimeAnimatorController = runtimeAnimatorController;
 
-		_sheep.isMoving = true;
+		_sheep.nextState = SheepBossStatesEnum.SheepLaunchingExplodingSheep;
 	}
 
 	public void Tick()
 	{
-		//_sheep.PickNextState();
-
+		_sheep.PickNextState();
 	}
 
 	public void FixedTick()

@@ -9,12 +9,13 @@
 	None
 }
 
-public enum SheepBossStatesEnum // Sheep boss states
+public enum SheepBossStatesEnum // Sheep boss states. If adding states, make sure to change the PickNextState() function
 {
 	SheepCentralState,
 	SheepMoving,
 	SheepProjectiling,
-	SheepDashAttacking
+	SheepDashAttacking,
+	SheepLaunchingExplodingSheep
 }
 
 public enum LayersEnum // layer names

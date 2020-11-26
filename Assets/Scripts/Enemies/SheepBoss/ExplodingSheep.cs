@@ -25,7 +25,7 @@ public class ExplodingSheep : AEnemy
         lifeTimer += Time.deltaTime;
         
         if (!isDead)
-            if (lifeTimer > _sheepBoss.SmallSheepTimeBeforeExploding)
+            if (lifeTimer > _sheepBoss.ExplodingSheepTimeBeforeExploding)
                 Explode();
             else
                 CheckIfDead();

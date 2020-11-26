@@ -4974,13 +4974,16 @@ MonoBehaviour:
   isDead: 0
   bouncyProjectilePrefab: {fileID: 5072513816387117097, guid: 3ca20673de67eef4c89788d12b30bc97, type: 3}
   scatterProjectilePrefab: {fileID: 5072513816387117097, guid: 1a8e0d4d67c8fe84e86d3cf5f2af80dd, type: 3}
+  explodingSheepPrefab: {fileID: 7532039246779007536, guid: 6028883b216a2164cba95029a3c8b5f3, type: 3}
   dashTrailPrefab: {fileID: 7080679808407373553, guid: 02d0d64c3827c184a9a329e78a858845, type: 3}
   angryVeinParticle: {fileID: 973578628}
   dashHitboxActive: 0
   prevState: SheepMoving
+  curPhase: 1
   isMoving: 0
   isProjectiling: 0
   isDashing: 0
+  isLaunchingExplodingSheep: 0
 --- !u!1 &4403675840299360505
 GameObject:
   m_ObjectHideFlags: 0
