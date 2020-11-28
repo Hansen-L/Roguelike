@@ -20,7 +20,8 @@ public class Attacking : IState
     public void OnEnter() 
 	{
 		_animator.SetTrigger("attack");
-        _rb.velocity = new Vector2(0f, 0f);
+        //_rb.velocity = new Vector2(0f, 0f);
+        _rb.velocity = _rb.velocity / 2f; // Slow down player when attacking
 
         _player.comboTimer = 0f; // Reset combo timer
         _player.comboCount += 1;

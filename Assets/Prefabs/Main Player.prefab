@@ -135,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02615647, y: -0.109374285}
+  m_Offset: {x: 0.02474916, y: -0.11782122}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -146,7 +146,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.42105463, y: 0.21354914}
+  m_Size: {x: 0.3281653, y: 0.19665527}
   m_EdgeRadius: 0
 --- !u!50 &24546750019598946
 Rigidbody2D:
@@ -213,9 +213,12 @@ MonoBehaviour:
   boomerangPrefab: {fileID: 4576751592110199639, guid: 9b951a015b8958e45930347541c1ea91, type: 3}
   boomerangExplosionEffect: {fileID: 412779105666678601, guid: d24b46326077eb647a6b45ea27159f30, type: 3}
   projectileFirePoint: {fileID: 1596527609}
+  gameOverCanvas: {fileID: 0}
   canBoomerang: 1
+  canDash: 1
   comboCount: 0
   comboTimer: 0
+  dashCooldownTimer: 0
   prevDamageTime: 0
   xInput: 0
   yInput: 0

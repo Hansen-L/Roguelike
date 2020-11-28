@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IHealth
 {
 	#region Gameplay constants
 	// Health and taking damage
-	public const int MaxHealth = 100;
+	public const int MaxHealth = 10;
 	public const float DamageInvulnDuration = 1f; // How long player is invuln for after getting hit
 
 	// Movement
@@ -65,6 +65,7 @@ public class Player : MonoBehaviour, IHealth
 	public GameObject boomerangPrefab;
 	public GameObject boomerangExplosionEffect;
 	public Transform projectileFirePoint;
+	public GameObject gameOverCanvas;
 
 	public bool canBoomerang = true; // Determines if the player can throw a boomerang
 	public bool canDash = true;
@@ -195,7 +196,7 @@ public class Player : MonoBehaviour, IHealth
 		if (!isShadow)
 		{
 			if (IsDead())
-				Debug.Log("Player has died");
+				Die();
 			UpdateHealthBar();
 		}
 
@@ -245,6 +246,17 @@ public class Player : MonoBehaviour, IHealth
 	private void UpdateHealthBar()
 	{
 		healthBar.transform.localScale = new Vector3(Mathf.Lerp(healthBar.transform.localScale.x, (float)GetHealth() / (float)MaxHealth, 0.3f), 1f);
+	}
+
+	private void Die()
+	{
+		AudioListener.volume = 0.2f;
+		Invoke("StopTime", 2f); // Stop time after 2 seconds.
+		gameOverCanvas.SetActive(true);
+	}
+	private void StopTime()
+	{
+		Time.timeScale = 0;
 	}
 	#endregion
 

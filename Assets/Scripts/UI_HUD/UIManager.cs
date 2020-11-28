@@ -18,12 +18,13 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             isPaused = !isPaused;
-
-        if (isPaused)
-            ActivatePauseMenu();
-        else
-            DeactivatePauseMenu();
+            if (isPaused)
+                ActivatePauseMenu();
+            else
+                DeactivatePauseMenu();
+        }
     }
 
     private void ActivatePauseMenu()
@@ -48,6 +49,7 @@ public class UIManager : MonoBehaviour
     }
     public void RestartButton()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void QuitButton()
