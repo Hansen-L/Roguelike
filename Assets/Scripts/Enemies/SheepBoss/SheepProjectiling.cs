@@ -41,7 +41,7 @@ public class SheepProjectiling : IState
 			if (!hasFired)
 			{
 				CinemachineImpulseManager.Play("Strong Impulse");
-				AudioManager.Instance.PlayOneShot("Sheep1");
+				AudioManager.Instance.PlayPitch("Sheep1",1f);
 				hasFired = true;
 
 				_sheep.LaunchProjectilesScatter();

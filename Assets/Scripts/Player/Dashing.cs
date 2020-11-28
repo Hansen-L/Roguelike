@@ -23,6 +23,10 @@ public class Dashing : IState
 	{
 		if (!_player.isShadow)
 		{
+			// Start dash cooldown
+			_player.canDash = false;
+			_player.dashCooldownTimer = Player.DashCooldown;
+
 			AudioManager.Instance.PlayOneShot("DogDash");
 			_player.StartDashTrailCoroutine();
 

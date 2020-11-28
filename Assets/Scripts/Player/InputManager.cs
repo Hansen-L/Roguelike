@@ -36,7 +36,8 @@ public class InputManager : MonoBehaviour
 		StartCoroutine(SetMovementInputsWithDelay(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
 
 		if (Input.GetKeyDown(KeyCode.Space))
-			StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
+			if (_player.canDash)
+				StartCoroutine(SetStateOrEnqueueWithDelay(StatesEnum.Dashing));
 
 		if (Input.GetMouseButtonDown(0))
 			//if (_player.IsIdleOrMoving()()) { _player.SetState(StatesEnum.Attacking); }

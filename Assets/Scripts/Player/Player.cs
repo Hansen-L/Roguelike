@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IHealth
 	public const float DashTime = 0.15f;
 	public const float DashTrailSpawnRate = 0.03f;
 	public const float DashTrailDuration = 0.6f;
+	public const float DashCooldown = 0.3f;
 
 	// Attack
 	public const float AttackTime = 0.2f;
@@ -66,9 +67,12 @@ public class Player : MonoBehaviour, IHealth
 	public Transform projectileFirePoint;
 
 	public bool canBoomerang = true; // Determines if the player can throw a boomerang
+	public bool canDash = true;
 
 	public int comboCount = 0; // Track which hit of combo we are on
 	public float comboTimer = 0f;
+
+	public float dashCooldownTimer = 0f;
 
 	public float prevDamageTime = 0f; // Last time player took damage. Used for invuln calculations
 	
@@ -183,6 +187,7 @@ public class Player : MonoBehaviour, IHealth
 	private void Update()
     {
 		ComboCheck(); // Check if attacks are fast enough to combo
+		DashCooldownCheck();
 		Utils.Utils.SetRenderLayer(gameObject, baseLayer);
 		FlipPlayer();
 
@@ -265,6 +270,13 @@ public class Player : MonoBehaviour, IHealth
 			default:
 				break;
 		}
+	}
+
+	private void DashCooldownCheck()
+	{
+		dashCooldownTimer -= Time.deltaTime;
+		if (dashCooldownTimer < 0)
+			canDash = true;
 	}
 
 	private void ComboCheck()
