@@ -90,7 +90,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ac504ccdac26c3346ba58284906717e1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.046306968, y: -0.074103355}
+  m_Offset: {x: 0.02615647, y: -0.109374285}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -146,7 +146,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9651127, y: 0.6871891}
+  m_Size: {x: 0.42105463, y: 0.21354914}
   m_EdgeRadius: 0
 --- !u!50 &24546750019598946
 Rigidbody2D:
@@ -348,7 +348,7 @@ Transform:
   m_GameObject: {fileID: 5267391715358985110}
   m_LocalRotation: {x: -0, y: -0, z: 0.90875906, w: 0.41732123}
   m_LocalPosition: {x: -0.8, y: 0.02, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 24546750019598951}
   m_RootOrder: 2
@@ -5280,7 +5280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1542714375617429020, guid: 86adf093fe4b5624e87dfb5baa79e3b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: 1542714375617429020, guid: 86adf093fe4b5624e87dfb5baa79e3b2, type: 3}
       propertyPath: m_LocalPosition.z

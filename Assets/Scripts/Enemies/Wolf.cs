@@ -71,12 +71,12 @@ public class Wolf : AProjectileEnemy
 	{
 		if (_rb.velocity.x > 0) // moving right
 		{
-			transform.localScale = new Vector3(1, 1, 1);
+			transform.localScale = new Vector3(-1, 1, 1);
 			transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1); // Flipping the health bar
 		}
 		else if (_rb.velocity.x < 0) // moving left
 		{
-			transform.localScale = new Vector3(-1, 1, 1);
+			transform.localScale = new Vector3(1, 1, 1);
 			transform.GetChild(0).transform.localScale = new Vector3(-1, 1, 1);
 		}
 	}
