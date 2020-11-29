@@ -6,8 +6,8 @@ using System.Collections;
 public class SheepBoss : AEnemy
 {
 	#region Gameplay Constants
-	public override int MaxHealth { get { return 1500; } }
-	public int Phase1Health { get { return 500; } }
+	public override int MaxHealth { get { return 2000; } } // 2000
+	public int Phase1Health { get { return 750; } } // 750
 	public int Phase2Health { get { return MaxHealth - Phase1Health; } }
 
 	public override float DeathAnimationTime { get { return 0.84f; } }
@@ -59,6 +59,7 @@ public class SheepBoss : AEnemy
 	public GameObject explodingSheepPrefab;
 	public GameObject dashTrailPrefab;
 	public GameObject angryVeinParticle;
+	public GameObject woolBallParticle;
 
 	public bool dashHitboxActive = false;
 
@@ -210,27 +211,47 @@ public class SheepBoss : AEnemy
 	protected override void Die()
 	{
 		isDead = true;
+		ChangeColorToWhite();
+		StartCoroutine(SpawnDashTrail());
+		AudioManager.Instance.Play("SheepAngry");
 		AudioManager.Instance.Stop("Stomp");
+		CinemachineImpulseManager.Play("Extra Strong Impulse");
 		_animator.SetTrigger("die");
 		_rb.velocity = new Vector2(0f, 0f);
 		GetComponent<Collider2D>().enabled = false; // disable collisions
+		woolBallParticle.SetActive(true);
+		angryVeinParticle.SetActive(false);
 		Destroy(transform.GetChild(0).gameObject); // Destroy healthbar
-		Destroy(gameObject, DeathAnimationTime); // Destroy when death animation is done
+
+		GameManager.GetMainPlayer().GetComponent<Collider2D>().enabled = false; // Disable player hitbox
+
+		UIManager.Instance.Invoke("ActivateVictoryScreen", 5f);
 	}
 
 	private void FlipSprite()
 	{
 		float mag = Mathf.Abs(transform.localScale.x); // Magnitude of localscale
 		if (_rb.velocity.x > 0) // moving right
-		{
-			transform.localScale = new Vector3(-mag, mag, 1);
-			transform.GetChild(0).transform.localScale = new Vector3(-1, 1, 1); // Flipping the health bar
-		}
+			_spriteRenderer.flipX = true;
 		else if (_rb.velocity.x < 0) // moving left
-		{
-			transform.localScale = new Vector3(mag, mag, 1);
-			transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
-		}
+			_spriteRenderer.flipX = false;
+	}
+
+	public void ChangeColorToRed()
+	{
+		// Set color of sheep to red
+		// We need to disable the RuntimeAnimatorController for the color to update properly.
+		RuntimeAnimatorController runtimeAnimatorController = _animator.runtimeAnimatorController;
+		_animator.runtimeAnimatorController = null;
+		_spriteRenderer.color = new Color(1, 0.25f, 0.25f);
+		_animator.runtimeAnimatorController = runtimeAnimatorController;
+	}
+	public void ChangeColorToWhite()
+	{
+		RuntimeAnimatorController runtimeAnimatorController = _animator.runtimeAnimatorController;
+		_animator.runtimeAnimatorController = null;
+		_spriteRenderer.color = new Color(1f, 1f, 1f);
+		_animator.runtimeAnimatorController = runtimeAnimatorController;
 	}
 
 	public void LaunchProjectilesScatter() // Launch a scatter of projectiles at the player
@@ -299,7 +320,7 @@ public class SheepBoss : AEnemy
 		{
 			GameObject dashTrailObject = GameObject.Instantiate(dashTrailPrefab, this.transform.position, Quaternion.identity);
 			Destroy(dashTrailObject, DashTrailDuration);
-			dashTrailObject.transform.localScale = this.transform.localScale;
+			dashTrailObject.GetComponent<SpriteRenderer>().flipX = _spriteRenderer.flipX;
 			yield return new WaitForSeconds(DashTrailSpawnRate);
 		}
 	}

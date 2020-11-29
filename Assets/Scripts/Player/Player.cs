@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IHealth
 {
 	#region Gameplay constants
 	// Health and taking damage
-	public const int MaxHealth = 10;
+	public const int MaxHealth = 100;
 	public const float DamageInvulnDuration = 1f; // How long player is invuln for after getting hit
 
 	// Movement
@@ -26,13 +26,13 @@ public class Player : MonoBehaviour, IHealth
 	public const float AttackTime = 0.2f;
 	public const float ComboWindow = 0.7f; // Time between attacks for combo
 	public const int SlashDamage = 10;
-	public const int BarkDamage = 30;
+	public const int BarkDamage = 20;
 	public const float BarkMovementSpeed = 7f; // How much the player moves after barking
 
 	// Boomerang
 	public const float BoomerangTime = 0.1f; // Time for animation to play out, and to pause movement inputs
 	public const int BoomerangDamage = 15;
-	public const int BoomerangExplosionDamage = 40;
+	public const int BoomerangExplosionDamage = 30;
 	public const float BoomerangStartSpeed = 25f;
 	public const float BoomerangStartSpeedShadow = 25.5f;
 	public const float BoomerangTorque = 1000f;

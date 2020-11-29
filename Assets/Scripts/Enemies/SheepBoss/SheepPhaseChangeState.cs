@@ -23,12 +23,7 @@ public class SheepPhaseChangeState : IState // Empty state to make transitioning
 		AudioManager.Instance.Play("SheepAngry");
 		CinemachineImpulseManager.Play("Extra Strong Impulse");
 
-		// Set color of sheep to red
-		// We need to disable the RuntimeAnimatorController for the color to update properly.
-		RuntimeAnimatorController runtimeAnimatorController = _animator.runtimeAnimatorController;
-		_animator.runtimeAnimatorController = null;
-		_sr.color = new Color(1, 0.25f, 0.25f);
-		_animator.runtimeAnimatorController = runtimeAnimatorController;
+		_sheep.ChangeColorToRed();
 
 		_sheep.nextState = SheepBossStatesEnum.SheepLaunchingExplodingSheep;
 	}

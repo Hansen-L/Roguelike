@@ -5,13 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+
+    public static UIManager Instance;
+
     public GameObject pauseMenu;
+    public GameObject victoryScreen;
 
     private bool isPaused = false;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(gameObject); }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
-        
+        Time.timeScale = 1;
+        AudioListener.volume = 1f;
     }
 
     // Update is called once per frame
@@ -25,6 +39,12 @@ public class UIManager : MonoBehaviour
             else
                 DeactivatePauseMenu();
         }
+    }
+
+    public void ActivateVictoryScreen()
+    {
+        AudioManager.Instance.PlayOneShot("Victory");
+        victoryScreen.SetActive(true);
     }
 
     private void ActivatePauseMenu()
@@ -50,6 +70,7 @@ public class UIManager : MonoBehaviour
     public void RestartButton()
     {
         Time.timeScale = 1;
+        AudioListener.volume = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void QuitButton()
