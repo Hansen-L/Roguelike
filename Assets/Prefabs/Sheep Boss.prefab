@@ -26,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973578628}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.298, y: 0.075, z: 0}
+  m_LocalPosition: {x: -0.298, y: 0.07500005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4403675840255408744}
-  m_RootOrder: 2
+  m_Father: {fileID: 916774385218415000}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &973578631
 ParticleSystem:
@@ -4813,6 +4813,37 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &1092578533386656000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 916774385218415000}
+  m_Layer: 9
+  m_Name: Particle Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &916774385218415000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092578533386656000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 973578629}
+  m_Father: {fileID: 4403675840255408744}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4403675840255408749
 GameObject:
   m_ObjectHideFlags: 0
@@ -4847,8 +4878,8 @@ Transform:
   m_Children:
   - {fileID: 4403675840867297924}
   - {fileID: 4660065980779707839}
-  - {fileID: 973578629}
   - {fileID: 7629501788733150376}
+  - {fileID: 916774385218415000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4977,7 +5008,7 @@ MonoBehaviour:
   scatterProjectilePrefab: {fileID: 5072513816387117097, guid: 1a8e0d4d67c8fe84e86d3cf5f2af80dd, type: 3}
   explodingSheepPrefab: {fileID: 7532039246779007536, guid: 6028883b216a2164cba95029a3c8b5f3, type: 3}
   dashTrailPrefab: {fileID: 7080679808407373553, guid: 02d0d64c3827c184a9a329e78a858845, type: 3}
-  angryVeinParticle: {fileID: 973578628}
+  angryVeinParticle: {fileID: 1092578533386656000}
   woolBallParticle: {fileID: 6114304990950438270}
   dashHitboxActive: 0
   prevState: SheepMoving
@@ -5253,7 +5284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7629501788733150376
 Transform:
   m_ObjectHideFlags: 0
@@ -5266,7 +5297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4403675840255408744}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &4361201521193783046
 ParticleSystem:
@@ -5276,7 +5307,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6114304990950438270}
   serializedVersion: 6
-  lengthInSec: 3
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5520,7 +5551,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
+      scalar: 1.5
       minScalar: 0.5
       maxCurve:
         serializedVersion: 2

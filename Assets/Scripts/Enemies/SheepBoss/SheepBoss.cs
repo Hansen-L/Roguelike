@@ -214,7 +214,7 @@ public class SheepBoss : AEnemy
 		ChangeColorToWhite();
 		StartCoroutine(SpawnDashTrail());
 		AudioManager.Instance.Play("SheepAngry");
-		AudioManager.Instance.Stop("Stomp");
+		AudioManager.Instance.Stop("Stampede");
 		CinemachineImpulseManager.Play("Extra Strong Impulse");
 		_animator.SetTrigger("die");
 		_rb.velocity = new Vector2(0f, 0f);
@@ -232,9 +232,15 @@ public class SheepBoss : AEnemy
 	{
 		float mag = Mathf.Abs(transform.localScale.x); // Magnitude of localscale
 		if (_rb.velocity.x > 0) // moving right
+		{
 			_spriteRenderer.flipX = true;
+			angryVeinParticle.transform.localScale = new Vector3(-1, 1, 1);
+		}
 		else if (_rb.velocity.x < 0) // moving left
+		{
 			_spriteRenderer.flipX = false;
+			angryVeinParticle.transform.localScale = new Vector3(1, 1, 1);
+		}
 	}
 
 	public void ChangeColorToRed()

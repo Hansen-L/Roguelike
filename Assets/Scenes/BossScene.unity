@@ -3528,13 +3528,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4361201521193783046, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361201521193783046, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
-      propertyPath: lengthInSec
-      value: 2
+    - target: {fileID: 973578628, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4403675840255408744, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3583,10 +3579,6 @@ PrefabInstance:
     - target: {fileID: 4403675840255408749, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
       propertyPath: m_Name
       value: Sheep Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 6114304990950438270, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c492c37626dd10b4eb3dbdd71e7ccf99, type: 3}
